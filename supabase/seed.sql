@@ -1,0 +1,2 @@
+-- Deterministic local development data belongs here.
+-- Keep this file safe to run repeatedly after `supabase db reset`.

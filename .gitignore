@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Xcode
+.derivedData/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# Web
+node_modules/
+dist/
+coverage/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Supabase CLI
+supabase/.branches/
+supabase/.temp/

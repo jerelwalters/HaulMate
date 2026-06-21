@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1580" viewBox="0 0 1600 1580">
+  <defs>
+    <style>
+      .bt{font:800 30px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#071525}
+      .bs{font:500 14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#607080}
+      .t{font:750 20px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#071525}
+      .h{font:750 15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#071525}
+      .b{font:500 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#263a49}
+      .bb{font:700 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#071525}
+      .c{font:500 11px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#697b88}
+      .cb{font:700 11px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#405461}
+      .tiny{font:700 9px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#6d7b85}
+      .btn{font:750 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#071525}
+      .btnL{font:750 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#fff}
+    </style>
+    <filter id="s" x="-15%" y="-10%" width="130%" height="135%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#092039" flood-opacity=".13"/></filter>
+    <linearGradient id="o" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffb423"/><stop offset="1" stop-color="#ff9816"/></linearGradient>
+  </defs>
+  <rect width="1600" height="1580" fill="#eef2f5"/>
+  <rect width="1600" height="105" fill="#fff"/>
+  <text x="38" y="46" class="bt">HaulMate P0 Supporting Flows</text>
+  <text x="38" y="75" class="bs">Every required setup, intake, search, document, sharing, payment, and data-rights surface</text>
+
+  <g filter="url(#s)" fill="#fff" stroke="#bbc6cd" stroke-width="1.3">
+    <rect x="24" y="122" width="358" height="650" rx="40"/><rect x="414" y="122" width="358" height="650" rx="40"/>
+    <rect x="804" y="122" width="358" height="650" rx="40"/><rect x="1194" y="122" width="358" height="650" rx="40"/>
+    <rect x="24" y="850" width="358" height="650" rx="40"/><rect x="414" y="850" width="358" height="650" rx="40"/>
+    <rect x="804" y="850" width="358" height="650" rx="40"/><rect x="1194" y="850" width="358" height="650" rx="40"/>
+  </g>
+
+  <!-- 01 Business profile -->
+  <g>
+    <text x="48" y="158" class="cb">9:41</text><text x="143" y="205" class="h">Business setup</text>
+    <text x="48" y="241" class="t">Invoice identity</text>
+    <text x="48" y="263" class="c">Required before the first invoice can be generated.</text>
+    <text x="48" y="298" class="cb">LEGAL BUSINESS NAME</text><rect x="48" y="309" width="310" height="45" rx="10" fill="#f8fafb" stroke="#c9d2d8"/><text x="62" y="337" class="b">Walters Transport LLC</text>
+    <text x="48" y="381" class="cb">CARRIER DISPLAY NAME</text><rect x="48" y="392" width="310" height="45" rx="10" fill="#f8fafb" stroke="#c9d2d8"/><text x="62" y="420" class="b">Walters Transport</text>
+    <text x="48" y="464" class="cb">BUSINESS EMAIL</text><rect x="48" y="475" width="310" height="45" rx="10" fill="#f8fafb" stroke="#c9d2d8"/><text x="62" y="503" class="b">billing@walterstransport.com</text>
+    <text x="48" y="547" class="cb">INVOICE PREFIX</text><rect x="48" y="558" width="142" height="45" rx="10" fill="#f8fafb" stroke="#c9d2d8"/><text x="62" y="586" class="b">HM</text>
+    <text x="216" y="547" class="cb">PAYMENT TERMS</text><rect x="216" y="558" width="142" height="45" rx="10" fill="#f8fafb" stroke="#c9d2d8"/><text x="230" y="586" class="b">Net 30</text>
+    <rect x="48" y="624" width="310" height="44" rx="11" fill="#061d33"/><text x="172" y="652" class="btnL">Continue</text>
+    <text x="48" y="698" class="c">Next: address, phone, logo, and optional factoring remittance</text>
+    <rect x="48" y="717" width="310" height="31" rx="9" fill="#eef7f2"/><circle cx="64" cy="733" r="5" fill="#159866"/><text x="76" y="737" class="cb" style="fill:#148a58">Profile cached for authenticated offline use</text>
+    <text x="203" y="794" class="tiny" text-anchor="middle">PROFILE · INVOICE SETTINGS · FACTORING DETAILS</text>
+  </g>
+
+  <!-- 02 Cost profile -->
+  <g>
+    <text x="438" y="158" class="cb">9:41</text><text x="516" y="205" class="h">Truck &amp; costs</text>
+    <text x="438" y="241" class="t">Default operating profile</text>
+    <text x="438" y="263" class="c">Editable for each load without changing these defaults.</text>
+    <rect x="438" y="288" width="310" height="280" rx="14" fill="#fff" stroke="#c7d0d6"/>
+    <text x="458" y="321" class="b">Equipment</text><text x="724" y="321" class="bb" text-anchor="end">Tractor-trailer</text><line x1="454" y1="339" x2="730" y2="339" stroke="#e0e5e8"/>
+    <text x="458" y="371" class="b">Fuel economy</text><text x="724" y="371" class="bb" text-anchor="end">6.7 MPG</text><line x1="454" y1="389" x2="730" y2="389" stroke="#e0e5e8"/>
+    <text x="458" y="421" class="b">Fuel price</text><text x="724" y="421" class="bb" text-anchor="end">$3.64 / gal</text><line x1="454" y1="439" x2="730" y2="439" stroke="#e0e5e8"/>
+    <text x="458" y="471" class="b">Maintenance reserve</text><text x="724" y="471" class="bb" text-anchor="end">$0.35 / mi</text><line x1="454" y1="489" x2="730" y2="489" stroke="#e0e5e8"/>
+    <text x="458" y="521" class="b">Monthly fixed costs</text><text x="724" y="521" class="bb" text-anchor="end">$8,400</text><line x1="454" y1="539" x2="730" y2="539" stroke="#e0e5e8"/>
+    <text x="458" y="557" class="c">11,350 estimated working miles / month</text>
+    <rect x="438" y="585" width="310" height="77" rx="13" fill="#071d33"/>
+    <text x="458" y="613" class="c" style="fill:#afbdc7">DERIVED FIXED COST</text><text x="458" y="647" class="t" style="fill:#fff">$0.74 / mile</text>
+    <text x="438" y="692" class="c">Default fees: dispatch 5% · factoring 3%</text>
+    <rect x="438" y="713" width="310" height="44" rx="11" fill="url(#o)"/><text x="550" y="741" class="btn">Save profile</text>
+    <text x="593" y="794" class="tiny" text-anchor="middle">VEHICLE · MONEY · DISTANCE · PERCENT DEFAULTS</text>
+  </g>
+
+  <!-- 03 New load -->
+  <g>
+    <text x="828" y="158" class="cb">9:41</text><text x="930" y="205" class="h">New load</text>
+    <text x="828" y="241" class="t">Commercial terms</text>
+    <rect x="828" y="267" width="310" height="57" rx="12" fill="#fff8e8" stroke="#efd39a"/><circle cx="850" cy="296" r="13" fill="#ffab1a"/><text x="872" y="292" class="bb">Attach rate confirmation</text><text x="872" y="310" class="c">PDF or photo · manual review required</text>
+    <text x="828" y="355" class="cb">BROKER / CUSTOMER</text><rect x="828" y="366" width="310" height="43" rx="10" fill="#f8fafb" stroke="#c9d2d8"/><text x="842" y="393" class="b">Northline Logistics</text>
+    <text x="828" y="438" class="cb">REFERENCE</text><rect x="828" y="449" width="145" height="43" rx="10" fill="#f8fafb" stroke="#c9d2d8"/><text x="842" y="476" class="b">NL-59381</text>
+    <text x="993" y="438" class="cb">LINE HAUL</text><rect x="993" y="449" width="145" height="43" rx="10" fill="#f8fafb" stroke="#c9d2d8"/><text x="1007" y="476" class="b">$1,750.00</text>
+    <text x="828" y="521" class="cb">FUEL SURCHARGE</text><rect x="828" y="532" width="145" height="43" rx="10" fill="#f8fafb" stroke="#c9d2d8"/><text x="842" y="559" class="b">$100.00</text>
+    <text x="993" y="521" class="cb">EST. TOLLS</text><rect x="993" y="532" width="145" height="43" rx="10" fill="#f8fafb" stroke="#c9d2d8"/><text x="1007" y="559" class="b">$86.00</text>
+    <text x="828" y="605" class="h">Route</text><text x="828" y="630" class="b">Detroit, MI  →  Columbus, OH</text><text x="828" y="652" class="c">540 loaded + 72 deadhead miles</text>
+    <rect x="828" y="685" width="310" height="44" rx="11" fill="url(#o)"/><text x="919" y="713" class="btn">Save &amp; evaluate</text>
+    <rect x="828" y="738" width="310" height="24" rx="8" fill="#f3f6f7"/><text x="844" y="754" class="c">UUID created locally · queued for sync</text>
+    <text x="983" y="794" class="tiny" text-anchor="middle">LOAD · CUSTOMER · STOPS · CHARGES · DOCUMENT</text>
+  </g>
+
+  <!-- 04 Loads search -->
+  <g>
+    <text x="1218" y="158" class="cb">9:41</text><text x="1331" y="205" class="h">Loads</text>
+    <text x="1218" y="241" class="t">Find any load</text>
+    <rect x="1218" y="264" width="310" height="44" rx="12" fill="#f1f4f6"/><circle cx="1240" cy="285" r="8" fill="none" stroke="#71818d" stroke-width="1.7"/><path d="M1246 291 l7 7" stroke="#71818d" stroke-width="1.7"/><text x="1262" y="291" class="c">Broker, load, invoice, or date</text>
+    <g><rect x="1218" y="327" width="71" height="29" rx="14" fill="#071d33"/><text x="1236" y="346" class="cb" style="fill:#fff">Active</text><rect x="1297" y="327" width="84" height="29" rx="14" fill="#fff" stroke="#c9d2d8"/><text x="1314" y="346" class="cb">Delivered</text><rect x="1389" y="327" width="78" height="29" rx="14" fill="#fff" stroke="#c9d2d8"/><text x="1408" y="346" class="cb">Invoices</text></g>
+    <text x="1218" y="393" class="h">Active</text>
+    <rect x="1218" y="409" width="310" height="112" rx="14" fill="#fff" stroke="#c7d0d6"/>
+    <text x="1238" y="438" class="bb">HM-1048 · Northline</text><rect x="1432" y="425" width="76" height="25" rx="7" fill="#e2f4e9"/><text x="1445" y="442" class="cb" style="fill:#148a58">IN TRANSIT</text>
+    <text x="1238" y="466" class="b">Detroit  →  Columbus</text><text x="1238" y="491" class="c">Next: arrive by 10:30 AM · synced</text>
+    <text x="1218" y="560" class="h">Needs work</text>
+    <rect x="1218" y="576" width="310" height="150" rx="14" fill="#fff" stroke="#c7d0d6"/>
+    <text x="1238" y="607" class="bb">HM-1042 · Delivered</text><text x="1238" y="629" class="c">Invoice not generated · $1,985 billed</text><line x1="1236" y1="647" x2="1510" y2="647" stroke="#e0e5e8"/>
+    <text x="1238" y="677" class="bb">HM-1031 · Invoice overdue</text><text x="1238" y="699" class="c">$985 remaining · 4 days late</text>
+    <rect x="1218" y="740" width="310" height="27" rx="8" fill="#fff0eb"/><circle cx="1236" cy="754" r="5" fill="#d84b24"/><text x="1249" y="758" class="cb" style="fill:#b84224">Financial state is billed, not estimated</text>
+    <text x="1373" y="794" class="tiny" text-anchor="middle">LOAD · CUSTOMER · INVOICE · DERIVED OVERDUE</text>
+  </g>
+
+  <!-- 05 Documents -->
+  <g>
+    <text x="48" y="886" class="cb">9:41</text><text x="135" y="933" class="h">Documents</text>
+    <text x="48" y="969" class="t">HM-1048 files</text><text x="48" y="992" class="c">Local originals remain until upload confirmation.</text>
+    <rect x="48" y="1017" width="310" height="281" rx="14" fill="#fff" stroke="#c7d0d6"/>
+    <circle cx="72" cy="1053" r="13" fill="#e8f7ef"/><path d="M66 1053 l4 4 8-10" fill="none" stroke="#159866" stroke-width="2"/><text x="96" y="1051" class="bb">Rate confirmation</text><text x="96" y="1071" class="c">PDF · 842 KB</text><text x="338" y="1061" class="cb" text-anchor="end" style="fill:#148a58">SYNCED</text>
+    <line x1="65" y1="1086" x2="341" y2="1086" stroke="#e0e5e8"/>
+    <circle cx="72" cy="1121" r="13" fill="#eef3f8"/><path d="M72 1112 a9 9 0 1 1-8 5" fill="none" stroke="#146ac2" stroke-width="2"/><text x="96" y="1119" class="bb">Bill of lading</text><text x="96" y="1139" class="c">Uploading · 68%</text><rect x="248" y="1131" width="90" height="5" rx="2.5" fill="#dfe7eb"/><rect x="248" y="1131" width="61" height="5" rx="2.5" fill="#146ac2"/>
+    <line x1="65" y1="1154" x2="341" y2="1154" stroke="#e0e5e8"/>
+    <circle cx="72" cy="1189" r="13" fill="#fff8e8"/><path d="M64 1189 h16 M72 1181 v16" stroke="#f09a0b" stroke-width="2"/><text x="96" y="1187" class="bb">Proof of delivery</text><text x="96" y="1207" class="c">Queued offline · local copy safe</text><text x="338" y="1197" class="cb" text-anchor="end" style="fill:#d68100">QUEUED</text>
+    <line x1="65" y1="1222" x2="341" y2="1222" stroke="#e0e5e8"/>
+    <circle cx="72" cy="1257" r="13" fill="#fff0eb"/><text x="68" y="1262" class="h" style="fill:#d84b24">!</text><text x="96" y="1255" class="bb">Lumper receipt</text><text x="96" y="1275" class="c">Upload failed · original retained</text><text x="338" y="1265" class="cb" text-anchor="end" style="fill:#b84224">RETRY</text>
+    <rect x="48" y="1321" width="310" height="46" rx="11" fill="#061d33"/><text x="145" y="1350" class="btnL">Add document</text>
+    <text x="48" y="1395" class="h">Supported types</text><text x="48" y="1417" class="c">Rate con · BOL · POD · receipt · lumper · other evidence</text>
+    <rect x="48" y="1442" width="310" height="32" rx="9" fill="#eef7f2"/><text x="64" y="1463" class="cb" style="fill:#148a58">Hash · MIME type · size · capture time retained</text>
+    <text x="203" y="1522" class="tiny" text-anchor="middle">DOCUMENT · SYNC OPERATION · LOCAL ORIGINAL</text>
+  </g>
+
+  <!-- 06 Broker visibility -->
+  <g>
+    <text x="438" y="886" class="cb">9:41</text><text x="505" y="933" class="h">Broker visibility</text>
+    <text x="438" y="969" class="t">Share HM-1048 status</text><text x="438" y="992" class="c">Optional, scoped to this load, and revocable.</text>
+    <rect x="438" y="1017" width="310" height="62" rx="13" fill="#e8f7ef" stroke="#b9dec9"/><circle cx="462" cy="1048" r="8" fill="#159866"/><text x="480" y="1043" class="bb">Link active</text><text x="480" y="1063" class="c">Expires 72 hours after delivery</text><text x="724" y="1053" class="cb" text-anchor="end" style="fill:#148a58">PREVIEW</text>
+    <text x="438" y="1111" class="h">Visible to broker</text>
+    <rect x="438" y="1127" width="310" height="172" rx="14" fill="#fff" stroke="#c7d0d6"/>
+    <circle cx="460" cy="1156" r="9" fill="#159866"/><path d="M455 1156 l4 4 7-9" fill="none" stroke="#fff" stroke-width="1.7"/><text x="480" y="1161" class="b">Carrier and load reference</text>
+    <circle cx="460" cy="1192" r="9" fill="#159866"/><path d="M455 1192 l4 4 7-9" fill="none" stroke="#fff" stroke-width="1.7"/><text x="480" y="1197" class="b">Delivery stop and appointment</text>
+    <circle cx="460" cy="1228" r="9" fill="#159866"/><path d="M455 1228 l4 4 7-9" fill="none" stroke="#fff" stroke-width="1.7"/><text x="480" y="1233" class="b">ETA · on-device estimate · 8:15 AM</text>
+    <circle cx="460" cy="1264" r="9" fill="#159866"/><path d="M455 1264 l4 4 7-9" fill="none" stroke="#fff" stroke-width="1.7"/><text x="480" y="1269" class="b">Arrival/departure and POD availability</text>
+    <text x="438" y="1330" class="h">Never shared</text><text x="438" y="1353" class="c">Rates · profit · expenses · invoices · coordinates · other loads</text>
+    <rect x="438" y="1382" width="148" height="44" rx="11" fill="#061d33"/><text x="479" y="1410" class="btnL">Copy link</text>
+    <rect x="600" y="1382" width="148" height="44" rx="11" fill="#fff" stroke="#d84b24"/><text x="645" y="1410" class="btn" style="fill:#b84224">Revoke</text>
+    <rect x="438" y="1446" width="310" height="30" rx="9" fill="#f3f6f7"/><text x="454" y="1466" class="c">No continuous GPS · freshness always shown</text>
+    <text x="593" y="1522" class="tiny" text-anchor="middle">TRACKING SHARE · ETA UPDATE · SCOPED STOP</text>
+  </g>
+
+  <!-- 07 Payment -->
+  <g>
+    <text x="828" y="886" class="cb">9:41</text><text x="918" y="933" class="h">Invoice payment</text>
+    <text x="828" y="969" class="t">HM-2026-0148</text><text x="828" y="992" class="c">Sent Jun 20 · due Jul 20 · Northline Logistics</text>
+    <rect x="828" y="1017" width="310" height="112" rx="14" fill="#071d33"/>
+    <text x="848" y="1046" class="c" style="fill:#aebbc4">TOTAL INVOICE</text><text x="848" y="1077" class="t" style="fill:#fff">$1,985.00</text>
+    <text x="1000" y="1046" class="c" style="fill:#aebbc4">REMAINING</text><text x="1000" y="1077" class="t" style="fill:#64e69e">$985.00</text>
+    <rect x="848" y="1093" width="270" height="8" rx="4" fill="#334b5f"/><rect x="848" y="1093" width="136" height="8" rx="4" fill="#159866"/>
+    <text x="828" y="1161" class="h">Record payment</text>
+    <text x="828" y="1192" class="cb">AMOUNT</text><rect x="828" y="1203" width="145" height="43" rx="10" fill="#f8fafb" stroke="#c9d2d8"/><text x="842" y="1230" class="b">$1,000.00</text>
+    <text x="993" y="1192" class="cb">PAYMENT DATE</text><rect x="993" y="1203" width="145" height="43" rx="10" fill="#f8fafb" stroke="#c9d2d8"/><text x="1007" y="1230" class="b">Jun 28, 2026</text>
+    <text x="828" y="1276" class="cb">STATUS AFTER PAYMENT</text><rect x="828" y="1287" width="310" height="43" rx="10" fill="#fff8e8" stroke="#efd39a"/><text x="842" y="1314" class="bb">Partially paid · $985.00 remaining</text>
+    <rect x="828" y="1352" width="310" height="46" rx="11" fill="url(#o)"/><text x="924" y="1381" class="btn">Save payment</text>
+    <text x="828" y="1431" class="h">Other outcomes</text><text x="828" y="1454" class="c">Paid in full · dispute · correction with audit history</text>
+    <rect x="828" y="1470" width="310" height="27" rx="8" fill="#eef7f2"/><text x="844" y="1488" class="c">Money uses Decimal · remaining balance reconciles</text>
+    <text x="983" y="1522" class="tiny" text-anchor="middle">INVOICE · PAYMENT · DECIMAL · DERIVED BALANCE</text>
+  </g>
+
+  <!-- 08 Settings and rights -->
+  <g>
+    <text x="1218" y="886" class="cb">9:41</text><text x="1335" y="933" class="h">More</text>
+    <text x="1218" y="969" class="t">Settings &amp; support</text>
+    <rect x="1218" y="1004" width="310" height="268" rx="14" fill="#fff" stroke="#c7d0d6"/>
+    <text x="1240" y="1040" class="bb">Business profile</text><text x="1507" y="1040" class="c" text-anchor="end">Complete</text><line x1="1238" y1="1058" x2="1508" y2="1058" stroke="#e0e5e8"/>
+    <text x="1240" y="1090" class="bb">Truck &amp; cost defaults</text><text x="1507" y="1090" class="c" text-anchor="end">Updated today</text><line x1="1238" y1="1108" x2="1508" y2="1108" stroke="#e0e5e8"/>
+    <text x="1240" y="1140" class="bb">Feedback &amp; support</text><text x="1507" y="1140" class="c" text-anchor="end">App + device context</text><line x1="1238" y1="1158" x2="1508" y2="1158" stroke="#e0e5e8"/>
+    <text x="1240" y="1190" class="bb">Privacy and terms</text><line x1="1238" y1="1208" x2="1508" y2="1208" stroke="#e0e5e8"/>
+    <text x="1240" y="1240" class="bb">Export my data</text><text x="1507" y="1240" class="c" text-anchor="end">Not requested</text>
+    <text x="1218" y="1313" class="h">Account deletion</text>
+    <rect x="1218" y="1329" width="310" height="96" rx="14" fill="#fff0eb" stroke="#edc0b3"/>
+    <text x="1238" y="1358" class="bb" style="fill:#b84224">Delete account and owned data</text>
+    <text x="1238" y="1380" class="c">Revokes sessions and tracking links, then reports</text><text x="1238" y="1398" class="c">deletion progress and recoverable failures.</text>
+    <rect x="1238" y="1410" width="117" height="1" fill="none"/>
+    <text x="1218" y="1461" class="c">Analytics exclude names, load payloads, documents,</text><text x="1218" y="1479" class="c">precise location, invoice details, auth, and share tokens.</text>
+    <text x="1373" y="1522" class="tiny" text-anchor="middle">PROFILE · EXPORT REQUEST · DELETION REQUEST</text>
+  </g>
+
+  <text x="38" y="1562" class="bs">P0 only: no OCR automation, geofences, continuous tracking, load-board bidding, accounting, or bank integrations.</text>
+</svg>
