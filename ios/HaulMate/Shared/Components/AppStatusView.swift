@@ -124,10 +124,23 @@ struct AppStatusView: View {
     AppStatusView(state: .loading)
 }
 
+#Preview("Loading · Dark") {
+    AppStatusView(state: .loading)
+        .preferredColorScheme(.dark)
+}
+
 #Preview("Failure") {
     AppStatusView(
         state: .failed(message: AppStatusStrings.previewFailureMessage.localized),
         retry: {}
     )
+}
+
+#Preview("Failure · Dark") {
+    AppStatusView(
+        state: .failed(message: AppStatusStrings.previewFailureMessage.localized),
+        retry: {}
+    )
+    .preferredColorScheme(.dark)
 }
 #endif
