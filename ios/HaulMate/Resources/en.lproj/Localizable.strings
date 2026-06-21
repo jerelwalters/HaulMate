@@ -1,6 +1,10 @@
 "AppStrings_appName" = "HaulMate";
 "AppStrings_pilotDriver" = "Pilot Driver";
 
+"AppAppearanceStrings_systemTitle" = "System";
+"AppAppearanceStrings_lightTitle" = "Light";
+"AppAppearanceStrings_darkTitle" = "Dark";
+
 "AppRootStrings_restoreSessionFailure" = "We couldn't restore your session.";
 "AppRootStrings_signInFailure" = "We couldn't sign you in.";
 "AppRootStrings_signUpFailure" = "We couldn't create your account.";
@@ -114,6 +118,7 @@
 "NewLoadStrings_navigationTitle" = "New Load";
 "NewLoadStrings_closeButton" = "Close";
 
+"SettingsStrings_appearanceLabel" = "Appearance";
 "SettingsStrings_businessProfileLabel" = "Business Profile";
 "SettingsStrings_signOutButton" = "Sign Out";
 "SettingsStrings_navigationTitle" = "Settings";

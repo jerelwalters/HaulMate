@@ -26,6 +26,28 @@ final class AppEnvironmentTests: XCTestCase {
         )
         XCTAssertTrue(environment.appDependencies?.router === router)
     }
+
+    func testEntryReturnsInjectedAppearanceModeBinding() {
+        var appearanceMode = AppAppearanceMode.dark
+        var environment = EnvironmentValues()
+
+        environment.appAppearanceMode = Binding(
+            get: { appearanceMode },
+            set: { appearanceMode = $0 }
+        )
+
+        XCTAssertEqual(environment.appAppearanceMode.wrappedValue, .dark)
+
+        environment.appAppearanceMode.wrappedValue = .light
+
+        XCTAssertEqual(appearanceMode, .light)
+    }
+
+    func testAppearanceModeMapsToColorScheme() {
+        XCTAssertNil(AppAppearanceMode.system.colorScheme)
+        XCTAssertEqual(AppAppearanceMode.light.colorScheme, .light)
+        XCTAssertEqual(AppAppearanceMode.dark.colorScheme, .dark)
+    }
 }
 
 @MainActor

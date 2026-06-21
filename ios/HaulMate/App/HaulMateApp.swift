@@ -7,6 +7,8 @@ import SwiftUI
 
 @main
 struct HaulMateApp: App {
+    @AppStorage("appAppearanceMode") private var appAppearanceMode = AppAppearanceMode.system
+
     @State private var appRootRepository: AppRootRepository
     @State private var router: AppRouter
 
@@ -25,6 +27,7 @@ struct HaulMateApp: App {
                         router: router
                     )
                 )
+                .environment(\.appAppearanceMode, $appAppearanceMode)
         }
     }
 }
