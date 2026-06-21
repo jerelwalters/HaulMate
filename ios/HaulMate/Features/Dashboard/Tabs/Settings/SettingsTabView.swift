@@ -7,6 +7,7 @@ import SwiftUI
 
 struct SettingsTabView: View {
     @Environment(\.appDependencies) private var dependencies
+    @Environment(\.appAppearanceMode) private var appAppearanceMode
 
     private var appRootRepository: AppRootRepository {
         dependencies.required.appRootRepository
@@ -18,6 +19,19 @@ struct SettingsTabView: View {
 
         NavigationStack(path: $router.settingsPath) {
             List {
+                VStack(alignment: .leading, spacing: HMSpacing.sm) {
+                    Label(SettingsStrings.appearanceLabel.localized, systemImage: "circle.lefthalf.filled")
+
+                    Picker(SettingsStrings.appearanceLabel.localized, selection: appAppearanceMode) {
+                        ForEach(AppAppearanceMode.allCases) { mode in
+                            Text(mode.title)
+                                .tag(mode)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+                .listRowBackground(HMColor.surface)
+
                 NavigationLink(value: SettingsRoute.businessProfile) {
                     Label(SettingsStrings.businessProfileLabel.localized, systemImage: "building.2")
                 }
@@ -63,5 +77,15 @@ struct SettingsTabView: View {
             user: .preview,
             selectedTab: .settings
         )
+}
+
+#Preview("Dark") {
+    SettingsTabView()
+        .withPreviewDependencies(
+            user: .preview,
+            selectedTab: .settings,
+            appAppearanceMode: .dark
+        )
+        .preferredColorScheme(.dark)
 }
 #endif

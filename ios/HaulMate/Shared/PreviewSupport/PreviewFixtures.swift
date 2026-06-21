@@ -82,7 +82,8 @@ extension View {
     func withPreviewDependencies(
         user: SessionUser? = nil,
         restoreShouldFail: Bool = false,
-        selectedTab: AppTab = .dashboard
+        selectedTab: AppTab = .dashboard,
+        appAppearanceMode: AppAppearanceMode = .system
     ) -> some View {
         environment(
             \.appDependencies,
@@ -92,6 +93,7 @@ extension View {
                 selectedTab: selectedTab
             )
         )
+        .environment(\.appAppearanceMode, .constant(appAppearanceMode))
     }
 }
 
