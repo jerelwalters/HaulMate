@@ -18,23 +18,24 @@ struct DashboardView: View {
         TabView(selection: $router.selectedTab) {
             DashboardTabView(user: user, state: .empty)
                 .tabItem {
-                    Label("Today", systemImage: "house")
+                    Label(DashboardStrings.todayTab.localized, systemImage: "house")
                 }
                 .tag(AppTab.dashboard)
 
             LoadsTabView()
                 .tabItem {
-                    Label("Loads", systemImage: "shippingbox")
+                    Label(DashboardStrings.loadsTab.localized, systemImage: "shippingbox")
                 }
                 .tag(AppTab.loads)
 
             SettingsTabView()
                 .tabItem {
-                    Label("More", systemImage: "ellipsis.circle")
+                    Label(DashboardStrings.moreTab.localized, systemImage: "ellipsis.circle")
                 }
                 .tag(AppTab.settings)
         }
         .tint(HMColor.accent)
+        .hmAppBackground()
         .toolbarBackground(HMColor.brandNavy, for: .tabBar)
         .toolbarBackground(.visible, for: .tabBar)
         .toolbarColorScheme(.dark, for: .tabBar)

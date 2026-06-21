@@ -35,6 +35,8 @@ struct AppRootView: View {
         .onOpenURL { url in
             router.handle(url: url)
         }
+        .tint(HMColor.accent)
+        .hmAppBackground()
     }
 
     private func restoreSession() async {

@@ -23,48 +23,57 @@ struct AppStatusView: View {
     }
 
     var body: some View {
-        VStack(spacing: 16) {
-            Image(systemName: iconName)
-                .font(.system(size: 40))
-                .foregroundStyle(.secondary)
-                .accessibilityHidden(true)
+        ZStack {
+            HMColor.canvas
+                .ignoresSafeArea()
 
-            VStack(spacing: 6) {
-                Text(title)
-                    .font(.headline)
-                if let message {
-                    Text(message)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
+            VStack(spacing: HMSpacing.lg) {
+                Image(systemName: iconName)
+                    .font(.system(size: 40))
+                    .foregroundStyle(iconColor)
+                    .accessibilityHidden(true)
+
+                VStack(spacing: HMSpacing.sm) {
+                    Text(title)
+                        .font(HMFont.cardTitle)
+                        .foregroundStyle(HMColor.textPrimary)
+                    if let message {
+                        Text(message)
+                            .font(HMFont.body)
+                            .foregroundStyle(HMColor.textSecondary)
+                            .multilineTextAlignment(.center)
+                    }
+                }
+
+                if case .loading = state {
+                    ProgressView()
+                        .tint(HMColor.accent)
+                        .accessibilityLabel(AppStatusStrings.loadingAccessibilityLabel.localized)
+                }
+
+                if let retry {
+                    Button(AppStatusStrings.retryButton.localized, action: retry)
+                        .buttonStyle(.borderedProminent)
+                        .tint(HMColor.accent)
                 }
             }
-
-            if case .loading = state {
-                ProgressView()
-                    .accessibilityLabel("Loading")
-            }
-
-            if let retry {
-                Button("Retry", action: retry)
-                    .buttonStyle(.borderedProminent)
-            }
+            .padding(HMSpacing.xl)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(24)
     }
 
     private var title: String {
         switch state {
         case .loading:
-            return "Loading"
+            return AppStatusStrings.loadingTitle.localized
         case .empty(let title, _):
             return title
         case .offline:
-            return "You're Offline"
+            return AppStatusStrings.offlineTitle.localized
         case .syncing:
-            return "Syncing"
+            return AppStatusStrings.syncingTitle.localized
         case .failed:
-            return "Something Went Wrong"
+            return AppStatusStrings.failedTitle.localized
         }
     }
 
@@ -94,6 +103,20 @@ struct AppStatusView: View {
             return "exclamationmark.triangle"
         }
     }
+
+    private var iconColor: Color {
+        switch state {
+        case .loading,
+             .syncing:
+            return HMColor.accent
+        case .empty:
+            return HMColor.textSecondary
+        case .offline:
+            return HMColor.warning
+        case .failed:
+            return HMColor.danger
+        }
+    }
 }
 
 #if DEBUG
@@ -103,7 +126,7 @@ struct AppStatusView: View {
 
 #Preview("Failure") {
     AppStatusView(
-        state: .failed(message: "We couldn't refresh this load."),
+        state: .failed(message: AppStatusStrings.previewFailureMessage.localized),
         retry: {}
     )
 }

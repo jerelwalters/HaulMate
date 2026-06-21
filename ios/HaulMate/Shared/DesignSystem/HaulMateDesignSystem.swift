@@ -101,9 +101,20 @@ private struct HMCardModifier: ViewModifier {
     }
 }
 
+private struct HMAppBackgroundModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .background(HMColor.canvas.ignoresSafeArea())
+    }
+}
+
 extension View {
     func hmCard(backgroundColor: Color = HMColor.surface) -> some View {
         modifier(HMCardModifier(backgroundColor: backgroundColor))
+    }
+
+    func hmAppBackground() -> some View {
+        modifier(HMAppBackgroundModifier())
     }
 }
 
@@ -120,21 +131,28 @@ private extension UIColor {
 
 #if DEBUG
 #Preview("Design System") {
-    VStack(alignment: .leading, spacing: HMSpacing.lg) {
-        Text("HaulMate")
-            .font(HMFont.screenTitle)
+    DesignSystemPreview()
+}
 
-        Text("Semantic colors and reusable controls")
-            .font(HMFont.body)
-            .foregroundStyle(HMColor.textSecondary)
+private struct DesignSystemPreview: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: HMSpacing.lg) {
+            Text(AppStrings.appName.localized)
+                .font(HMFont.screenTitle)
+                .foregroundStyle(HMColor.textPrimary)
 
-        Button("Primary action") {}
-            .buttonStyle(HMPrimaryButtonStyle(kind: .accent))
+            Text(DesignSystemStrings.previewSubtitle.localized)
+                .font(HMFont.body)
+                .foregroundStyle(HMColor.textSecondary)
 
-        Button("Secondary action") {}
-            .buttonStyle(HMPrimaryButtonStyle())
+            Button(DesignSystemStrings.primaryAction.localized) {}
+                .buttonStyle(HMPrimaryButtonStyle(kind: .accent))
+
+            Button(DesignSystemStrings.secondaryAction.localized) {}
+                .buttonStyle(HMPrimaryButtonStyle())
+        }
+        .padding(HMSpacing.xl)
+        .hmAppBackground()
     }
-    .padding(HMSpacing.xl)
-    .background(HMColor.canvas)
 }
 #endif

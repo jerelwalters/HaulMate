@@ -18,6 +18,11 @@ enum AppRootPhase: Equatable {
     case failed(message: String)
 }
 
+enum AuthenticationActionResult: Equatable {
+    case success
+    case failure(message: String)
+}
+
 @MainActor
 @Observable
 final class AppRootRepository {
@@ -47,17 +52,36 @@ final class AppRootRepository {
                 phase = .unauthenticated
             }
         } catch {
-            phase = .failed(message: "We couldn't restore your session.")
+            phase = .failed(message: AppRootStrings.restoreSessionFailure.localized)
         }
     }
 
-    func signIn() async {
-        phase = .loading
-
+    func signIn(request: SignInRequest) async -> AuthenticationActionResult {
         do {
-            phase = .authenticated(try await service.signIn())
+            phase = .authenticated(try await service.signIn(request: request))
+            return .success
         } catch {
-            phase = .failed(message: "We couldn't sign you in.")
+            phase = .unauthenticated
+            return .failure(message: AppRootStrings.signInFailure.localized)
+        }
+    }
+
+    func signUp(request: SignUpRequest) async -> AuthenticationActionResult {
+        do {
+            phase = .authenticated(try await service.signUp(request: request))
+            return .success
+        } catch {
+            phase = .unauthenticated
+            return .failure(message: AppRootStrings.signUpFailure.localized)
+        }
+    }
+
+    func requestPasswordReset(email: String) async -> AuthenticationActionResult {
+        do {
+            try await service.requestPasswordReset(email: email)
+            return .success
+        } catch {
+            return .failure(message: AppRootStrings.passwordResetFailure.localized)
         }
     }
 
