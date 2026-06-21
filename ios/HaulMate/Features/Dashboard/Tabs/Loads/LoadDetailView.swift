@@ -9,8 +9,8 @@ struct LoadDetailView: View {
     let loadID: UUID
 
     var body: some View {
-        AppStatusView(state: .syncing(message: "Restoring this load's latest state."))
-            .navigationTitle("Active Load")
+        AppStatusView(state: .syncing(message: LoadDetailStrings.restoringMessage.localized))
+            .navigationTitle(LoadDetailStrings.navigationTitle.localized)
             .navigationBarTitleDisplayMode(.inline)
             .accessibilityIdentifier("load.\(loadID.uuidString)")
     }

@@ -16,10 +16,10 @@ struct LoadsTabView: View {
         NavigationStack(path: $router.loadsPath) {
             AppStatusView(
                 state: .offline(
-                    message: "Saved loads will remain available here while you're offline."
+                    message: LoadsStrings.offlineMessage.localized
                 )
             )
-            .navigationTitle("Loads")
+            .navigationTitle(LoadsStrings.navigationTitle.localized)
             .navigationDestination(for: LoadsRoute.self) { route in
                 switch route {
                 case .load(let id):
@@ -29,10 +29,11 @@ struct LoadsTabView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: showNewLoad) {
-                        Label("New Load", systemImage: "plus")
+                        Label(LoadsStrings.newLoadButton.localized, systemImage: "plus")
                     }
                 }
             }
+            .tint(HMColor.accent)
         }
     }
 

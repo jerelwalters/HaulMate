@@ -75,13 +75,14 @@ struct DashboardTabView: View {
                     LoadDetailView(loadID: id)
                 }
             }
+            .tint(HMColor.accent)
         }
     }
 
     private var header: some View {
         VStack(alignment: .leading, spacing: HMSpacing.xl) {
             HStack {
-                Text("HaulMate")
+                Text(AppStrings.appName.localized)
                     .font(.title3.bold().italic())
                     .foregroundStyle(HMColor.textPrimary)
 
@@ -94,15 +95,15 @@ struct DashboardTabView: View {
                         .frame(width: 40, height: 40)
                         .background(HMColor.brandNavy, in: Circle())
                 }
-                .accessibilityLabel("New Load")
+                .accessibilityLabel(DashboardStrings.newLoadAccessibilityLabel.localized)
                 .accessibilityIdentifier("dashboard.new-load")
             }
 
             VStack(alignment: .leading, spacing: HMSpacing.xs) {
-                Text("Today")
+                Text(DashboardStrings.todayTitle.localized)
                     .font(HMFont.screenTitle)
                     .foregroundStyle(HMColor.textPrimary)
-                Text("Ready when you are, \(user.displayName).")
+                Text(DashboardStrings.greetingFormat.localized(user.displayName))
                     .font(HMFont.body)
                     .foregroundStyle(HMColor.textSecondary)
             }
@@ -111,7 +112,7 @@ struct DashboardTabView: View {
     }
 
     private var syncStatus: some View {
-        Label("Updated just now · synced", systemImage: "checkmark.circle")
+        Label(DashboardStrings.syncStatus.localized, systemImage: "checkmark.circle")
             .font(HMFont.caption)
             .foregroundStyle(HMColor.success)
     }
@@ -123,15 +124,15 @@ struct DashboardTabView: View {
                 .foregroundStyle(HMColor.accent)
 
             VStack(alignment: .leading, spacing: HMSpacing.sm) {
-                Text("No active load")
+                Text(DashboardStrings.noActiveLoadTitle.localized)
                     .font(HMFont.sectionTitle)
                     .foregroundStyle(HMColor.textPrimary)
-                Text("Create a load when you're ready to evaluate your next run.")
+                Text(DashboardStrings.noActiveLoadMessage.localized)
                     .font(HMFont.body)
                     .foregroundStyle(HMColor.textSecondary)
             }
 
-            Button("Create a load", action: showNewLoad)
+            Button(DashboardStrings.createLoadButton.localized, action: showNewLoad)
                 .buttonStyle(HMPrimaryButtonStyle(kind: .accent))
                 .accessibilityIdentifier("dashboard.empty.new-load")
         }
@@ -146,7 +147,7 @@ struct DashboardTabView: View {
 
         if !snapshot.attentionItems.isEmpty {
             VStack(alignment: .leading, spacing: HMSpacing.md) {
-                Text("Needs attention")
+                Text(DashboardStrings.needsAttentionTitle.localized)
                     .font(HMFont.sectionTitle)
                     .foregroundStyle(HMColor.textPrimary)
 
@@ -167,7 +168,7 @@ struct DashboardTabView: View {
 
     private func activeLoadCard(_ snapshot: DashboardSnapshot) -> some View {
         VStack(alignment: .leading, spacing: HMSpacing.lg) {
-            Text("ACTIVE LOAD")
+            Text(DashboardStrings.activeLoadLabel.localized)
                 .font(HMFont.eyebrow)
                 .foregroundStyle(.white.opacity(0.68))
 
@@ -188,19 +189,19 @@ struct DashboardTabView: View {
 
             HStack(spacing: HMSpacing.lg) {
                 metric(
-                    label: "DELIVERY APPOINTMENT",
+                    label: DashboardStrings.deliveryAppointmentLabel.localized,
                     value: appointmentText(snapshot)
                 )
                 Divider()
                     .overlay(.white.opacity(0.25))
                 metric(
-                    label: "ACCEPTED PAY",
+                    label: DashboardStrings.acceptedPayLabel.localized,
                     value: currency(snapshot.acceptedPay, fractionDigits: 0)
                 )
             }
             .fixedSize(horizontal: false, vertical: true)
 
-            Button("Open active load") {
+            Button(DashboardStrings.openActiveLoadButton.localized) {
                 router.dashboardPath.append(.activeLoad(id: snapshot.loadID))
             }
             .buttonStyle(HMPrimaryButtonStyle(kind: .accent))
@@ -219,7 +220,7 @@ struct DashboardTabView: View {
                 .background(HMColor.successSurface, in: RoundedRectangle(cornerRadius: HMRadius.medium))
 
             VStack(alignment: .leading, spacing: HMSpacing.xs) {
-                Text("EST. PROFIT")
+                Text(DashboardStrings.estimatedProfitLabel.localized)
                     .font(HMFont.eyebrow)
                     .foregroundStyle(HMColor.textSecondary)
                 Text(currency(snapshot.estimatedProfit, fractionDigits: 0))
@@ -229,7 +230,11 @@ struct DashboardTabView: View {
 
             Spacer()
 
-            Text("\(currency(snapshot.profitPerTotalMile, fractionDigits: 2)) / total mi")
+            Text(
+                DashboardStrings.profitPerMileFormat.localized(
+                    currency(snapshot.profitPerTotalMile, fractionDigits: 2)
+                )
+            )
                 .font(HMFont.cardTitle)
                 .foregroundStyle(HMColor.textPrimary)
                 .multilineTextAlignment(.trailing)
@@ -327,14 +332,14 @@ private extension DashboardSnapshot {
             AttentionItem(
                 id: UUID(uuidString: "609952DA-C8D0-4A97-96E6-5E24BDBF15FA")!,
                 kind: .document,
-                title: "POD required after delivery",
+                title: DashboardStrings.previewPodRequiredTitle.localized,
                 detail: nil
             ),
             AttentionItem(
                 id: UUID(uuidString: "757F9044-FC02-4CF0-84B5-9372B73980E1")!,
                 kind: .overdue,
-                title: "Invoice HM-1042",
-                detail: "Overdue · 4 days · $985 remaining"
+                title: DashboardStrings.previewInvoiceOverdueTitle.localized,
+                detail: DashboardStrings.previewInvoiceOverdueDetail.localized
             )
         ]
     )

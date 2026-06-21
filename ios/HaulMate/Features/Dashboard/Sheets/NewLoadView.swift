@@ -12,17 +12,18 @@ struct NewLoadView: View {
         NavigationStack {
             AppStatusView(
                 state: .empty(
-                    title: "Load intake is next",
-                    message: "This modal is ready for the P0-MOB-05 workflow."
+                    title: NewLoadStrings.emptyTitle.localized,
+                    message: NewLoadStrings.emptyMessage.localized
                 )
             )
-            .navigationTitle("New Load")
+            .navigationTitle(NewLoadStrings.navigationTitle.localized)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Close", action: dismiss.callAsFunction)
+                    Button(NewLoadStrings.closeButton.localized, action: dismiss.callAsFunction)
                 }
             }
+            .tint(HMColor.accent)
         }
     }
 }
