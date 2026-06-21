@@ -26,6 +26,7 @@
 		A10000000000000000000012 /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000015 /* AppService.swift */; };
 		A10000000000000000000013 /* AppRootManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000016 /* AppRootManager.swift */; };
 		A10000000000000000000014 /* PreviewFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000017 /* PreviewFixtures.swift */; };
+		A10000000000000000000015 /* HaulMateDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000018 /* HaulMateDesignSystem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		B10000000000000000000015 /* AppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
 		B10000000000000000000016 /* AppRootManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootManager.swift; sourceTree = "<group>"; };
 		B10000000000000000000017 /* PreviewFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewFixtures.swift; sourceTree = "<group>"; };
+		B10000000000000000000018 /* HaulMateDesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaulMateDesignSystem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,9 +106,10 @@
 		G10000000000000000000013 /* Loads */ = {isa = PBXGroup; children = (B10000000000000000000010, B10000000000000000000011); path = Loads; sourceTree = "<group>"; };
 		G10000000000000000000014 /* Settings */ = {isa = PBXGroup; children = (B10000000000000000000012); path = Settings; sourceTree = "<group>"; };
 		G10000000000000000000015 /* Sheets */ = {isa = PBXGroup; children = (B10000000000000000000013); path = Sheets; sourceTree = "<group>"; };
-		G10000000000000000000016 /* Shared */ = {isa = PBXGroup; children = (G10000000000000000000017, G10000000000000000000018); path = Shared; sourceTree = "<group>"; };
+		G10000000000000000000016 /* Shared */ = {isa = PBXGroup; children = (G10000000000000000000017, G10000000000000000000019, G10000000000000000000018); path = Shared; sourceTree = "<group>"; };
 		G10000000000000000000017 /* Components */ = {isa = PBXGroup; children = (B10000000000000000000008); path = Components; sourceTree = "<group>"; };
 		G10000000000000000000018 /* PreviewSupport */ = {isa = PBXGroup; children = (B10000000000000000000017); path = PreviewSupport; sourceTree = "<group>"; };
+		G10000000000000000000019 /* DesignSystem */ = {isa = PBXGroup; children = (B10000000000000000000018); path = DesignSystem; sourceTree = "<group>"; };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -183,7 +186,7 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		F10000000000000000000003 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000001, A10000000000000000000002, A10000000000000000000003, A10000000000000000000004, A10000000000000000000005, A10000000000000000000006, A10000000000000000000007, A10000000000000000000008, A1000000000000000000000B, A1000000000000000000000C, A1000000000000000000000D, A1000000000000000000000E, A1000000000000000000000F, A10000000000000000000010, A10000000000000000000012, A10000000000000000000013, A10000000000000000000014); runOnlyForDeploymentPostprocessing = 0; };
+		F10000000000000000000003 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000001, A10000000000000000000002, A10000000000000000000003, A10000000000000000000004, A10000000000000000000005, A10000000000000000000006, A10000000000000000000007, A10000000000000000000008, A1000000000000000000000B, A1000000000000000000000C, A1000000000000000000000D, A1000000000000000000000E, A1000000000000000000000F, A10000000000000000000010, A10000000000000000000012, A10000000000000000000013, A10000000000000000000014, A10000000000000000000015); runOnlyForDeploymentPostprocessing = 0; };
 		F10000000000000000000004 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000009, A1000000000000000000000A, A10000000000000000000011); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXSourcesBuildPhase section */
 
