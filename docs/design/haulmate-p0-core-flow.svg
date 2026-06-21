@@ -1,0 +1,267 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1110" viewBox="0 0 1900 1110">
+  <defs>
+    <style>
+      .boardTitle{font:800 32px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#071525}
+      .boardSub{font:500 15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#607080}
+      .title{font:750 24px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#071525}
+      .nav{font:700 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#071525}
+      .h2{font:750 17px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#071525}
+      .body{font:500 14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#243747}
+      .bodyB{font:700 14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#071525}
+      .cap{font:500 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#627483}
+      .capB{font:700 12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#324756}
+      .tiny{font:650 10px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#71818d}
+      .metric{font:800 28px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#071525}
+      .metricGreen{font:800 28px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#148a58}
+      .metricLight{font:800 30px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#fff}
+      .btn{font:750 15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#071525}
+      .btnLight{font:750 15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#fff}
+      .tag{font:700 11px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#5d6c77;letter-spacing:.25px}
+    </style>
+    <filter id="shadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#092039" flood-opacity=".14"/>
+    </filter>
+    <linearGradient id="navyCard" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0b2a45"/><stop offset="1" stop-color="#02172b"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffb423"/><stop offset="1" stop-color="#ff9816"/>
+    </linearGradient>
+    <clipPath id="c1"><rect x="58" y="154" width="374" height="828" rx="38"/></clipPath>
+    <clipPath id="c2"><rect x="510" y="154" width="374" height="828" rx="38"/></clipPath>
+    <clipPath id="c3"><rect x="962" y="154" width="374" height="828" rx="38"/></clipPath>
+    <clipPath id="c4"><rect x="1414" y="154" width="374" height="828" rx="38"/></clipPath>
+  </defs>
+
+  <rect width="1900" height="1110" fill="#eef2f5"/>
+  <rect width="1900" height="116" fill="#ffffff"/>
+  <text x="56" y="52" class="boardTitle">HaulMate P0 Core Flow</text>
+  <text x="56" y="82" class="boardSub">Implementation-aligned revision · one coherent load · decimal-safe financials · explicit event and sync truth</text>
+  <rect x="1664" y="40" width="180" height="36" rx="18" fill="#071d33"/>
+  <circle cx="1687" cy="58" r="5" fill="#ffab1a"/>
+  <text x="1701" y="63" class="capB" style="fill:#ffffff">P0 DESIGN CONTRACT</text>
+
+  <g filter="url(#shadow)" fill="#fff" stroke="#b9c4cc" stroke-width="1.5">
+    <rect x="50" y="146" width="390" height="844" rx="46"/>
+    <rect x="502" y="146" width="390" height="844" rx="46"/>
+    <rect x="954" y="146" width="390" height="844" rx="46"/>
+    <rect x="1406" y="146" width="390" height="844" rx="46"/>
+  </g>
+
+  <!-- TODAY -->
+  <g clip-path="url(#c1)">
+    <rect x="58" y="154" width="374" height="828" fill="#fff"/>
+    <text x="82" y="184" class="capB">9:41</text>
+    <path d="M350 178 v7 M355 175 v10 M360 172 v13" stroke="#071525" stroke-width="2" stroke-linecap="round"/>
+    <path d="M369 178 q8-8 16 0 M373 181 q4-4 8 0" fill="none" stroke="#071525" stroke-width="1.6"/>
+    <rect x="392" y="173" width="23" height="11" rx="3" fill="none" stroke="#071525" stroke-width="1.5"/>
+    <rect x="395" y="176" width="16" height="5" rx="1" fill="#071525"/>
+    <text x="82" y="232" class="h2" font-style="italic">HaulMate</text>
+    <circle cx="398" cy="220" r="18" fill="#08223b"/>
+    <path d="M390 220 h16 M398 212 v16" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+    <text x="82" y="275" class="title">Today</text>
+    <circle cx="88" cy="296" r="6" fill="none" stroke="#159866" stroke-width="1.5"/>
+    <path d="M85 296 l2 2 4-5" fill="none" stroke="#159866" stroke-width="1.5"/>
+    <text x="100" y="300" class="cap">Updated just now · synced</text>
+
+    <rect x="74" y="318" width="342" height="276" rx="18" fill="url(#navyCard)"/>
+    <text x="94" y="347" class="capB" style="fill:#a9bac8">ACTIVE LOAD</text>
+    <text x="94" y="386" class="metricLight">HM-1048</text>
+    <text x="94" y="412" class="bodyB" style="fill:#fff">Detroit, MI  →  Columbus, OH</text>
+    <rect x="94" y="429" width="86" height="28" rx="7" fill="#174c39" stroke="#237954"/>
+    <text x="108" y="448" class="capB" style="fill:#64e69e">IN TRANSIT</text>
+    <text x="94" y="483" class="cap" style="fill:#a9bac8">DELIVERY APPOINTMENT</text>
+    <text x="94" y="515" class="metricLight">10:30 AM</text>
+    <line x1="235" y1="473" x2="235" y2="525" stroke="#426077"/>
+    <text x="255" y="483" class="cap" style="fill:#a9bac8">ACCEPTED PAY</text>
+    <text x="255" y="515" class="metricLight">$1,850</text>
+    <rect x="94" y="536" width="302" height="44" rx="10" fill="url(#orange)"/>
+    <path d="M118 551 c-7 0-11 5-11 11 0 8 11 14 11 14s11-6 11-14c0-6-4-11-11-11z" fill="#08223b"/>
+    <circle cx="118" cy="562" r="3" fill="#ffab1a"/>
+    <text x="181" y="564" class="btn">Mark arrived</text>
+
+    <rect x="74" y="610" width="342" height="62" rx="13" fill="#fff" stroke="#ccd5db"/>
+    <rect x="91" y="625" width="34" height="34" rx="9" fill="#e8f7ef"/>
+    <path d="M99 651 l7-8 5 4 7-11" fill="none" stroke="#159866" stroke-width="2" stroke-linecap="round"/>
+    <text x="140" y="635" class="cap">EST. PROFIT</text>
+    <text x="140" y="659" class="h2" style="fill:#148a58">$612</text>
+    <line x1="247" y1="622" x2="247" y2="660" stroke="#dde3e7"/>
+    <text x="268" y="648" class="bodyB">$1.00 / total mi</text>
+
+    <text x="74" y="705" class="h2">Needs attention</text>
+    <rect x="74" y="720" width="342" height="102" rx="13" fill="#fff" stroke="#ccd5db"/>
+    <circle cx="102" cy="748" r="16" fill="#fff1d7"/>
+    <path d="M95 738 h14 v19 h-14z M99 743 h6 M99 748 h6" fill="none" stroke="#f09a0b" stroke-width="1.8"/>
+    <text x="130" y="753" class="bodyB">POD required after delivery</text>
+    <path d="M394 745 l6 6-6 6" fill="none" stroke="#778690" stroke-width="1.7"/>
+    <line x1="92" y1="770" x2="398" y2="770" stroke="#e1e6e9"/>
+    <circle cx="102" cy="795" r="16" fill="#fff0eb"/>
+    <text x="98" y="801" class="h2" style="fill:#d84b24">!</text>
+    <text x="130" y="791" class="bodyB">Invoice HM-1042</text>
+    <text x="130" y="810" class="cap">Overdue · 4 days · $985 remaining</text>
+    <path d="M394 789 l6 6-6 6" fill="none" stroke="#778690" stroke-width="1.7"/>
+
+    <rect x="58" y="890" width="374" height="92" fill="#061d33"/>
+    <g transform="translate(106 916)"><path d="M-10 4 l10-9 10 9v12h-7v-8h-6v8h-7z" fill="#ffab1a"/><text x="-13" y="40" class="tiny" style="fill:#ffab1a">Today</text></g>
+    <g transform="translate(194 916)"><rect x="-11" y="2" width="22" height="13" rx="3" fill="none" stroke="#c3ced6" stroke-width="1.8"/><circle cx="-6" cy="17" r="3" fill="#c3ced6"/><circle cx="7" cy="17" r="3" fill="#c3ced6"/><text x="-15" y="40" class="tiny" style="fill:#c3ced6">Loads</text></g>
+    <g transform="translate(287 916)"><rect x="-8" y="-3" width="16" height="21" rx="2" fill="none" stroke="#c3ced6" stroke-width="1.8"/><path d="M-4 3 h8 M-4 8 h8" stroke="#c3ced6"/><text x="-21" y="40" class="tiny" style="fill:#c3ced6">Invoices</text></g>
+    <g transform="translate(376 916)"><circle cx="-8" cy="7" r="2" fill="#c3ced6"/><circle cx="0" cy="7" r="2" fill="#c3ced6"/><circle cx="8" cy="7" r="2" fill="#c3ced6"/><text x="-12" y="40" class="tiny" style="fill:#c3ced6">More</text></g>
+  </g>
+
+  <!-- EVALUATE -->
+  <g clip-path="url(#c2)">
+    <rect x="510" y="154" width="374" height="828" fill="#fff"/>
+    <text x="534" y="184" class="capB">9:41</text>
+    <path d="M802 178 v7 M807 175 v10 M812 172 v13" stroke="#071525" stroke-width="2" stroke-linecap="round"/>
+    <rect x="844" y="173" width="23" height="11" rx="3" fill="none" stroke="#071525" stroke-width="1.5"/>
+    <rect x="847" y="176" width="16" height="5" rx="1" fill="#071525"/>
+    <path d="M548 218 l-10 10 10 10 M539 228 h18" fill="none" stroke="#071525" stroke-width="2" stroke-linecap="round"/>
+    <text x="627" y="234" class="nav">Evaluate load</text>
+    <text x="628" y="276" class="h2" text-anchor="middle">Detroit, MI  →  Columbus, OH</text>
+    <text x="697" y="299" class="cap" text-anchor="middle">540 loaded + 72 deadhead = 612 total mi</text>
+
+    <rect x="524" y="319" width="346" height="179" rx="15" fill="#fff" stroke="#bfcad1"/>
+    <text x="547" y="349" class="metricGreen">$612</text>
+    <text x="546" y="371" class="cap">Estimated profit</text>
+    <line x1="631" y1="335" x2="631" y2="382" stroke="#d8dfe4"/>
+    <text x="651" y="350" class="metric">33.1%</text>
+    <text x="661" y="371" class="cap">margin</text>
+    <line x1="744" y1="335" x2="744" y2="382" stroke="#d8dfe4"/>
+    <text x="765" y="350" class="metric">$3.02</text>
+    <text x="763" y="371" class="cap">revenue / total mi</text>
+    <line x1="541" y1="395" x2="853" y2="395" stroke="#d8dfe4"/>
+    <text x="548" y="423" class="cap">REVENUE</text><text x="548" y="449" class="h2">$1,850</text>
+    <text x="659" y="423" class="cap">FUEL</text><text x="659" y="449" class="h2" style="fill:#d84b24">$334</text>
+    <text x="770" y="423" class="cap">EST. COST</text><text x="770" y="449" class="h2">$1,238</text>
+    <rect x="543" y="465" width="294" height="18" rx="9" fill="#edf1f3"/>
+    <rect x="543" y="465" width="97" height="18" rx="9" fill="#e6f5ed"/>
+    <text x="555" y="478" class="tiny" style="fill:#148a58">PROFIT 33.1%</text>
+
+    <rect x="524" y="518" width="346" height="251" rx="15" fill="#fff" stroke="#bfcad1"/>
+    <g class="body">
+      <text x="548" y="552">Loaded miles</text><text x="818" y="552" class="bodyB">540</text>
+      <line x1="542" y1="568" x2="852" y2="568" stroke="#e0e5e8"/>
+      <text x="548" y="600">Deadhead miles</text><text x="828" y="600" class="bodyB">72</text>
+      <line x1="542" y1="616" x2="852" y2="616" stroke="#e0e5e8"/>
+      <text x="548" y="648">Fuel economy</text><text x="795" y="648" class="bodyB">6.7 MPG</text>
+      <line x1="542" y1="664" x2="852" y2="664" stroke="#e0e5e8"/>
+      <text x="548" y="696">Fuel price</text><text x="807" y="696" class="bodyB">$3.64</text>
+      <line x1="542" y1="712" x2="852" y2="712" stroke="#e0e5e8"/>
+      <text x="548" y="744">Tolls + percentage fees</text><text x="807" y="744" class="bodyB">$234</text>
+    </g>
+    <text x="697" y="797" class="bodyB" style="fill:#146ac2" text-anchor="middle">View calculation and overrides</text>
+    <rect x="524" y="834" width="161" height="54" rx="12" fill="#fff" stroke="#71818d"/>
+    <text x="547" y="867" class="btn">Save evaluating</text>
+    <rect x="695" y="834" width="175" height="54" rx="12" fill="url(#orange)"/>
+    <text x="727" y="867" class="btn">Mark accepted</text>
+    <rect x="524" y="906" width="346" height="42" rx="10" fill="#eef7f2"/>
+    <circle cx="544" cy="927" r="5" fill="#159866"/>
+    <text x="556" y="931" class="capB" style="fill:#148a58">Defaults applied · per-load overrides available</text>
+  </g>
+
+  <!-- ACTIVE LOAD -->
+  <g clip-path="url(#c3)">
+    <rect x="962" y="154" width="374" height="828" fill="#fff"/>
+    <text x="986" y="184" class="capB">9:41</text>
+    <path d="M1254 178 v7 M1259 175 v10 M1264 172 v13" stroke="#071525" stroke-width="2" stroke-linecap="round"/>
+    <rect x="1296" y="173" width="23" height="11" rx="3" fill="none" stroke="#071525" stroke-width="1.5"/>
+    <rect x="1299" y="176" width="16" height="5" rx="1" fill="#071525"/>
+    <path d="M1000 218 l-10 10 10 10 M991 228 h18" fill="none" stroke="#071525" stroke-width="2" stroke-linecap="round"/>
+    <text x="1108" y="234" class="nav">HM-1048</text>
+    <circle cx="1302" cy="228" r="2" fill="#071525"/><circle cx="1310" cy="228" r="2" fill="#071525"/><circle cx="1318" cy="228" r="2" fill="#071525"/>
+    <text x="978" y="278" class="h2">Detroit, MI  →  Columbus, OH</text>
+    <rect x="978" y="290" width="82" height="27" rx="7" fill="#e2f4e9"/>
+    <text x="993" y="308" class="capB" style="fill:#148a58">AT DELIVERY</text>
+    <rect x="1159" y="290" width="160" height="27" rx="7" fill="#eef7f2"/>
+    <circle cx="1174" cy="304" r="5" fill="#159866"/>
+    <text x="1187" y="308" class="capB" style="fill:#148a58">GPS VERIFIED ±12 M</text>
+
+    <rect x="978" y="331" width="342" height="205" rx="14" fill="#fff" stroke="#c5cfd5"/>
+    <line x1="1011" y1="364" x2="1011" y2="489" stroke="#8aa0ad" stroke-width="2"/>
+    <circle cx="1011" cy="366" r="13" fill="#159866"/><path d="M1004 366 l5 5 9-11" fill="none" stroke="#fff" stroke-width="2"/>
+    <text x="1040" y="363" class="bodyB">Pickup departed</text><text x="1257" y="363" class="cap">6:42 AM</text>
+    <text x="1040" y="382" class="cap">Event synced</text>
+    <circle cx="1011" cy="424" r="13" fill="#159866"/><path d="M1004 424 l5 5 9-11" fill="none" stroke="#fff" stroke-width="2"/>
+    <text x="1040" y="421" class="bodyB">In transit</text><text x="1257" y="421" class="cap">8:15 AM</text>
+    <text x="1040" y="440" class="cap">ETA published · on-device estimate</text>
+    <circle cx="1011" cy="487" r="13" fill="#fff" stroke="#f09a0b" stroke-width="3"/><circle cx="1011" cy="487" r="5" fill="#071525"/>
+    <text x="1040" y="484" class="bodyB">Delivery arrived</text><text x="1250" y="484" class="cap">10:26 AM</text>
+    <text x="1040" y="505" class="cap" style="fill:#d68100">At facility · location captured</text>
+
+    <rect x="990" y="451" width="1" height="1" fill="none"/>
+    <rect x="978" y="549" width="342" height="86" rx="14" fill="#f8fafb" stroke="#c5cfd5"/>
+    <circle cx="1012" cy="581" r="19" fill="#e9eef1"/>
+    <rect x="1004" y="569" width="16" height="24" rx="2" fill="#667986"/>
+    <rect x="1007" y="574" width="3" height="4" fill="#fff"/><rect x="1014" y="574" width="3" height="4" fill="#fff"/>
+    <text x="1044" y="577" class="bodyB">Midwest Distribution</text>
+    <text x="1044" y="598" class="body">4200 Alum Creek Dr · Dock 14</text>
+    <text x="1044" y="619" class="cap">Appointment 10:30–11:00 AM EDT</text>
+
+    <rect x="978" y="650" width="342" height="146" rx="14" fill="#fffaf0" stroke="#f0a313" stroke-width="1.5"/>
+    <circle cx="1015" cy="687" r="20" fill="none" stroke="#f0a313" stroke-width="3"/>
+    <path d="M1015 675 v13 l9 5" fill="none" stroke="#f0a313" stroke-width="3" stroke-linecap="round"/>
+    <text x="1051" y="696" class="metric" style="fill:#d68100">01:18:42</text>
+    <text x="1051" y="719" class="cap">On site · free time remaining 11 min</text>
+    <rect x="990" y="739" width="318" height="43" rx="10" fill="#fff" stroke="#f0a313"/>
+    <text x="1100" y="766" class="btn" style="fill:#d68100">Start detention</text>
+
+    <rect x="978" y="813" width="164" height="54" rx="12" fill="#fff" stroke="#c5cfd5"/>
+    <text x="1018" y="846" class="btn">Add POD</text>
+    <rect x="1156" y="813" width="164" height="54" rx="12" fill="#fff" stroke="#c5cfd5"/>
+    <text x="1188" y="846" class="btn">Add receipt</text>
+    <rect x="978" y="884" width="342" height="54" rx="12" fill="#061d33"/>
+    <text x="1087" y="917" class="btnLight">Mark delivered</text>
+    <text x="1149" y="960" class="cap" text-anchor="middle">Local event saved · syncing when connected</text>
+  </g>
+
+  <!-- INVOICE -->
+  <g clip-path="url(#c4)">
+    <rect x="1414" y="154" width="374" height="828" fill="#fff"/>
+    <text x="1438" y="184" class="capB">9:41</text>
+    <path d="M1706 178 v7 M1711 175 v10 M1716 172 v13" stroke="#071525" stroke-width="2" stroke-linecap="round"/>
+    <rect x="1748" y="173" width="23" height="11" rx="3" fill="none" stroke="#071525" stroke-width="1.5"/>
+    <rect x="1751" y="176" width="16" height="5" rx="1" fill="#071525"/>
+    <path d="M1452 218 l-10 10 10 10 M1443 228 h18" fill="none" stroke="#071525" stroke-width="2" stroke-linecap="round"/>
+    <text x="1545" y="234" class="nav">Invoice ready</text>
+    <circle cx="1463" cy="284" r="28" fill="#159866"/>
+    <path d="M1450 284 l9 9 18-22" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1504" y="292" class="title">Packet complete</text>
+    <line x1="1438" y1="318" x2="1764" y2="318" stroke="#d7dfe3"/>
+    <text x="1438" y="351" class="cap">INVOICE</text><text x="1758" y="351" class="bodyB" text-anchor="end">HM-2026-0148 · REV 1</text>
+    <text x="1438" y="380" class="cap">CUSTOMER</text><text x="1758" y="380" class="bodyB" text-anchor="end">Northline Logistics</text>
+    <text x="1438" y="409" class="cap">DUE</text><text x="1758" y="409" class="bodyB" text-anchor="end">July 20, 2026 · Net 30</text>
+    <line x1="1438" y1="428" x2="1764" y2="428" stroke="#d7dfe3"/>
+    <text x="1438" y="462" class="body">Line haul</text><text x="1758" y="462" class="bodyB" text-anchor="end">$1,750.00</text>
+    <text x="1438" y="492" class="body">Fuel surcharge</text><text x="1758" y="492" class="bodyB" text-anchor="end">$100.00</text>
+    <text x="1438" y="522" class="body">Detention · 1.5 hr</text><text x="1758" y="522" class="bodyB" text-anchor="end">$135.00</text>
+    <line x1="1438" y1="544" x2="1764" y2="544" stroke="#aebbc3"/>
+    <text x="1438" y="582" class="h2">Total due</text><text x="1758" y="584" class="metricGreen" text-anchor="end">$1,985.00</text>
+    <line x1="1438" y1="604" x2="1764" y2="604" stroke="#d7dfe3"/>
+
+    <text x="1438" y="638" class="h2">Supporting documents</text>
+    <text x="1760" y="638" class="cap" text-anchor="end">3 selected</text>
+    <g>
+      <circle cx="1454" cy="674" r="12" fill="#159866"/><path d="M1448 674 l4 4 8-10" fill="none" stroke="#fff" stroke-width="2"/>
+      <text x="1478" y="679" class="bodyB">Rate confirmation</text><text x="1758" y="679" class="cap" text-anchor="end">Synced</text>
+      <circle cx="1454" cy="716" r="12" fill="#159866"/><path d="M1448 716 l4 4 8-10" fill="none" stroke="#fff" stroke-width="2"/>
+      <text x="1478" y="721" class="bodyB">Signed POD</text><text x="1758" y="721" class="cap" text-anchor="end">Synced</text>
+      <circle cx="1454" cy="758" r="12" fill="#159866"/><path d="M1448 758 l4 4 8-10" fill="none" stroke="#fff" stroke-width="2"/>
+      <text x="1478" y="763" class="bodyB">Detention evidence</text><text x="1758" y="763" class="cap" text-anchor="end">3 events</text>
+    </g>
+    <rect x="1438" y="795" width="326" height="48" rx="11" fill="#061d33"/>
+    <text x="1519" y="825" class="btnLight">Share invoice packet</text>
+    <rect x="1438" y="858" width="145" height="48" rx="11" fill="#fff" stroke="#71818d"/>
+    <text x="1474" y="888" class="btn">Mark sent</text>
+    <text x="1646" y="888" class="bodyB" style="fill:#146ac2">Review invoice</text>
+    <rect x="1438" y="925" width="326" height="35" rx="10" fill="#f3f6f7"/>
+    <text x="1455" y="947" class="cap">Generated locally · PDF revision retained after changes</text>
+  </g>
+
+  <g>
+    <text x="245" y="1026" class="tag" text-anchor="middle">LOAD · STOP · INVOICE SUMMARY · SYNC STATE</text>
+    <text x="697" y="1026" class="tag" text-anchor="middle">LOAD · VEHICLE DEFAULTS · EXPENSES · CHARGES</text>
+    <text x="1149" y="1026" class="tag" text-anchor="middle">TRIP EVENTS · LOCATION SOURCE · ETA · DOCUMENTS</text>
+    <text x="1601" y="1026" class="tag" text-anchor="middle">INVOICE REVISION · ITEMS · EVIDENCE · SHARE STATE</text>
+    <text x="56" y="1073" class="boardSub">Reference: docs/design/P0_UI_MODEL_MATRIX.md · Visual direction: earlier daylight operations concept</text>
+  </g>
+</svg>
