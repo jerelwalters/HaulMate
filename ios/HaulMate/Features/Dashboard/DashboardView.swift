@@ -16,9 +16,9 @@ struct DashboardView: View {
         @Bindable var router = router
 
         TabView(selection: $router.selectedTab) {
-            DashboardTabView(user: user)
+            DashboardTabView(user: user, state: .empty)
                 .tabItem {
-                    Label("Dashboard", systemImage: "rectangle.grid.2x2")
+                    Label("Today", systemImage: "house")
                 }
                 .tag(AppTab.dashboard)
 
@@ -30,10 +30,14 @@ struct DashboardView: View {
 
             SettingsTabView()
                 .tabItem {
-                    Label("Settings", systemImage: "gearshape")
+                    Label("More", systemImage: "ellipsis.circle")
                 }
                 .tag(AppTab.settings)
         }
+        .tint(HMColor.accent)
+        .toolbarBackground(HMColor.brandNavy, for: .tabBar)
+        .toolbarBackground(.visible, for: .tabBar)
+        .toolbarColorScheme(.dark, for: .tabBar)
         .sheet(item: $router.presentedSheet) { sheet in
             switch sheet {
             case .newLoad:
