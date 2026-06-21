@@ -19,22 +19,32 @@ struct SettingsTabView: View {
         NavigationStack(path: $router.settingsPath) {
             List {
                 NavigationLink(value: SettingsRoute.businessProfile) {
-                    Label("Business Profile", systemImage: "building.2")
+                    Label(SettingsStrings.businessProfileLabel.localized, systemImage: "building.2")
                 }
+                .listRowBackground(HMColor.surface)
 
                 Button(
-                    "Sign Out",
+                    SettingsStrings.signOutButton.localized,
                     systemImage: "rectangle.portrait.and.arrow.right",
                     role: .destructive,
                     action: signOut
                 )
+                .listRowBackground(HMColor.surface)
             }
-            .navigationTitle("Settings")
+            .listStyle(.insetGrouped)
+            .scrollContentBackground(.hidden)
+            .background(HMColor.canvas)
+            .tint(HMColor.accent)
+            .navigationTitle(SettingsStrings.navigationTitle.localized)
             .navigationDestination(for: SettingsRoute.self) { route in
                 switch route {
                 case .businessProfile:
-                    Text("Business profile")
-                        .navigationTitle("Business Profile")
+                    Text(SettingsStrings.businessProfilePlaceholder.localized)
+                        .font(HMFont.body)
+                        .foregroundStyle(HMColor.textPrimary)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .hmAppBackground()
+                        .navigationTitle(SettingsStrings.businessProfileLabel.localized)
                 }
             }
         }

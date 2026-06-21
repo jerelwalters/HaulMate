@@ -31,11 +31,24 @@ actor PreviewAppService: AppService {
         return restoredUser
     }
 
-    func signIn() async throws -> SessionUser {
+    func signIn(request: SignInRequest) async throws -> SessionUser {
         let user = restoredUser ?? .preview
         restoredUser = user
         return user
     }
+
+    func signUp(request: SignUpRequest) async throws -> SessionUser {
+        let user = SessionUser(
+            id: UUID(),
+            displayName: request.businessProfile.displayName.trimmed.isEmpty
+                ? request.businessProfile.legalName
+                : request.businessProfile.displayName
+        )
+        restoredUser = user
+        return user
+    }
+
+    func requestPasswordReset(email: String) async throws {}
 
     func signOut() async {
         restoredUser = nil
