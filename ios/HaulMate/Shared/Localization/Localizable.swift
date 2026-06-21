@@ -27,6 +27,12 @@ enum AppStrings: String, Localizable {
     case pilotDriver
 }
 
+enum AppAppearanceStrings: String, Localizable {
+    case systemTitle
+    case lightTitle
+    case darkTitle
+}
+
 enum AppRootStrings: String, Localizable {
     case restoreSessionFailure
     case signInFailure
@@ -155,6 +161,7 @@ enum NewLoadStrings: String, Localizable {
 }
 
 enum SettingsStrings: String, Localizable {
+    case appearanceLabel
     case businessProfileLabel
     case signOutButton
     case navigationTitle

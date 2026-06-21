@@ -7,6 +7,7 @@ import SwiftUI
 
 struct AppRootView: View {
     @Environment(\.appDependencies) private var dependencies
+    @Environment(\.appAppearanceMode) private var appAppearanceMode
 
     private var appRootRepository: AppRootRepository {
         dependencies.required.appRootRepository
@@ -37,6 +38,7 @@ struct AppRootView: View {
         }
         .tint(HMColor.accent)
         .hmAppBackground()
+        .preferredColorScheme(appAppearanceMode.wrappedValue.colorScheme)
     }
 
     private func restoreSession() async {
@@ -54,13 +56,28 @@ struct AppRootView: View {
         .withPreviewDependencies()
 }
 
+#Preview("Signed Out · Dark") {
+    AppRootView()
+        .withPreviewDependencies(appAppearanceMode: .dark)
+}
+
 #Preview("Signed In") {
     AppRootView()
         .withPreviewDependencies(user: .preview)
 }
 
+#Preview("Signed In · Dark") {
+    AppRootView()
+        .withPreviewDependencies(user: .preview, appAppearanceMode: .dark)
+}
+
 #Preview("Restore Failure") {
     AppRootView()
         .withPreviewDependencies(restoreShouldFail: true)
+}
+
+#Preview("Restore Failure · Dark") {
+    AppRootView()
+        .withPreviewDependencies(restoreShouldFail: true, appAppearanceMode: .dark)
 }
 #endif

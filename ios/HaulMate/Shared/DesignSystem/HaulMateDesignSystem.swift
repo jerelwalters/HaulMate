@@ -130,8 +130,13 @@ private extension UIColor {
 }
 
 #if DEBUG
-#Preview("Design System") {
+#Preview("Design System · Light") {
     DesignSystemPreview()
+}
+
+#Preview("Design System · Dark") {
+    DesignSystemPreview()
+        .preferredColorScheme(.dark)
 }
 
 private struct DesignSystemPreview: View {

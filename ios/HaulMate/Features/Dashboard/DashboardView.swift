@@ -53,4 +53,10 @@ struct DashboardView: View {
     DashboardView(user: .preview)
         .withPreviewDependencies(user: .preview)
 }
+
+#Preview("Dark") {
+    DashboardView(user: .preview)
+        .withPreviewDependencies(user: .preview, appAppearanceMode: .dark)
+        .preferredColorScheme(.dark)
+}
 #endif
