@@ -5,6 +5,8 @@
 
 import Foundation
 
+/// The terms and evidence needed to decide whether waiting time can be billed.
+/// Free time is the grace period from the rate confirmation before detention starts.
 struct DetentionCalculationInput: Equatable, Sendable {
     let arrivalAt: Date
     let releasedAt: Date
@@ -13,6 +15,8 @@ struct DetentionCalculationInput: Equatable, Sendable {
     let evidenceIDs: [UUID]
 }
 
+/// A billable detention result. Elapsed time is total wait; billable time is
+/// only the portion after free time expires.
 struct DetentionCharge: Equatable, Sendable {
     let elapsedMinutes: Int
     let freeTimeMinutes: Int
@@ -42,6 +46,8 @@ enum DetentionCalculator {
             throw DetentionCalculationError.negativeRate
         }
 
+        // Detention starts with the full wait, then subtracts the free time the
+        // carrier agreed to before hourly billing is allowed.
         let elapsedMinutes = Int(
             (input.releasedAt.timeIntervalSince(input.arrivalAt) / 60)
                 .rounded(.down)
@@ -60,6 +66,8 @@ enum DetentionCalculator {
     }
 }
 
+/// Per-account invoice numbering. The sequence is returned with the next value
+/// so persistence can save it atomically with the invoice later.
 struct InvoiceNumberSequence: Equatable, Sendable {
     let accountID: UUID
     let prefix: String
@@ -96,6 +104,8 @@ enum InvoiceNumberSequenceError: Error, Equatable, Sendable {
     case invalidNextValue
 }
 
+/// One row on an invoice. Evidence IDs connect accessorial charges like
+/// detention to the proof needed for collection.
 struct InvoiceLineItem: Equatable, Identifiable, Sendable {
     let id: UUID
     let kind: InvoiceLineItemKind
@@ -140,6 +150,8 @@ enum InvoiceLineItemKind: String, Codable, Sendable {
     case adjustment
 }
 
+/// A reproducible financial snapshot. Later invoice changes append revisions
+/// instead of silently replacing the previous total.
 struct InvoiceRevision: Equatable, Identifiable, Sendable {
     let id: UUID
     let invoiceID: UUID
@@ -152,6 +164,8 @@ struct InvoiceRevision: Equatable, Identifiable, Sendable {
     }
 }
 
+/// Money received against an invoice. Multiple payments allow partial payment
+/// tracking without losing the original invoice total.
 struct InvoicePayment: Equatable, Identifiable, Sendable {
     let id: UUID
     let amount: Decimal
@@ -171,6 +185,8 @@ struct InvoicePayment: Equatable, Identifiable, Sendable {
     }
 }
 
+/// Versioned invoice history plus payments. The current revision determines
+/// what is due; payments determine what remains.
 struct Invoice: Equatable, Identifiable, Sendable {
     let id: UUID
     let accountID: UUID
@@ -300,6 +316,8 @@ enum InvoiceValidationError: Error, Equatable, Sendable {
     case invalidPaymentAmount
 }
 
+/// The current money state of an invoice after adding all recorded payments.
+/// Overpayment is kept as unapplied credit instead of making balance negative.
 struct InvoicePaymentReconciliation: Equatable, Sendable {
     let totalDue: Decimal
     let totalPaid: Decimal

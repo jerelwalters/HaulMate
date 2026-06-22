@@ -52,6 +52,26 @@ final class BillingCalculationsTests: XCTestCase {
         XCTAssertEqual(charge.amount, decimal("0.00"))
     }
 
+    func testDetentionFormulaRoundsFractionalHourlyBillingToCents() throws {
+        // A driver can explain this as:
+        // "I waited 157 minutes. The first 120 were free. The remaining 37
+        // minutes bill at $80/hour, which comes to $49.33."
+        let charge = try DetentionCalculator.calculate(
+            DetentionCalculationInput(
+                arrivalAt: time(8, 0),
+                releasedAt: time(10, 37),
+                freeTimeMinutes: 120,
+                ratePerHour: decimal("80"),
+                evidenceIDs: []
+            )
+        )
+
+        XCTAssertEqual(charge.elapsedMinutes, 157)
+        XCTAssertEqual(charge.freeTimeMinutes, 120)
+        XCTAssertEqual(charge.billableMinutes, 37)
+        XCTAssertEqual(charge.amount, decimal("49.33"))
+    }
+
     func testInvalidDetentionInputsThrow() {
         XCTAssertThrowsError(
             try DetentionCalculator.calculate(
@@ -165,6 +185,47 @@ final class BillingCalculationsTests: XCTestCase {
         XCTAssertEqual(paid.paymentReconciliation.remainingBalance, decimal("0.00"))
         XCTAssertEqual(paid.paymentReconciliation.unappliedCredit, decimal("0.00"))
         XCTAssertEqual(paid.paymentReconciliation.status, .paid)
+    }
+
+    func testInvoiceRevisionReconcilesExistingPaymentsAgainstCurrentRevision() throws {
+        let invoice = try makeInvoice(
+            lineItems: [lineItem(.lineHaul, "Line haul", "1000")]
+        )
+        let partiallyPaid = try invoice.recordingPayment(
+            InvoicePayment(amount: decimal("400"), receivedAt: time(12, 0))
+        )
+
+        let revised = try partiallyPaid.revising(
+            createdAt: time(13, 0),
+            lineItems: [
+                lineItem(.lineHaul, "Line haul", "1000"),
+                lineItem(.detention, "Receiver detention", "200")
+            ]
+        )
+
+        XCTAssertEqual(revised.revisions.count, 2)
+        XCTAssertEqual(revised.payments.count, 1)
+        XCTAssertEqual(revised.revisions[0].totalAmount, decimal("1000.00"))
+        XCTAssertEqual(revised.currentRevision.totalAmount, decimal("1200.00"))
+        XCTAssertEqual(revised.paymentReconciliation.totalPaid, decimal("400.00"))
+        XCTAssertEqual(revised.paymentReconciliation.remainingBalance, decimal("800.00"))
+        XCTAssertEqual(revised.paymentReconciliation.status, .partial)
+    }
+
+    func testOverpaymentBecomesUnappliedCreditInsteadOfNegativeBalance() throws {
+        let invoice = try makeInvoice(
+            lineItems: [lineItem(.lineHaul, "Line haul", "1000")]
+        )
+
+        let overpaid = try invoice.recordingPayment(
+            InvoicePayment(amount: decimal("1100"), receivedAt: time(12, 0))
+        )
+
+        XCTAssertEqual(overpaid.paymentReconciliation.totalDue, decimal("1000.00"))
+        XCTAssertEqual(overpaid.paymentReconciliation.totalPaid, decimal("1100.00"))
+        XCTAssertEqual(overpaid.paymentReconciliation.remainingBalance, decimal("0.00"))
+        XCTAssertEqual(overpaid.paymentReconciliation.unappliedCredit, decimal("100.00"))
+        XCTAssertEqual(overpaid.paymentReconciliation.status, .paid)
     }
 
     func testInvoiceValidationRejectsInvalidFinancialHistory() throws {
