@@ -47,6 +47,114 @@ final class ProfitabilityCalculatorTests: XCTestCase {
         XCTAssertEqual(estimate.revenuePerTotalMile, decimal("3.49"))
     }
 
+    func testNaturalLanguageProfitabilityBreakdownMatchesTheFormula() throws {
+        // A driver can explain this quote as:
+        // "It pays $1,350. I have to drive 360 total miles, not just 300 loaded.
+        // Fuel is $240, maintenance reserve is $72, fixed cost allocation is $180,
+        // tolls are $30, and dispatch/factoring/admin fees are $190.50.
+        // That leaves an estimated $637.50 profit."
+        let result = ProfitabilityCalculator.calculate(
+            ProfitabilityInput(
+                lineHaulRate: decimal("1200"),
+                fuelSurcharge: decimal("100"),
+                accessorialRevenue: decimal("50"),
+                loadedMiles: decimal("300"),
+                deadheadMiles: decimal("60"),
+                estimatedTolls: decimal("30"),
+                operatingCosts: OperatingCostInputs(
+                    fuelEconomyMilesPerGallon: decimal("6"),
+                    fuelPricePerGallon: decimal("4"),
+                    maintenanceReservePerMile: decimal("0.20"),
+                    monthlyFixedCosts: decimal("3000"),
+                    workingMilesPerMonth: decimal("6000")
+                ),
+                fees: [
+                    .percentage(name: "Dispatch", rate: decimal("0.10")),
+                    .percentage(name: "Factoring", rate: decimal("0.03")),
+                    .flat(name: "Admin", amount: decimal("15"))
+                ]
+            )
+        )
+
+        let estimate = try XCTUnwrap(result.readyEstimate)
+
+        XCTAssertEqual(estimate.grossRevenue, decimal("1350.00"))
+        XCTAssertEqual(estimate.inputs.loadedMiles, decimal("300"))
+        XCTAssertEqual(estimate.inputs.deadheadMiles, decimal("60"))
+        XCTAssertEqual(estimate.inputs.totalMiles, decimal("360"))
+        XCTAssertEqual(estimate.inputs.fixedCostPerMile, decimal("0.5000"))
+        XCTAssertEqual(estimate.fuelCost, decimal("240.00"))
+        XCTAssertEqual(estimate.maintenanceCost, decimal("72.00"))
+        XCTAssertEqual(estimate.fixedCostAllocation, decimal("180.00"))
+        XCTAssertEqual(estimate.feeCost, decimal("190.50"))
+        XCTAssertEqual(estimate.totalOperatingCost, decimal("712.50"))
+        XCTAssertEqual(estimate.estimatedProfit, decimal("637.50"))
+        XCTAssertEqual(estimate.margin, decimal("0.4722"))
+        XCTAssertEqual(estimate.revenuePerLoadedMile, decimal("4.50"))
+        XCTAssertEqual(estimate.revenuePerTotalMile, decimal("3.75"))
+        XCTAssertEqual(
+            estimate.inputs.feeAmounts.map(\.amount),
+            [decimal("135.00"), decimal("40.50"), decimal("15.00")]
+        )
+    }
+
+    func testDeadheadMilesLowerProfitAndRevenuePerTotalMile() throws {
+        let noDeadhead = try XCTUnwrap(
+            ProfitabilityCalculator.calculate(
+                ProfitabilityInput(
+                    lineHaulRate: decimal("1000"),
+                    fuelSurcharge: decimal("0"),
+                    loadedMiles: decimal("100"),
+                    deadheadMiles: decimal("0"),
+                    operatingCosts: noFixedCostInputs
+                )
+            ).readyEstimate
+        )
+        let withDeadhead = try XCTUnwrap(
+            ProfitabilityCalculator.calculate(
+                ProfitabilityInput(
+                    lineHaulRate: decimal("1000"),
+                    fuelSurcharge: decimal("0"),
+                    loadedMiles: decimal("100"),
+                    deadheadMiles: decimal("100"),
+                    operatingCosts: noFixedCostInputs
+                )
+            ).readyEstimate
+        )
+
+        XCTAssertEqual(noDeadhead.fuelCost, decimal("40.00"))
+        XCTAssertEqual(noDeadhead.estimatedProfit, decimal("960.00"))
+        XCTAssertEqual(noDeadhead.revenuePerTotalMile, decimal("10.00"))
+        XCTAssertEqual(withDeadhead.fuelCost, decimal("80.00"))
+        XCTAssertEqual(withDeadhead.estimatedProfit, decimal("920.00"))
+        XCTAssertEqual(withDeadhead.revenuePerTotalMile, decimal("5.00"))
+    }
+
+    func testFixedCostsAreSpreadAcrossWorkingMilesBeforeTheyHitALoad() throws {
+        let result = ProfitabilityCalculator.calculate(
+            ProfitabilityInput(
+                lineHaulRate: decimal("900"),
+                fuelSurcharge: decimal("0"),
+                loadedMiles: decimal("200"),
+                deadheadMiles: decimal("50"),
+                operatingCosts: OperatingCostInputs(
+                    fuelEconomyMilesPerGallon: decimal("10"),
+                    fuelPricePerGallon: decimal("0"),
+                    maintenanceReservePerMile: decimal("0"),
+                    monthlyFixedCosts: decimal("3000"),
+                    workingMilesPerMonth: decimal("6000")
+                )
+            )
+        )
+
+        let estimate = try XCTUnwrap(result.readyEstimate)
+
+        XCTAssertEqual(estimate.inputs.totalMiles, decimal("250"))
+        XCTAssertEqual(estimate.inputs.fixedCostPerMile, decimal("0.5000"))
+        XCTAssertEqual(estimate.fixedCostAllocation, decimal("125.00"))
+        XCTAssertEqual(estimate.estimatedProfit, decimal("775.00"))
+    }
+
     func testMissingInputsReturnIssuesInsteadOfZeroEstimate() {
         let result = ProfitabilityCalculator.calculate(
             ProfitabilityInput(
@@ -246,3 +354,11 @@ private extension ProfitabilityCalculation {
 private func decimal(_ value: String) -> Decimal {
     Decimal(string: value)!
 }
+
+private let noFixedCostInputs = OperatingCostInputs(
+    fuelEconomyMilesPerGallon: decimal("10"),
+    fuelPricePerGallon: decimal("4"),
+    maintenanceReservePerMile: decimal("0"),
+    monthlyFixedCosts: decimal("0"),
+    workingMilesPerMonth: decimal("1000")
+)

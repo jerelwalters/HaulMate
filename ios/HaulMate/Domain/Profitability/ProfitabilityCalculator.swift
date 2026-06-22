@@ -5,6 +5,8 @@
 
 import Foundation
 
+/// Saved operating assumptions for the truck. These are the driver's normal
+/// costs before a specific load overrides fuel, maintenance, or mileage.
 struct TruckCostDefaults: Equatable, Sendable {
     let fuelEconomyMilesPerGallon: Decimal?
     let fuelPricePerGallon: Decimal?
@@ -30,6 +32,8 @@ struct TruckCostDefaults: Equatable, Sendable {
     }
 }
 
+/// Per-load changes to the saved truck profile. A load can use the default MPG
+/// and fixed costs while overriding only the fuel price for the route.
 struct LoadCostOverrides: Equatable, Sendable {
     var fuelEconomyMilesPerGallon: Decimal? = nil
     var fuelPricePerGallon: Decimal? = nil
@@ -38,6 +42,8 @@ struct LoadCostOverrides: Equatable, Sendable {
     var workingMilesPerMonth: Decimal? = nil
 }
 
+/// The quote-level facts needed to answer "does this load pay enough?"
+/// Loaded and deadhead miles stay separate so empty miles never disappear.
 struct ProfitabilityInput: Equatable, Sendable {
     let lineHaulRate: Decimal?
     let fuelSurcharge: Decimal?
@@ -69,6 +75,7 @@ struct ProfitabilityInput: Equatable, Sendable {
     }
 }
 
+/// The resolved cost profile used for a calculation after applying overrides.
 struct OperatingCostInputs: Equatable, Sendable {
     let fuelEconomyMilesPerGallon: Decimal?
     let fuelPricePerGallon: Decimal?
@@ -77,6 +84,8 @@ struct OperatingCostInputs: Equatable, Sendable {
     let workingMilesPerMonth: Decimal?
 }
 
+/// A cost that does not come from mileage, such as dispatch, factoring, or a
+/// flat administrative charge.
 struct ProfitabilityFee: Equatable, Sendable {
     let name: String
     let kind: ProfitabilityFeeKind
@@ -100,6 +109,8 @@ enum ProfitabilityCalculation: Equatable, Sendable {
     case invalid([ProfitabilityInputIssue])
 }
 
+/// The completed load-evaluation math. All money values are rounded to cents;
+/// ratios such as margin are kept to four decimal places.
 struct ProfitabilityEstimate: Equatable, Sendable {
     let inputs: ResolvedProfitabilityInputs
     let grossRevenue: Decimal
@@ -177,8 +188,13 @@ enum ProfitabilityCalculator {
         let monthlyFixedCosts = input.operatingCosts.monthlyFixedCosts!
         let workingMiles = input.operatingCosts.workingMilesPerMonth!
 
+        // Revenue is what the load pays. Costs are based on all miles driven,
+        // including deadhead, because empty miles still burn fuel and wear down the truck.
         let totalMiles = loadedMiles + deadheadMiles
         let grossRevenue = lineHaulRate + fuelSurcharge + input.accessorialRevenue
+
+        // Fixed costs are monthly obligations spread across the miles the truck is expected
+        // to work that month, then allocated back onto this load by total miles.
         let fixedCostPerMile = monthlyFixedCosts / workingMiles
         let fuelCost = totalMiles / fuelEconomy * fuelPrice
         let maintenanceCost = totalMiles * maintenanceReserve
@@ -190,6 +206,8 @@ enum ProfitabilityCalculator {
             )
         }
         let feeCost = feeAmounts.reduce(Decimal(0)) { $0 + $1.amount }
+        // Estimated profit is intentionally an estimate: the app has not reconciled actual
+        // receipts yet, so this combines expected operating cost, tolls, and known fees.
         let totalOperatingCost = fuelCost
             + maintenanceCost
             + fixedCostAllocation
