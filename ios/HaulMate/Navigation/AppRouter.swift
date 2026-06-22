@@ -24,6 +24,7 @@ enum LoadsRoute: Hashable, Codable {
 
 enum SettingsRoute: Hashable, Codable {
     case businessProfile
+    case truckCostProfile
 }
 
 enum AppSheet: Hashable, Codable, Identifiable {
