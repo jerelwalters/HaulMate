@@ -163,9 +163,56 @@ enum NewLoadStrings: String, Localizable {
 enum SettingsStrings: String, Localizable {
     case appearanceLabel
     case businessProfileLabel
+    case truckCostProfileLabel
     case signOutButton
     case navigationTitle
     case businessProfilePlaceholder
+}
+
+enum TruckCostProfileStrings: String, Localizable {
+    case navigationTitle
+    case screenTitle
+    case screenSubtitle
+    case equipmentLabel
+    case equipmentPlaceholder
+    case fuelEconomyLabel
+    case fuelPriceLabel
+    case maintenanceReserveLabel
+    case monthlyFixedCostsLabel
+    case workingMilesLabel
+    case mpgSuffix
+    case perGallonSuffix
+    case perMileSuffix
+    case perMonthSuffix
+    case derivedFixedCostLabel
+    case missingCostValue
+    case workingMilesSummaryFormat
+    case workingMilesMissingSummary
+    case defaultsSectionTitle
+    case dispatchFeeLabel
+    case factoringFeeLabel
+    case profitTargetLabel
+    case missingInputsTitle
+    case saveProfileButton
+    case savedStatus
+    case footer
+    case equipmentRequired
+    case fuelEconomyRequired
+    case fuelEconomyInvalid
+    case fuelPriceRequired
+    case fuelPriceInvalid
+    case maintenanceReserveRequired
+    case maintenanceReserveInvalid
+    case monthlyFixedCostsRequired
+    case monthlyFixedCostsInvalid
+    case workingMilesRequired
+    case workingMilesInvalid
+    case dispatchFeeRequired
+    case dispatchFeeInvalid
+    case factoringFeeRequired
+    case factoringFeeInvalid
+    case profitTargetRequired
+    case profitTargetInvalid
 }
 
 enum DesignSystemStrings: String, Localizable {

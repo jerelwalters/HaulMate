@@ -77,12 +77,25 @@ final class AppRouterTests: XCTestCase {
     func testSignOutResetClearsAccountNavigation() {
         let router = AppRouter(store: MemoryNavigationStateStore())
         router.selectedTab = .settings
-        router.settingsPath = [.businessProfile]
+        router.settingsPath = [.businessProfile, .truckCostProfile]
         router.presentedSheet = .newLoad
 
         router.resetForSignOut()
 
         XCTAssertEqual(router.snapshot, NavigationSnapshot())
+    }
+
+    func testTruckCostProfileNavigationRestoresFromPersistedSnapshot() {
+        let store = MemoryNavigationStateStore()
+        let router = AppRouter(store: store)
+
+        router.selectedTab = .settings
+        router.settingsPath = [.truckCostProfile]
+
+        let restored = AppRouter(store: store)
+
+        XCTAssertEqual(restored.selectedTab, .settings)
+        XCTAssertEqual(restored.settingsPath, [.truckCostProfile])
     }
 }
 

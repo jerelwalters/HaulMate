@@ -37,6 +37,11 @@ struct SettingsTabView: View {
                 }
                 .listRowBackground(HMColor.surface)
 
+                NavigationLink(value: SettingsRoute.truckCostProfile) {
+                    Label(SettingsStrings.truckCostProfileLabel.localized, systemImage: "truck.box")
+                }
+                .listRowBackground(HMColor.surface)
+
                 Button(
                     SettingsStrings.signOutButton.localized,
                     systemImage: "rectangle.portrait.and.arrow.right",
@@ -59,6 +64,8 @@ struct SettingsTabView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .hmAppBackground()
                         .navigationTitle(SettingsStrings.businessProfileLabel.localized)
+                case .truckCostProfile:
+                    TruckCostProfileView()
                 }
             }
         }
