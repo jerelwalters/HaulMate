@@ -40,6 +40,8 @@
 		A30000000000000000000002 /* ProfitabilityCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30000000000000000000002 /* ProfitabilityCalculatorTests.swift */; };
 		A40000000000000000000001 /* BillingCalculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000000001 /* BillingCalculations.swift */; };
 		A40000000000000000000002 /* BillingCalculationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000000002 /* BillingCalculationsTests.swift */; };
+		A50000000000000000000001 /* ETAEstimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50000000000000000000001 /* ETAEstimation.swift */; };
+		A50000000000000000000002 /* ETAEstimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50000000000000000000002 /* ETAEstimationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,8 @@
 		B30000000000000000000002 /* ProfitabilityCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfitabilityCalculatorTests.swift; sourceTree = "<group>"; };
 		B40000000000000000000001 /* BillingCalculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingCalculations.swift; sourceTree = "<group>"; };
 		B40000000000000000000002 /* BillingCalculationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingCalculationsTests.swift; sourceTree = "<group>"; };
+		B50000000000000000000001 /* ETAEstimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETAEstimation.swift; sourceTree = "<group>"; };
+		B50000000000000000000002 /* ETAEstimationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETAEstimationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,14 +142,16 @@
 		G10000000000000000000018 /* PreviewSupport */ = {isa = PBXGroup; children = (B10000000000000000000017); path = PreviewSupport; sourceTree = "<group>"; };
 		G10000000000000000000019 /* DesignSystem */ = {isa = PBXGroup; children = (B10000000000000000000018); path = DesignSystem; sourceTree = "<group>"; };
 		G1000000000000000000001A /* Localization */ = {isa = PBXGroup; children = (B1000000000000000000001B); path = Localization; sourceTree = "<group>"; };
-		G20000000000000000000001 /* Domain */ = {isa = PBXGroup; children = (G20000000000000000000002 /* Loads */, G30000000000000000000001 /* Profitability */, G40000000000000000000001 /* Billing */); path = Domain; sourceTree = "<group>"; };
+		G20000000000000000000001 /* Domain */ = {isa = PBXGroup; children = (G20000000000000000000002 /* Loads */, G30000000000000000000001 /* Profitability */, G40000000000000000000001 /* Billing */, G50000000000000000000001 /* ETA */); path = Domain; sourceTree = "<group>"; };
 		G20000000000000000000002 /* Loads */ = {isa = PBXGroup; children = (B20000000000000000000001 /* LoadDomain.swift */); path = Loads; sourceTree = "<group>"; };
-		G20000000000000000000003 /* Domain */ = {isa = PBXGroup; children = (G20000000000000000000004 /* Loads */, G30000000000000000000002 /* Profitability */, G40000000000000000000002 /* Billing */); path = Domain; sourceTree = "<group>"; };
+		G20000000000000000000003 /* Domain */ = {isa = PBXGroup; children = (G20000000000000000000004 /* Loads */, G30000000000000000000002 /* Profitability */, G40000000000000000000002 /* Billing */, G50000000000000000000002 /* ETA */); path = Domain; sourceTree = "<group>"; };
 		G20000000000000000000004 /* Loads */ = {isa = PBXGroup; children = (B20000000000000000000002 /* LoadStateMachineTests.swift */); path = Loads; sourceTree = "<group>"; };
 		G30000000000000000000001 /* Profitability */ = {isa = PBXGroup; children = (B30000000000000000000001 /* ProfitabilityCalculator.swift */); path = Profitability; sourceTree = "<group>"; };
 		G30000000000000000000002 /* Profitability */ = {isa = PBXGroup; children = (B30000000000000000000002 /* ProfitabilityCalculatorTests.swift */); path = Profitability; sourceTree = "<group>"; };
 		G40000000000000000000001 /* Billing */ = {isa = PBXGroup; children = (B40000000000000000000001 /* BillingCalculations.swift */); path = Billing; sourceTree = "<group>"; };
 		G40000000000000000000002 /* Billing */ = {isa = PBXGroup; children = (B40000000000000000000002 /* BillingCalculationsTests.swift */); path = Billing; sourceTree = "<group>"; };
+		G50000000000000000000001 /* ETA */ = {isa = PBXGroup; children = (B50000000000000000000001 /* ETAEstimation.swift */); path = ETA; sourceTree = "<group>"; };
+		G50000000000000000000002 /* ETA */ = {isa = PBXGroup; children = (B50000000000000000000002 /* ETAEstimationTests.swift */); path = ETA; sourceTree = "<group>"; };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -222,8 +228,8 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		F10000000000000000000003 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000001, A10000000000000000000002, A10000000000000000000003, A10000000000000000000004, A10000000000000000000005, A10000000000000000000006, A10000000000000000000007, A10000000000000000000008, A1000000000000000000000B, A1000000000000000000000C, A1000000000000000000000D, A1000000000000000000000E, A1000000000000000000000F, A10000000000000000000010, A10000000000000000000012, A10000000000000000000013, A10000000000000000000014, A10000000000000000000015, A10000000000000000000016, A10000000000000000000018, A20000000000000000000001, A1000000000000000000001A, A1000000000000000000001B, A30000000000000000000001, A40000000000000000000001); runOnlyForDeploymentPostprocessing = 0; };
-		F10000000000000000000004 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000009, A1000000000000000000000A, A10000000000000000000011, A10000000000000000000017, A20000000000000000000002, A1000000000000000000001C, A30000000000000000000002, A40000000000000000000002); runOnlyForDeploymentPostprocessing = 0; };
+		F10000000000000000000003 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000001, A10000000000000000000002, A10000000000000000000003, A10000000000000000000004, A10000000000000000000005, A10000000000000000000006, A10000000000000000000007, A10000000000000000000008, A1000000000000000000000B, A1000000000000000000000C, A1000000000000000000000D, A1000000000000000000000E, A1000000000000000000000F, A10000000000000000000010, A10000000000000000000012, A10000000000000000000013, A10000000000000000000014, A10000000000000000000015, A10000000000000000000016, A10000000000000000000018, A20000000000000000000001, A1000000000000000000001A, A1000000000000000000001B, A30000000000000000000001, A40000000000000000000001, A50000000000000000000001); runOnlyForDeploymentPostprocessing = 0; };
+		F10000000000000000000004 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000009, A1000000000000000000000A, A10000000000000000000011, A10000000000000000000017, A20000000000000000000002, A1000000000000000000001C, A30000000000000000000002, A40000000000000000000002, A50000000000000000000002); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
