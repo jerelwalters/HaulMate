@@ -36,7 +36,7 @@ Start the local backend:
 
 ```sh
 supabase start
-supabase db reset
+supabase/Scripts/verify-local.sh
 ```
 
 See the README in each top-level directory for component-specific guidance.

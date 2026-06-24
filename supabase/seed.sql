@@ -1,2 +1,5 @@
 -- Deterministic local development data belongs here.
 -- Keep this file safe to run repeatedly after `supabase db reset`.
+-- Do not include credentials, real customer data, or pilot-only records.
+-- Hosted dev/pilot data should be created through migrations, app flows, or
+-- explicit release steps, not automatic local seeds.
