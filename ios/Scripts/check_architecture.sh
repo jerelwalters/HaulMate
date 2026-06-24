@@ -62,7 +62,14 @@ done
 check_imports "$ROOT/HaulMate/App/AppRootView.swift" "SwiftUI,Foundation,Observation"
 
 for file in $(/usr/bin/find "$ROOT/HaulMate" -type f -name '*Repository.swift'); do
-    check_imports "$file" "Foundation,Observation"
+    case "$file" in
+        "$ROOT"/HaulMate/Infrastructure/Persistence/*)
+            check_imports "$file" "Foundation,Observation,StorageModule"
+            ;;
+        *)
+            check_imports "$file" "Foundation,Observation"
+            ;;
+    esac
 done
 
 for file in $(/usr/bin/find "$ROOT/HaulMate" "$ROOT/HaulMateTests" -type f -name '*.swift'); do
