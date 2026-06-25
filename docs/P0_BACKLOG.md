@@ -9,7 +9,15 @@
 - **Feature:** A workstream-sized Jira Epic owned as a coherent delivery area.
 - **Story:** A demonstrable user, product, or engineering outcome under one feature.
 - **Priority:** Every item below is P0 for the closed pilot. Sequence does not change priority.
-- **Completion:** A story is done only when its acceptance outcomes and relevant automated checks pass.
+- **Completion:** A story is done only when its acceptance outcomes pass, relevant checks pass, and Jira-visible evidence is attached or linked.
+
+## Definition of Done
+
+Before a story moves to `Done`, attach or link evidence on the Jira story. Acceptable evidence includes a demo recording, screenshots, passing test output, console output, or clear manual verification steps.
+
+UI-facing stories should include a screenshot or demo unless there is a specific reason they cannot. Domain, backend, release, and documentation stories may use focused test results, command output, health checks, or reproducible verification steps instead.
+
+The completion comment should be brief and include the PR link plus the evidence location or verification summary.
 
 Do not create implementation subtasks until a story is pulled into active work. Split any story that is expected to take more than five focused engineering days.
 
