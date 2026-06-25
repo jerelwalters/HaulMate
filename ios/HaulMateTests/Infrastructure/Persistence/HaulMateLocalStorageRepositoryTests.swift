@@ -1,0 +1,232 @@
+//
+//  Created by Jerel Walters on 6/24/26.
+//  Copyright © 2026 Jerel Walters. All rights reserved.
+//
+
+import StorageModule
+import XCTest
+@testable import HaulMate
+
+@MainActor
+final class HaulMateLocalStorageRepositoryTests: XCTestCase {
+    func testStorageTypeInitializerCanUseFileStorageForLocalState() throws {
+        let directoryURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent("com.haulmate.repository-storage-type-tests.\(UUID().uuidString)", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: directoryURL) }
+
+        let repository = try HaulMateLocalStorageRepository(
+            storageType: .fileStorage,
+            fileDirectoryURL: directoryURL
+        )
+        let snapshot = ActiveWorkflowSnapshot(
+            activeLoadID: nil,
+            navigationSnapshot: NavigationSnapshot(
+                selectedTab: .dashboard,
+                dashboardPath: [],
+                loadsPath: [],
+                settingsPath: [],
+                presentedSheet: nil
+            ),
+            updatedAt: Date(timeIntervalSince1970: 1_000)
+        )
+
+        try repository.saveActiveWorkflow(snapshot)
+
+        XCTAssertEqual(try repository.readActiveWorkflow(), snapshot)
+        let storedFiles = try FileManager.default.contentsOfDirectory(
+            at: directoryURL,
+            includingPropertiesForKeys: nil
+        )
+        XCTAssertEqual(
+            storedFiles.count,
+            1
+        )
+    }
+
+    func testProfileRoundTripPersistsCurrentDTOWithoutLogoBytes() throws {
+        let storage = MemoryStorage()
+        let repository = HaulMateLocalStorageRepository(storage: storage)
+        var businessProfile = BusinessProfileDraft.validPilotProfile
+        businessProfile.setLogoImageData(Data([0x01, 0x02, 0x03]))
+        let profile = ProfileSnapshot(
+            businessProfile: businessProfile,
+            truckCostProfile: .figmaBaseline
+        )
+
+        try repository.saveProfile(profile)
+
+        let restored = try repository.readProfile()
+        XCTAssertEqual(restored?.businessProfile?.legalName, "Walters Logistics LLC")
+        XCTAssertEqual(restored?.businessProfile?.logoFilename, "business-logo")
+        XCTAssertNil(restored?.businessProfile?.logoImageData)
+        XCTAssertEqual(restored?.truckCostProfile, .figmaBaseline)
+
+        let storedProfile = try XCTUnwrap(
+            try storage.read(StoredProfile.self, for: HaulMateStorageKeys.profile)
+        )
+        guard case .v2 = storedProfile else {
+            return XCTFail("Expected current profile DTO.")
+        }
+    }
+
+    func testLegacyProfileV1MigratesToCurrentDTOAfterRead() throws {
+        let storage = MemoryStorage()
+        let repository = HaulMateLocalStorageRepository(storage: storage)
+        try storage.save(
+            StoredProfile.v1(
+                StoredProfileV1(
+                    legalName: "Walters Logistics LLC",
+                    displayName: "Walters Logistics",
+                    mailingAddress: "123 Pilot Way, Detroit, MI 48201",
+                    phone: "313-555-0148",
+                    invoiceEmail: "billing@example.com",
+                    invoicePrefix: "HM",
+                    paymentTermsDays: 30,
+                    logoFilename: "business-logo",
+                    usesFactoring: true,
+                    factoringCompanyName: "Pilot Factoring",
+                    factoringRemittanceDetails: "ACH ending 4242"
+                )
+            ),
+            for: HaulMateStorageKeys.profile
+        )
+
+        let migrated = try repository.readProfile()
+
+        XCTAssertEqual(migrated?.businessProfile?.displayName, "Walters Logistics")
+        XCTAssertEqual(migrated?.businessProfile?.usesFactoring, true)
+        XCTAssertNil(migrated?.truckCostProfile)
+
+        let storedProfile = try XCTUnwrap(
+            try storage.read(StoredProfile.self, for: HaulMateStorageKeys.profile)
+        )
+        guard case .v2(let storedV2) = storedProfile else {
+            return XCTFail("Expected migrated current profile DTO.")
+        }
+        XCTAssertEqual(storedV2.businessProfile?.legalName, "Walters Logistics LLC")
+        XCTAssertNil(storedV2.truckCostProfile)
+    }
+
+    func testActiveWorkflowRoundTripPersistsNavigationAndActiveLoad() throws {
+        let repository = HaulMateLocalStorageRepository(storage: MemoryStorage())
+        let loadID = UUID(uuidString: "11111111-1111-1111-1111-111111111111")!
+        let snapshot = ActiveWorkflowSnapshot(
+            activeLoadID: loadID,
+            navigationSnapshot: NavigationSnapshot(
+                selectedTab: .loads,
+                dashboardPath: [],
+                loadsPath: [.load(id: loadID)],
+                settingsPath: [],
+                presentedSheet: .newLoad
+            ),
+            updatedAt: Date(timeIntervalSince1970: 1_000)
+        )
+
+        try repository.saveActiveWorkflow(snapshot)
+
+        XCTAssertEqual(try repository.readActiveWorkflow(), snapshot)
+
+        try repository.deleteActiveWorkflow()
+
+        XCTAssertNil(try repository.readActiveWorkflow())
+    }
+
+    func testRecentDocumentsRoundTripStoresMetadataOnly() throws {
+        let repository = HaulMateLocalStorageRepository(storage: MemoryStorage())
+        let document = RecentDocumentReference(
+            id: UUID(uuidString: "22222222-2222-2222-2222-222222222222")!,
+            loadID: UUID(uuidString: "33333333-3333-3333-3333-333333333333")!,
+            kind: .proofOfDelivery,
+            fileName: "pod.pdf",
+            contentType: "application/pdf",
+            byteCount: 82_400,
+            localFileURL: URL(fileURLWithPath: "/private/var/mobile/Containers/Data/pod.pdf"),
+            remoteObjectKey: "user/load/document",
+            updatedAt: Date(timeIntervalSince1970: 2_000)
+        )
+        let snapshot = RecentDocumentsSnapshot(
+            documents: [document],
+            updatedAt: Date(timeIntervalSince1970: 2_100)
+        )
+
+        try repository.saveRecentDocuments(snapshot)
+
+        XCTAssertEqual(try repository.readRecentDocuments(), snapshot)
+
+        try repository.deleteRecentDocuments()
+
+        XCTAssertNil(try repository.readRecentDocuments())
+    }
+
+    func testSyncMetadataRoundTripPersistsPerRecordState() throws {
+        let repository = HaulMateLocalStorageRepository(storage: MemoryStorage())
+        let record = SyncRecordMetadata(
+            id: UUID(uuidString: "44444444-4444-4444-4444-444444444444")!,
+            entityKind: .document,
+            entityID: UUID(uuidString: "55555555-5555-5555-5555-555555555555")!,
+            state: .failed,
+            updatedAt: Date(timeIntervalSince1970: 3_000),
+            lastErrorMessage: "Upload failed"
+        )
+        let snapshot = SyncMetadataSnapshot(
+            lastSuccessfulSyncAt: Date(timeIntervalSince1970: 2_900),
+            pendingMutationCount: 2,
+            failedMutationCount: 1,
+            records: [record],
+            updatedAt: Date(timeIntervalSince1970: 3_100)
+        )
+
+        try repository.saveSyncMetadata(snapshot)
+
+        XCTAssertEqual(try repository.readSyncMetadata(), snapshot)
+
+        try repository.deleteSyncMetadata()
+
+        XCTAssertNil(try repository.readSyncMetadata())
+    }
+}
+
+@MainActor
+private final class MemoryStorage: Storage {
+    private let encoder = JSONEncoder()
+    private let decoder = JSONDecoder()
+    private var payloads: [StorageKey: Data] = [:]
+
+    func read<Value: Decodable>(
+        _ type: Value.Type,
+        for key: StorageKey
+    ) throws -> Value? {
+        guard let payload = payloads[key] else {
+            return nil
+        }
+
+        do {
+            return try decoder.decode(Value.self, from: payload)
+        } catch {
+            throw StorageError.decodingFailed(key)
+        }
+    }
+
+    func save<Value: Encodable>(
+        _ value: Value,
+        for key: StorageKey
+    ) throws {
+        payloads[key] = try encoder.encode(value)
+    }
+
+    func delete(_ key: StorageKey) {
+        payloads.removeValue(forKey: key)
+    }
+}
+
+private extension BusinessProfileDraft {
+    static let validPilotProfile = BusinessProfileDraft(
+        legalName: "Walters Logistics LLC",
+        displayName: "Walters Logistics",
+        mailingAddress: "123 Pilot Way, Detroit, MI 48201",
+        phone: "313-555-0148",
+        invoiceEmail: "billing@example.com",
+        invoicePrefix: "HM",
+        paymentTermsDays: 30
+    )
+}
