@@ -19,5 +19,8 @@ fi
 supabase db reset --local
 supabase migration list --local
 supabase db advisors --local --type security --level warn --fail-on error
+if [ -d supabase/tests ] && find supabase/tests -type f -name "*.sql" | grep -q .; then
+  supabase test db --local supabase/tests
+fi
 supabase db query --local --output table \
   "select current_database() as database_name, current_schema() as schema_name, current_setting('server_version') as server_version;"

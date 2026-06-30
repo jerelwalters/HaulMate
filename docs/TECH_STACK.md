@@ -108,7 +108,7 @@ Use UUID primary keys generated on-device so records can be created offline.
 
 | Table | Purpose |
 |---|---|
-| `profiles` | User and business identity |
+| `business_profiles` | User-owned business identity, invoice defaults, and factoring remittance details |
 | `vehicles` | Equipment and default operating costs |
 | `customers` | Broker, shipper, receiver, or direct customer details |
 | `loads` | Commercial terms, miles, state, and calculated summary |
