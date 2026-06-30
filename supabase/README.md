@@ -13,6 +13,7 @@ data are version-controlled here; credentials are not.
 | `migrations/` | Ordered schema, policy, and database-function changes |
 | `functions/` | Privileged and public Edge Functions |
 | `Scripts/` | Local backend verification helpers |
+| `docs/` | Backend-to-client contracts and implementation notes |
 | `seed.sql` | Deterministic local development data |
 
 ## Local workflow
@@ -48,6 +49,21 @@ Run the local backend verification check before opening a backend PR:
 ```sh
 supabase/Scripts/verify-local.sh
 ```
+
+Run the local Auth verification check when changing authentication settings or
+mobile onboarding auth flows:
+
+```sh
+supabase/Scripts/verify-auth-local.sh
+```
+
+That check creates a disposable local user, signs in with email/password,
+refreshes the session, signs out, requests a password reset, and verifies the
+reset email was captured by the local mail service at
+`http://127.0.0.1:54324`.
+
+The mobile Auth and business profile contract lives in
+[`docs/mobile-auth-profile-contract.md`](docs/mobile-auth-profile-contract.md).
 
 ## Environments
 
@@ -158,6 +174,38 @@ explicit `GRANT` statements for the intended Postgres roles and must still
 enable row-level security with policies that match the access model. Treat the
 grant, RLS enablement, and policies as one reviewed migration.
 
+## Auth Configuration
+
+Local Auth is configured in `config.toml`. Email/password signups are enabled
+for development, email confirmation is disabled for the pilot bootstrap loop,
+and password reset emails are caught locally by Supabase's mail service instead
+of being sent externally.
+
+The mobile reset/callback redirect is allowlisted as:
+
+```text
+haulmate://auth/callback
+```
+
+If `config.toml` changes, restart the local stack before verifying Auth so the
+GoTrue container picks up the new settings:
+
+```sh
+supabase stop
+supabase start
+supabase/Scripts/verify-auth-local.sh
+```
+
+Hosted development and pilot projects need the same Auth settings applied in
+Supabase before mobile integration:
+
+- Email provider enabled.
+- New signups enabled.
+- Email confirmations disabled until the pilot explicitly requires them.
+- Minimum password length set to `8`.
+- Password requirements set to letters and digits.
+- Redirect URL allowlist includes `haulmate://auth/callback`.
+
 ## Deployment And Verification
 
 Start every backend release from a clean local rebuild:
@@ -222,6 +270,8 @@ Keep `SUPABASE_DB_PASSWORD` process-local. Do not write database passwords to
 Completion evidence for this backend setup is:
 
 - `supabase/Scripts/verify-local.sh` passes locally.
+- `supabase/Scripts/verify-auth-local.sh` passes locally after Auth config
+  changes.
 - `supabase db push --linked --dry-run` passes for development.
 - `supabase migration list --linked` matches the expected migration state.
 - `/auth/v1/health` succeeds for the target hosted environment using the
