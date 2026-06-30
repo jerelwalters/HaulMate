@@ -50,7 +50,7 @@ actor PreviewAppService: AppService {
 
     func requestPasswordReset(email: String) async throws {}
 
-    func signOut() async {
+    func signOut() async throws {
         restoredUser = nil
     }
 }

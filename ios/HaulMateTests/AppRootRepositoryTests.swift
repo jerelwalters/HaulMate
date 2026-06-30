@@ -157,7 +157,7 @@ private actor AppServiceStub: AppService {
 
     func requestPasswordReset(email: String) async throws {}
 
-    func signOut() async {}
+    func signOut() async throws {}
 }
 
 private actor RetryRestoreAppServiceStub: AppService {
@@ -184,7 +184,7 @@ private actor RetryRestoreAppServiceStub: AppService {
 
     func requestPasswordReset(email: String) async throws {}
 
-    func signOut() async {}
+    func signOut() async throws {}
 }
 
 private enum TestError: Error {
@@ -240,7 +240,7 @@ private actor CapturingAppServiceStub: AppService {
         passwordResetEmail
     }
 
-    func signOut() async {}
+    func signOut() async throws {}
 }
 
 private extension BusinessProfileDraft {

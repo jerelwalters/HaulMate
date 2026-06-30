@@ -1,0 +1,36 @@
+KAN-29 / P0-CORE-06 Evidence
+Implement secure auth session handling
+
+Jira: https://haulmatework.atlassian.net/browse/KAN-29
+
+Captured: June 30, 2026 at 5:39 PM America/Detroit
+Worktree: /Users/jerelwalters/Documents/HaulMate-p0-core-06
+Branch: codex/p0-core-06-secure-auth-session
+
+Focused validation command:
+xcodebuild test -project HaulMate.xcodeproj -scheme HaulMate -destination 'platform=iOS Simulator,id=2622ECAD-BA74-4A1F-94D9-0DF82F8F7B42' -only-testing:HaulMateTests/AppRootManagerTests -only-testing:HaulMateTests/HaulMateLocalStorageRepositoryTests
+
+Focused result:
+AppRootManagerTests and HaulMateLocalStorageRepositoryTests passed
+Executed 14 tests
+0 failures
+
+Full validation command:
+xcodebuild test -project HaulMate.xcodeproj -scheme HaulMate -destination 'platform=iOS Simulator,id=2622ECAD-BA74-4A1F-94D9-0DF82F8F7B42'
+
+Full result:
+HaulMateTests passed
+Executed 85 tests
+0 failures
+
+Additional checks:
+ios/Scripts/check_architecture.sh passed
+git diff --check passed
+
+Acceptance evidence covered:
+- Session material is stored behind a secure Keychain-backed session store.
+- Unexpired sessions restore to the authenticated root.
+- Expired sessions use the injected refresh boundary and persist refreshed material.
+- Failed refresh removes stale session material without clearing offline local work yet.
+- Account switch detection clears account-scoped local data, including when only a prior user marker remains.
+- Sign-out deletes session material, deletes the prior user marker, and clears account-scoped local data.

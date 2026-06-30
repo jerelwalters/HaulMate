@@ -8,5 +8,5 @@ protocol AppService: Sendable {
     func signIn(request: SignInRequest) async throws -> SessionUser
     func signUp(request: SignUpRequest) async throws -> SessionUser
     func requestPasswordReset(email: String) async throws
-    func signOut() async
+    func signOut() async throws
 }
