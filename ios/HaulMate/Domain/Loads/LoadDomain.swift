@@ -31,7 +31,7 @@ struct Load: Equatable, Identifiable, Sendable {
         eventID: UUID = UUID(),
         occurredAt: Date,
         timezoneIdentifier: String,
-        location: TripEventLocation? = nil,
+        location: TripEventLocation = .unavailable,
         note: String? = nil
     ) throws -> Load {
         guard status.canTransition(to: nextStatus) else {
@@ -62,12 +62,28 @@ struct Load: Equatable, Identifiable, Sendable {
         )
     }
 
+    func transitioning(
+        to nextStatus: LoadStatus,
+        eventID: UUID = UUID(),
+        capture: TripEventCapture,
+        note: String? = nil
+    ) throws -> Load {
+        try transitioning(
+            to: nextStatus,
+            eventID: eventID,
+            occurredAt: capture.occurredAt,
+            timezoneIdentifier: capture.timezoneIdentifier,
+            location: capture.location,
+            note: note
+        )
+    }
+
     func recordingArrival(
         at stopID: UUID,
         eventID: UUID = UUID(),
         occurredAt: Date,
         timezoneIdentifier: String,
-        location: TripEventLocation? = nil,
+        location: TripEventLocation = .unavailable,
         note: String? = nil
     ) throws -> Load {
         try recordingStopEvent(
@@ -81,12 +97,28 @@ struct Load: Equatable, Identifiable, Sendable {
         )
     }
 
+    func recordingArrival(
+        at stopID: UUID,
+        eventID: UUID = UUID(),
+        capture: TripEventCapture,
+        note: String? = nil
+    ) throws -> Load {
+        try recordingArrival(
+            at: stopID,
+            eventID: eventID,
+            occurredAt: capture.occurredAt,
+            timezoneIdentifier: capture.timezoneIdentifier,
+            location: capture.location,
+            note: note
+        )
+    }
+
     func recordingDeparture(
         from stopID: UUID,
         eventID: UUID = UUID(),
         occurredAt: Date,
         timezoneIdentifier: String,
-        location: TripEventLocation? = nil,
+        location: TripEventLocation = .unavailable,
         note: String? = nil
     ) throws -> Load {
         try recordingStopEvent(
@@ -96,6 +128,22 @@ struct Load: Equatable, Identifiable, Sendable {
             occurredAt: occurredAt,
             timezoneIdentifier: timezoneIdentifier,
             location: location,
+            note: note
+        )
+    }
+
+    func recordingDeparture(
+        from stopID: UUID,
+        eventID: UUID = UUID(),
+        capture: TripEventCapture,
+        note: String? = nil
+    ) throws -> Load {
+        try recordingDeparture(
+            from: stopID,
+            eventID: eventID,
+            occurredAt: capture.occurredAt,
+            timezoneIdentifier: capture.timezoneIdentifier,
+            location: capture.location,
             note: note
         )
     }
@@ -126,7 +174,7 @@ struct Load: Equatable, Identifiable, Sendable {
             status: status,
             occurredAt: occurredAt,
             timezoneIdentifier: timezoneIdentifier,
-            location: nil,
+            location: .manual,
             note: trimmedReason
         )
 
@@ -145,7 +193,7 @@ struct Load: Equatable, Identifiable, Sendable {
         eventID: UUID,
         occurredAt: Date,
         timezoneIdentifier: String,
-        location: TripEventLocation?,
+        location: TripEventLocation,
         note: String?
     ) throws -> Load {
         guard stops.contains(where: { $0.id == stopID }) else {
@@ -261,7 +309,7 @@ struct TripEvent: Equatable, Identifiable, Sendable {
     let status: LoadStatus
     let occurredAt: Date
     let timezoneIdentifier: String
-    let location: TripEventLocation?
+    let location: TripEventLocation
     let note: String?
 }
 
@@ -270,6 +318,36 @@ enum TripEventKind: Equatable, Sendable {
     case arrived
     case departed
     case corrected(originalEventID: UUID)
+}
+
+struct TripEventCapture: Equatable, Sendable {
+    let occurredAt: Date
+    let timezoneIdentifier: String
+    let location: TripEventLocation
+
+    // Date is an absolute instant; the timezone preserves how the device
+    // should display and audit the event later.
+    init(
+        occurredAt: Date,
+        timezoneIdentifier: String,
+        location: TripEventLocation = .unavailable
+    ) {
+        self.occurredAt = occurredAt
+        self.timezoneIdentifier = timezoneIdentifier
+        self.location = location
+    }
+
+    init(
+        occurredAt: Date,
+        timeZone: TimeZone,
+        location: TripEventLocation = .unavailable
+    ) {
+        self.init(
+            occurredAt: occurredAt,
+            timezoneIdentifier: timeZone.identifier,
+            location: location
+        )
+    }
 }
 
 struct TripEventLocation: Equatable, Sendable {
@@ -283,6 +361,37 @@ struct TripEventLocation: Equatable, Sendable {
             && latitude != nil
             && longitude != nil
             && horizontalAccuracyMeters != nil
+    }
+
+    var hasDeviceCoordinates: Bool {
+        latitude != nil
+            && longitude != nil
+            && horizontalAccuracyMeters != nil
+    }
+
+    var isManualOrUnverified: Bool {
+        !isDeviceVerified
+    }
+
+    static func capturedDeviceLocation(
+        latitude: Double,
+        longitude: Double,
+        horizontalAccuracyMeters: Double,
+        verifiedAccuracyThresholdMeters: Double = 50
+    ) -> TripEventLocation {
+        if horizontalAccuracyMeters <= verifiedAccuracyThresholdMeters {
+            return .deviceVerified(
+                latitude: latitude,
+                longitude: longitude,
+                horizontalAccuracyMeters: horizontalAccuracyMeters
+            )
+        }
+
+        return .poorAccuracy(
+            latitude: latitude,
+            longitude: longitude,
+            horizontalAccuracyMeters: horizontalAccuracyMeters
+        )
     }
 
     static func deviceVerified(

@@ -1,0 +1,21 @@
+KAN-30 / P0-CORE-07 Evidence
+Implement location-backed trip events
+
+Captured: June 30, 2026 at 11:45 AM America/Detroit
+Worktree: /Users/jerelwalters/Documents/HaulMate-p0-core-07
+Branch: codex/p0-core-07-location-trip-events
+
+Validation command:
+xcodebuild test -project HaulMate.xcodeproj -scheme HaulMate -destination 'platform=iOS Simulator,id=2622ECAD-BA74-4A1F-94D9-0DF82F8F7B42' -only-testing:HaulMateTests/LoadStateMachineTests
+
+Result:
+LoadStateMachineTests passed
+Executed 11 tests
+0 failures
+
+Acceptance evidence covered:
+- UTC instant and device timezone are preserved on trip-event capture.
+- Missing location capture is labeled unavailable.
+- Device location is labeled deviceVerified only when accuracy passes the threshold.
+- Poor accuracy, permission denied, unavailable, and manual event sources are explicit.
+- Manual corrections remain audit-only and are not represented as GPS verified.

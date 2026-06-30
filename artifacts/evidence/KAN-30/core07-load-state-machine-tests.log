@@ -1,0 +1,466 @@
+^DCommand line invocation:
+
+    /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/usr/bin/xcodebuild test -project HaulMate.xcodeproj -scheme HaulMate -destination "platform=iOS Simulator,id=2622ECAD-BA74-4A1F-94D9-0DF82F8F7B42" "-only-testing:HaulMateTests/LoadStateMachineTests"
+
+
+
+Resolve Package Graph
+
+
+
+
+
+Resolved source packages:
+
+  StorageModule: /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios/Packages/StorageModule @ local
+
+
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+
+{ platform:iOS Simulator, arch:arm64, id:2622ECAD-BA74-4A1F-94D9-0DF82F8F7B42, OS:18.1, name:iPhone 16 Pro }
+
+{ platform:iOS Simulator, arch:x86_64, id:2622ECAD-BA74-4A1F-94D9-0DF82F8F7B42, OS:18.1, name:iPhone 16 Pro }
+
+ComputePackagePrebuildTargetDependencyGraph
+
+
+
+Prepare packages
+
+
+
+CreateBuildRequest
+
+
+
+SendProjectDescription
+
+
+
+CreateBuildOperation
+
+
+
+ComputeTargetDependencyGraph
+
+note: Building targets in dependency order
+
+note: Target dependency graph (4 targets)
+
+    Target 'HaulMateTests' in project 'HaulMate'
+
+        ➜ Explicit dependency on target 'HaulMate' in project 'HaulMate'
+
+    Target 'HaulMate' in project 'HaulMate'
+
+        ➜ Explicit dependency on target 'StorageModule' in project 'StorageModule'
+
+    Target 'StorageModule' in project 'StorageModule'
+
+        ➜ Explicit dependency on target 'StorageModule' in project 'StorageModule'
+
+    Target 'StorageModule' in project 'StorageModule' (no dependencies)
+
+
+
+GatherProvisioningInputs
+
+
+
+CreateBuildDescription
+
+
+
+ExecuteExternalTool /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -x c -c /dev/null
+
+
+
+ExecuteExternalTool /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+
+
+ExecuteExternalTool /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+
+
+Build description signature: 444219d5375c077fbafa988d3b9869fd
+
+Build description path: /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/XCBuildData/444219d5375c077fbafa988d3b9869fd.xcbuilddata
+
+ClangStatCache /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk /Users/jerelwalters/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-da4df916250499f38f11c427e17f8b69.sdkstatcache
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios/HaulMate.xcodeproj
+
+    /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-da4df916250499f38f11c427e17f8b69.sdkstatcache
+
+
+
+note: Run script build phase 'Architecture Guard' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'HaulMate' from project 'HaulMate')
+
+ProcessProductPackaging /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios/HaulMate/HaulMate.entitlements /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app-Simulated.xcent (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    
+
+    Entitlements:
+
+    
+
+    {
+
+    "application-identifier" = "FAKETEAMID.com.jerelwalters.HaulMate";
+
+    "com.apple.developer.default-data-protection" = NSFileProtectionCompleteUntilFirstUserAuthentication;
+
+}
+
+    
+
+    builtin-productPackagingUtility /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios/HaulMate/HaulMate.entitlements -entitlements -format xml -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app-Simulated.xcent
+
+
+
+ProcessProductPackaging /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios/HaulMate/HaulMate.entitlements /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app.xcent (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    
+
+    Entitlements:
+
+    
+
+    {
+
+}
+
+    
+
+    builtin-productPackagingUtility /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios/HaulMate/HaulMate.entitlements -entitlements -format xml -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app.xcent
+
+
+
+ProcessProductPackagingDER /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app-Simulated.xcent /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app-Simulated.xcent.der (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    /usr/bin/derq query -f xml -i /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app-Simulated.xcent -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app-Simulated.xcent.der --raw
+
+
+
+ProcessProductPackagingDER /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app.xcent /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app.xcent.der (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    /usr/bin/derq query -f xml -i /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app.xcent -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app.xcent.der --raw
+
+
+
+Ld /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/StorageModule.o normal (in target 'StorageModule' from project 'StorageModule')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios/Packages/StorageModule
+
+    /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -r -isysroot /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -w -L/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator -L/Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator -iframework /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -iframework /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -filelist /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/StorageModule.build/Debug-iphonesimulator/StorageModule.build/Objects-normal/arm64/StorageModule.LinkFileList -nostdlib -Xlinker -object_path_lto -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/StorageModule.build/Debug-iphonesimulator/StorageModule.build/Objects-normal/arm64/StorageModule_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/StorageModule.build/Debug-iphonesimulator/StorageModule.build/Objects-normal/arm64/StorageModule_dependency_info.dat -fobjc-link-runtime -L/Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/StorageModule.build/Debug-iphonesimulator/StorageModule.build/Objects-normal/arm64/StorageModule.swiftmodule @/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/StorageModule.build/Debug-iphonesimulator/StorageModule.build/Objects-normal/arm64/StorageModule-linker-args.resp -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/StorageModule.o
+
+
+
+ExtractAppIntentsMetadata (in target 'StorageModule' from project 'StorageModule')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios/Packages/StorageModule
+
+    /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name StorageModule --sdk-root /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk --xcode-version 17C52 --platform-family iOS --deployment-target 17.0 --bundle-identifier storagemodule.StorageModule --output /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/StorageModule.appintents --target-triple arm64-apple-ios17.0-simulator --binary-file /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/StorageModule.o --dependency-file /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/StorageModule.build/Debug-iphonesimulator/StorageModule.build/Objects-normal/arm64/StorageModule_dependency_info.dat --stringsdata-file /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/StorageModule.build/Debug-iphonesimulator/StorageModule.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/StorageModule.build/Debug-iphonesimulator/StorageModule.build/Objects-normal/arm64/StorageModule.SwiftFileList --metadata-file-list /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/StorageModule.build/Debug-iphonesimulator/StorageModule.build/StorageModule.DependencyMetadataFileList --static-metadata-file-list /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/StorageModule.build/Debug-iphonesimulator/StorageModule.build/StorageModule.DependencyStaticMetadataFileList --swift-const-vals-list /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/StorageModule.build/Debug-iphonesimulator/StorageModule.build/Objects-normal/arm64/StorageModule.SwiftConstValuesFileList --force --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+
+2026-06-30 11:45:23.518 appintentsmetadataprocessor[30480:26646204] Starting appintentsmetadataprocessor export
+
+2026-06-30 11:45:23.599 appintentsmetadataprocessor[30480:26646204] Extracted no relevant App Intents symbols, skipping writing output
+
+
+
+RegisterExecutionPolicyException /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/StorageModule.o (in target 'StorageModule' from project 'StorageModule')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios/Packages/StorageModule
+
+    builtin-RegisterExecutionPolicyException /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/StorageModule.o
+
+
+
+PhaseScriptExecution Architecture\ Guard /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/Script-F10000000000000000000007.sh (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    /bin/sh -c /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/Script-F10000000000000000000007.sh
+
+
+
+Ld /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate.debug.dylib normal (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -dynamiclib -isysroot /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -Os -L/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator -F/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator -filelist /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/Objects-normal/arm64/HaulMate.LinkFileList -install_name @rpath/HaulMate.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/PackageFrameworks -dead_strip -Xlinker -object_path_lto -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/Objects-normal/arm64/HaulMate_lto.o -rdynamic -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/Objects-normal/arm64/HaulMate_dependency_info.dat -fobjc-link-runtime -L/Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/Objects-normal/arm64/HaulMate.swiftmodule @/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/Objects-normal/arm64/HaulMate-linker-args.resp -Wl,-no_warn_duplicate_libraries -framework Security -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -Xlinker -no_adhoc_codesign -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate.debug.dylib -Xlinker -add_ast_path -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/StorageModule.build/Debug-iphonesimulator/StorageModule.build/Objects-normal/arm64/StorageModule.swiftmodule @/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/StorageModule.build/Debug-iphonesimulator/StorageModule.build/Objects-normal/arm64/StorageModule-linker-args.resp
+
+
+
+ConstructStubExecutorLinkFileList /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate-ExecutorLinkFileList-normal-arm64.txt (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    construct-stub-executor-link-file-list /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate.debug.dylib /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate-ExecutorLinkFileList-normal-arm64.txt
+
+note: Using stub executor library with Swift entry point. (in target 'HaulMate' from project 'HaulMate')
+
+
+
+Ld /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate normal (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -isysroot /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -Os -L/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator -F/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/PackageFrameworks -rdynamic -Xlinker -objc_abi_version -Xlinker 2 -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate-ExecutorLinkFileList-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __entitlements -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app-Simulated.xcent -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __ents_der -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app-Simulated.xcent.der /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate.debug.dylib -Xlinker -no_adhoc_codesign -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate
+
+
+
+Ld /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/__preview.dylib normal (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -dynamiclib -isysroot /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -Os -L/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator -F/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator -install_name @rpath/HaulMate.debug.dylib -dead_strip -rdynamic -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/Objects-normal/arm64/HaulMate_dependency_info.dat -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __entitlements -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app-Simulated.xcent -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __ents_der -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app-Simulated.xcent.der -Xlinker -no_adhoc_codesign -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/__preview.dylib
+
+
+
+ExtractAppIntentsMetadata (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name HaulMate --sdk-root /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk --xcode-version 17C52 --platform-family iOS --deployment-target 17.0 --bundle-identifier com.jerelwalters.HaulMate --output /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app --target-triple arm64-apple-ios17.0-simulator --binary-file /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate --dependency-file /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/Objects-normal/arm64/HaulMate_dependency_info.dat --stringsdata-file /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/Objects-normal/arm64/HaulMate.SwiftFileList --metadata-file-list /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.DependencyMetadataFileList --static-metadata-file-list /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.DependencyStaticMetadataFileList --swift-const-vals-list /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/Objects-normal/arm64/HaulMate.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+
+2026-06-30 11:45:24.056 appintentsmetadataprocessor[30686:26646671] Starting appintentsmetadataprocessor export
+
+2026-06-30 11:45:24.057 appintentsmetadataprocessor[30686:26646671] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+
+
+ProcessInfoPlistFile /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/Info.plist /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios/HaulMate/Resources/Info.plist (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    builtin-infoPlistUtility /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios/HaulMate/Resources/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/Info.plist
+
+
+
+CopySwiftLibs /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate.debug.dylib --scan-folder /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/Frameworks --scan-folder /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns --scan-folder /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/SystemExtensions --scan-folder /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/Extensions --platform iphonesimulator --toolchain /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/Frameworks --strip-bitcode --strip-bitcode-tool /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os --back-deploy-swift-span
+
+
+
+GenerateDSYMFile /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app.dSYM /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dsymutil -q /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app.dSYM
+
+
+
+GenerateDSYMFile /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app.dSYM /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate.debug.dylib (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dsymutil /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate.debug.dylib -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app.dSYM
+
+
+
+ProcessInfoPlistFile /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest/Info.plist /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/empty-HaulMateTests.plist (in target 'HaulMateTests' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    builtin-infoPlistUtility /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/empty-HaulMateTests.plist -producttype com.apple.product-type.bundle.unit-test -expandbuildsettings -format binary -platform iphonesimulator -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest/Info.plist
+
+
+
+Ld /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest/HaulMateTests normal (in target 'HaulMateTests' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -bundle -isysroot /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -Os -L/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator -L/Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator -iframework /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -iframework /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -filelist /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/Objects-normal/arm64/HaulMateTests.LinkFileList -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/PackageFrameworks -Xlinker -rpath -Xlinker @loader_path/Frameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -dead_strip -bundle_loader /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate -Xlinker -object_path_lto -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/Objects-normal/arm64/HaulMateTests_lto.o -rdynamic -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/Objects-normal/arm64/HaulMateTests_dependency_info.dat -fobjc-link-runtime -L/Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/Objects-normal/arm64/HaulMateTests.swiftmodule @/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/Objects-normal/arm64/HaulMateTests-linker-args.resp -Wl,-no_warn_duplicate_libraries -framework Security -Xlinker -needed_framework -Xlinker XCTest -framework XCTest -Xlinker -needed-lXCTestSwiftSupport -lXCTestSwiftSupport /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate.debug.dylib -Xlinker -no_adhoc_codesign -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest/HaulMateTests
+
+
+
+CopySwiftLibs /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest (in target 'HaulMateTests' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest/HaulMateTests --scan-folder /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest/Frameworks --scan-folder /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest/PlugIns --scan-folder /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest/SystemExtensions --scan-folder /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest/Extensions --platform iphonesimulator --toolchain /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest/Frameworks --strip-bitcode --scan-executable /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os --back-deploy-swift-span
+
+
+
+ExtractAppIntentsMetadata (in target 'HaulMateTests' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name HaulMateTests --sdk-root /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk --xcode-version 17C52 --platform-family iOS --deployment-target 17.0 --bundle-identifier com.jerelwalters.HaulMateTests --output /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest --target-triple arm64-apple-ios17.0-simulator --binary-file /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest/HaulMateTests --dependency-file /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/Objects-normal/arm64/HaulMateTests_dependency_info.dat --stringsdata-file /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/Objects-normal/arm64/HaulMateTests.SwiftFileList --metadata-file-list /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/HaulMateTests.DependencyMetadataFileList --static-metadata-file-list /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/HaulMateTests.DependencyStaticMetadataFileList --swift-const-vals-list /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMateTests.build/Objects-normal/arm64/HaulMateTests.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+
+2026-06-30 11:45:24.465 appintentsmetadataprocessor[30691:26646720] Starting appintentsmetadataprocessor export
+
+2026-06-30 11:45:24.466 appintentsmetadataprocessor[30691:26646720] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+
+
+GenerateDSYMFile /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest.dSYM /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest/HaulMateTests (in target 'HaulMateTests' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    /Users/jerelwalters/Applications/Xcode-26.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dsymutil /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest/HaulMateTests -o /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest.dSYM
+
+
+
+CodeSign /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest (in target 'HaulMateTests' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    
+
+    Signing Identity:     "Sign to Run Locally"
+
+    
+
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/PlugIns/HaulMateTests.xctest
+
+
+
+CodeSign /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate.debug.dylib (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    
+
+    Signing Identity:     "Sign to Run Locally"
+
+    
+
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/HaulMate.debug.dylib
+
+
+
+CodeSign /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/__preview.dylib (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    
+
+    Signing Identity:     "Sign to Run Locally"
+
+    
+
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app/__preview.dylib
+
+
+
+CodeSign /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    
+
+    Signing Identity:     "Sign to Run Locally"
+
+    
+
+    /usr/bin/codesign --force --sign - --entitlements /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Intermediates.noindex/HaulMate.build/Debug-iphonesimulator/HaulMate.build/HaulMate.app.xcent --timestamp\=none --generate-entitlement-der /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app
+
+
+
+Validate /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app (in target 'HaulMate' from project 'HaulMate')
+
+    cd /Users/jerelwalters/Documents/HaulMate-p0-core-07/ios
+
+    builtin-validationUtility /Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Build/Products/Debug-iphonesimulator/HaulMate.app -shallow-bundle -infoplist-subpath Info.plist
+
+
+
+Testing started
+
+2026-06-30 11:45:29.976057-0400 HaulMate[30736:26647459] [General] Failed to send CA Event for app launch measurements for ca_event_type: 0 event_name: com.apple.app_launch_measurement.FirstFramePresentationMetric
+
+Test Suite 'Selected tests' started at 2026-06-30 11:45:30.170.
+
+Test Suite 'HaulMateTests.xctest' started at 2026-06-30 11:45:30.171.
+
+Test Suite 'LoadStateMachineTests' started at 2026-06-30 11:45:30.171.
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testArrivalAndDepartureEventsDoNotChangeLoadStatus]' started.
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testArrivalAndDepartureEventsDoNotChangeLoadStatus]' passed (0.001 seconds).
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testCancelledStatusIsTerminal]' started.
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testCancelledStatusIsTerminal]' passed (0.002 seconds).
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testCorrectionAppendsAuditEventWithoutReplacingOriginalEvent]' started.
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testCorrectionAppendsAuditEventWithoutReplacingOriginalEvent]' passed (0.000 seconds).
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testCorrectionRequiresExistingEventAndReason]' started.
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testCorrectionRequiresExistingEventAndReason]' passed (0.004 seconds).
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testDisputedStatusIsTerminal]' started.
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testDisputedStatusIsTerminal]' passed (0.000 seconds).
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testForwardTripSequenceAppendsStatusEvents]' started.
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testForwardTripSequenceAppendsStatusEvents]' passed (0.000 seconds).
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testInvalidTransitionThrowsAndLeavesOriginalLoadUnchanged]' started.
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testInvalidTransitionThrowsAndLeavesOriginalLoadUnchanged]' passed (0.001 seconds).
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testStopEventCaptureLabelsDeniedUnavailablePoorAccuracyAndManualTruthfully]' started.
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testStopEventCaptureLabelsDeniedUnavailablePoorAccuracyAndManualTruthfully]' passed (0.000 seconds).
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testStopEventRequiresKnownStop]' started.
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testStopEventRequiresKnownStop]' passed (0.011 seconds).
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testTransitionCapturePreservesUTCInstantTimezoneAndLocationSource]' started.
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testTransitionCapturePreservesUTCInstantTimezoneAndLocationSource]' passed (0.000 seconds).
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testTransitionDefaultsMissingLocationCaptureToUnavailable]' started.
+
+Test Case '-[HaulMateTests.LoadStateMachineTests testTransitionDefaultsMissingLocationCaptureToUnavailable]' passed (0.000 seconds).
+
+Test Suite 'LoadStateMachineTests' passed at 2026-06-30 11:45:30.194.
+
+	 Executed 11 tests, with 0 failures (0 unexpected) in 0.021 (0.023) seconds
+
+Test Suite 'HaulMateTests.xctest' passed at 2026-06-30 11:45:30.194.
+
+	 Executed 11 tests, with 0 failures (0 unexpected) in 0.021 (0.024) seconds
+
+Test Suite 'Selected tests' passed at 2026-06-30 11:45:30.194.
+
+	 Executed 11 tests, with 0 failures (0 unexpected) in 0.021 (0.024) seconds
+
+2026-06-30 11:45:30.488 xcodebuild[30381:26645698] [MT] IDETestOperationsObserverDebug: 5.854 elapsed -- Testing started completed.
+
+2026-06-30 11:45:30.489 xcodebuild[30381:26645698] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+
+2026-06-30 11:45:30.489 xcodebuild[30381:26645698] [MT] IDETestOperationsObserverDebug: 5.854 sec, +5.854 sec -- end
+
+
+
+Test session results, code coverage, and logs:
+
+	/Users/jerelwalters/Library/Developer/Xcode/DerivedData/HaulMate-dxwaosqlfrlpvqdtcoomytdjpuqg/Logs/Test/Test-HaulMate-2026.06.30_11-45-21--0400.xcresult
+
+
+
+** TEST SUCCEEDED **
+
+
+
