@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>KAN-30 CORE-07 Evidence</title>
+  <style>
+    body {
+      background: #f7f7f2;
+      color: #161616;
+      font: 24px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      margin: 0;
+      padding: 56px;
+    }
+
+    h1 {
+      font-size: 42px;
+      line-height: 1.1;
+      margin: 0 0 12px;
+    }
+
+    h2 {
+      font-size: 28px;
+      margin: 36px 0 10px;
+    }
+
+    code {
+      background: #ecece4;
+      border-radius: 6px;
+      display: block;
+      font: 20px/1.45 "SF Mono", Menlo, monospace;
+      padding: 18px;
+      white-space: pre-wrap;
+    }
+
+    ul {
+      margin-top: 10px;
+      padding-left: 28px;
+    }
+  </style>
+</head>
+<body>
+  <h1>KAN-30 / P0-CORE-07 Evidence</h1>
+  <p><strong>Implement location-backed trip events</strong></p>
+  <p>Captured: June 30, 2026 at 11:45 AM America/Detroit</p>
+  <p>Branch: <code>codex/p0-core-07-location-trip-events</code></p>
+
+  <h2>Validation Command</h2>
+  <code>xcodebuild test -project HaulMate.xcodeproj -scheme HaulMate -destination 'platform=iOS Simulator,id=2622ECAD-BA74-4A1F-94D9-0DF82F8F7B42' -only-testing:HaulMateTests/LoadStateMachineTests</code>
+
+  <h2>Result</h2>
+  <ul>
+    <li>LoadStateMachineTests passed.</li>
+    <li>Executed 11 tests.</li>
+    <li>0 failures.</li>
+  </ul>
+
+  <h2>Acceptance Evidence Covered</h2>
+  <ul>
+    <li>UTC instant and device timezone are preserved on trip-event capture.</li>
+    <li>Missing location capture is labeled unavailable.</li>
+    <li>Device location is labeled deviceVerified only when accuracy passes the threshold.</li>
+    <li>Poor accuracy, permission denied, unavailable, and manual event sources are explicit.</li>
+    <li>Manual corrections remain audit-only and are not represented as GPS verified.</li>
+  </ul>
+</body>
+</html>

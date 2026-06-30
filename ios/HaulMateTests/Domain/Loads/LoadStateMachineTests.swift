@@ -51,6 +51,45 @@ final class LoadStateMachineTests: XCTestCase {
         XCTAssertEqual(load.tripEvents.map(\.status), statuses)
     }
 
+    func testTransitionCapturePreservesUTCInstantTimezoneAndLocationSource() throws {
+        let capture = TripEventCapture(
+            occurredAt: Dates.event(0),
+            timezoneIdentifier: Constants.timezoneIdentifier,
+            location: .capturedDeviceLocation(
+                latitude: 42.3314,
+                longitude: -83.0458,
+                horizontalAccuracyMeters: 12
+            )
+        )
+
+        let accepted = try Load(id: IDs.load).transitioning(
+            to: .accepted,
+            eventID: IDs.event(0),
+            capture: capture
+        )
+        let event = try XCTUnwrap(accepted.tripEvents.first)
+
+        XCTAssertEqual(event.occurredAt, Dates.event(0))
+        XCTAssertEqual(event.timezoneIdentifier, Constants.timezoneIdentifier)
+        XCTAssertEqual(event.location.source, .deviceVerified)
+        XCTAssertEqual(event.location.latitude, 42.3314)
+        XCTAssertEqual(event.location.longitude, -83.0458)
+        XCTAssertEqual(event.location.horizontalAccuracyMeters, 12)
+        XCTAssertTrue(event.location.isDeviceVerified)
+    }
+
+    func testTransitionDefaultsMissingLocationCaptureToUnavailable() throws {
+        let accepted = try Load(id: IDs.load).transitioning(
+            to: .accepted,
+            eventID: IDs.event(0),
+            occurredAt: Dates.event(0),
+            timezoneIdentifier: Constants.timezoneIdentifier
+        )
+
+        XCTAssertEqual(accepted.tripEvents.first?.location, .unavailable)
+        XCTAssertEqual(accepted.tripEvents.first?.location.isDeviceVerified, false)
+    }
+
     func testInvalidTransitionThrowsAndLeavesOriginalLoadUnchanged() {
         let load = Load(id: IDs.load)
 
@@ -184,8 +223,50 @@ final class LoadStateMachineTests: XCTestCase {
         XCTAssertEqual(departed.status, .atPickup)
         XCTAssertEqual(departed.tripEvents.map(\.kind), [.arrived, .departed])
         XCTAssertEqual(departed.tripEvents.map(\.stopID), [IDs.pickupStop, IDs.pickupStop])
-        XCTAssertEqual(departed.tripEvents[0].location?.isDeviceVerified, true)
-        XCTAssertEqual(departed.tripEvents[1].location?.isDeviceVerified, false)
+        XCTAssertEqual(departed.tripEvents[0].location.isDeviceVerified, true)
+        XCTAssertEqual(departed.tripEvents[1].location.isDeviceVerified, false)
+        XCTAssertEqual(departed.tripEvents[1].location.source, .poorAccuracy)
+    }
+
+    func testStopEventCaptureLabelsDeniedUnavailablePoorAccuracyAndManualTruthfully() throws {
+        let stop = LoadStop(
+            id: IDs.pickupStop,
+            kind: .pickup,
+            sequence: 0,
+            facilityName: "Detroit Pickup"
+        )
+        var load = Load(id: IDs.load, status: .atPickup, stops: [stop])
+        let locations: [TripEventLocation] = [
+            .permissionDenied,
+            .unavailable,
+            .capturedDeviceLocation(
+                latitude: 42.3314,
+                longitude: -83.0458,
+                horizontalAccuracyMeters: 125
+            ),
+            .manual
+        ]
+
+        for (index, location) in locations.enumerated() {
+            load = try load.recordingArrival(
+                at: IDs.pickupStop,
+                eventID: IDs.event(index),
+                capture: TripEventCapture(
+                    occurredAt: Dates.event(index),
+                    timezoneIdentifier: Constants.timezoneIdentifier,
+                    location: location
+                )
+            )
+        }
+
+        XCTAssertEqual(
+            load.tripEvents.map(\.location.source),
+            [.permissionDenied, .unavailable, .poorAccuracy, .manual]
+        )
+        XCTAssertEqual(load.tripEvents.map(\.location.isDeviceVerified), [false, false, false, false])
+        XCTAssertEqual(load.tripEvents.map(\.location.isManualOrUnverified), [true, true, true, true])
+        XCTAssertEqual(load.tripEvents[2].location.hasDeviceCoordinates, true)
+        XCTAssertEqual(load.tripEvents[3].location.hasDeviceCoordinates, false)
     }
 
     func testStopEventRequiresKnownStop() {
@@ -234,6 +315,7 @@ final class LoadStateMachineTests: XCTestCase {
             corrected.tripEvents[1].note,
             "Driver tapped accepted before broker confirmed."
         )
+        XCTAssertEqual(corrected.tripEvents[1].location, .manual)
         XCTAssertEqual(corrected.status, .accepted)
     }
 
