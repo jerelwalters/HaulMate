@@ -118,4 +118,11 @@ final class HaulMateLocalStorageRepository {
     func deleteSyncMetadata() throws {
         try storage.delete(HaulMateStorageKeys.syncMetadata)
     }
+
+    func deleteAccountScopedData() throws {
+        try deleteActiveWorkflow()
+        try deleteProfile()
+        try deleteRecentDocuments()
+        try deleteSyncMetadata()
+    }
 }

@@ -6,6 +6,8 @@
 import StorageModule
 
 enum HaulMateStorageKeys {
+    static let authSession = StorageKey("auth-session")
+    static let authSessionUserID = StorageKey("auth-session-user-id")
     static let activeWorkflow = StorageKey("active-workflow")
     static let profile = StorageKey("profile")
     static let recentDocuments = StorageKey("recent-documents")

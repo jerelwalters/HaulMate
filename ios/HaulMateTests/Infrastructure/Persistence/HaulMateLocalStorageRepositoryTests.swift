@@ -184,6 +184,70 @@ final class HaulMateLocalStorageRepositoryTests: XCTestCase {
 
         XCTAssertNil(try repository.readSyncMetadata())
     }
+
+    func testDeleteAccountScopedDataClearsEveryLocalAccountKey() throws {
+        let repository = HaulMateLocalStorageRepository(storage: MemoryStorage())
+        let loadID = UUID(uuidString: "11111111-1111-1111-1111-111111111111")!
+
+        try repository.saveActiveWorkflow(
+            ActiveWorkflowSnapshot(
+                activeLoadID: loadID,
+                navigationSnapshot: NavigationSnapshot(
+                    selectedTab: .loads,
+                    dashboardPath: [],
+                    loadsPath: [.load(id: loadID)],
+                    settingsPath: [],
+                    presentedSheet: nil
+                ),
+                updatedAt: Date(timeIntervalSince1970: 1_000)
+            )
+        )
+        try repository.saveProfile(
+            ProfileSnapshot(
+                businessProfile: .validPilotProfile,
+                truckCostProfile: .figmaBaseline
+            )
+        )
+        try repository.saveRecentDocuments(
+            RecentDocumentsSnapshot(
+                documents: [
+                    RecentDocumentReference(
+                        id: UUID(uuidString: "22222222-2222-2222-2222-222222222222")!,
+                        loadID: loadID,
+                        kind: .proofOfDelivery,
+                        fileName: "pod.pdf",
+                        contentType: "application/pdf",
+                        byteCount: 82_400,
+                        updatedAt: Date(timeIntervalSince1970: 2_000)
+                    )
+                ],
+                updatedAt: Date(timeIntervalSince1970: 2_100)
+            )
+        )
+        try repository.saveSyncMetadata(
+            SyncMetadataSnapshot(
+                pendingMutationCount: 1,
+                failedMutationCount: 0,
+                records: [
+                    SyncRecordMetadata(
+                        id: UUID(uuidString: "33333333-3333-3333-3333-333333333333")!,
+                        entityKind: .load,
+                        entityID: loadID,
+                        state: .localOnly,
+                        updatedAt: Date(timeIntervalSince1970: 3_000)
+                    )
+                ],
+                updatedAt: Date(timeIntervalSince1970: 3_100)
+            )
+        )
+
+        try repository.deleteAccountScopedData()
+
+        XCTAssertNil(try repository.readActiveWorkflow())
+        XCTAssertNil(try repository.readProfile())
+        XCTAssertNil(try repository.readRecentDocuments())
+        XCTAssertNil(try repository.readSyncMetadata())
+    }
 }
 
 @MainActor

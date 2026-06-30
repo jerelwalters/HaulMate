@@ -6,7 +6,7 @@
 import Foundation
 import Observation
 
-struct SessionUser: Equatable, Sendable {
+struct SessionUser: Codable, Equatable, Sendable {
     let id: UUID
     let displayName: String
 }
@@ -86,7 +86,11 @@ final class AppRootRepository {
     }
 
     func signOut() async {
-        await service.signOut()
+        do {
+            try await service.signOut()
+        } catch {
+            // The app must still leave the authenticated UI when local cleanup fails.
+        }
         phase = .unauthenticated
     }
 }
