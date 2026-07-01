@@ -15,6 +15,7 @@ precise coordinates, private documents, or privileged credentials.
 - `Vite` serves the app locally and builds the static `dist/` output.
 - `TypeScript` gives the web code compile-time type checking.
 - `Vitest` runs unit tests for pure mapping and formatting logic.
+- `Playwright` verifies the tracking page in Chromium and WebKit.
 
 ## Tracking Contract
 
@@ -46,5 +47,19 @@ Run checks:
 ```sh
 npm run typecheck
 npm test
+npm run test:e2e
 npm run build
 ```
+
+## Edge Function Configuration
+
+The browser page reads the share token from `?token=`, `?share=`,
+`?shareToken=`, or `/track/<token>`, then calls the public tracking Edge
+Function with native `fetch`. Configure the endpoint with:
+
+```sh
+VITE_HAULMATE_TRACKING_FUNCTION_URL=https://<project-ref>.functions.supabase.co/public-tracking
+```
+
+The page never logs the share token or response payload. Invalid, expired, and
+revoked links are rendered as the same unavailable-link state.
