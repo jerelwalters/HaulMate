@@ -1,6 +1,6 @@
-# HaulMate broker tracking web
+# HaulMate Broker Tracking Web
 
-This directory will contain the static TypeScript broker tracking page. The P0
+This directory contains the static TypeScript broker tracking page. The P0
 surface is a no-login, revocable, per-load view backed by a token-validating
 Supabase Edge Function.
 
@@ -8,5 +8,32 @@ The page may display approved status, stop, ETA, delay, freshness, and POD
 availability fields. It must not expose rates, profit, expenses, other loads,
 precise coordinates, private documents, or privileged credentials.
 
-The project toolchain will be selected and initialized with `P0-WEB-01`; no web
-runtime dependency is needed for the repository bootstrap.
+## Tooling
+
+- `Node.js` runs the local web toolchain.
+- `npm` installs packages and runs the commands in `package.json`.
+- `Vite` serves the app locally and builds the static `dist/` output.
+- `TypeScript` gives the web code compile-time type checking.
+- `Vitest` runs unit tests for pure mapping and formatting logic.
+
+## Commands
+
+Install dependencies once:
+
+```sh
+npm install
+```
+
+Run the local dev server:
+
+```sh
+npm run dev
+```
+
+Run checks:
+
+```sh
+npm run typecheck
+npm test
+npm run build
+```
