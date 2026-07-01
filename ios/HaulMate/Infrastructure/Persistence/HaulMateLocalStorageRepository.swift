@@ -102,6 +102,23 @@ final class HaulMateLocalStorageRepository {
         try storage.delete(HaulMateStorageKeys.recentDocuments)
     }
 
+    func readSyncOutbox() throws -> SyncOutboxSnapshot? {
+        try storage
+            .read(StoredSyncOutbox.self, for: HaulMateStorageKeys.syncOutbox)?
+            .snapshot
+    }
+
+    func saveSyncOutbox(_ snapshot: SyncOutboxSnapshot) throws {
+        try storage.save(
+            StoredSyncOutbox(snapshot: snapshot),
+            for: HaulMateStorageKeys.syncOutbox
+        )
+    }
+
+    func deleteSyncOutbox() throws {
+        try storage.delete(HaulMateStorageKeys.syncOutbox)
+    }
+
     func readSyncMetadata() throws -> SyncMetadataSnapshot? {
         try storage
             .read(StoredSyncMetadata.self, for: HaulMateStorageKeys.syncMetadata)?
@@ -123,6 +140,9 @@ final class HaulMateLocalStorageRepository {
         try deleteActiveWorkflow()
         try deleteProfile()
         try deleteRecentDocuments()
+        try deleteSyncOutbox()
         try deleteSyncMetadata()
     }
 }
+
+extension HaulMateLocalStorageRepository: SyncOutboxStoring {}

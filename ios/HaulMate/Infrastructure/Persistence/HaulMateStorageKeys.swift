@@ -11,5 +11,6 @@ enum HaulMateStorageKeys {
     static let activeWorkflow = StorageKey("active-workflow")
     static let profile = StorageKey("profile")
     static let recentDocuments = StorageKey("recent-documents")
+    static let syncOutbox = StorageKey("sync-outbox")
     static let syncMetadata = StorageKey("sync-metadata")
 }

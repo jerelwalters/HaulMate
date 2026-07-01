@@ -185,6 +185,35 @@ final class HaulMateLocalStorageRepositoryTests: XCTestCase {
         XCTAssertNil(try repository.readSyncMetadata())
     }
 
+    func testSyncOutboxRoundTripPersistsQueuedOperations() throws {
+        let repository = HaulMateLocalStorageRepository(storage: MemoryStorage())
+        let operation = try SyncOperation.loadUpsert(
+            id: UUID(uuidString: "44444444-4444-4444-4444-444444444444")!,
+            idempotencyKey: "load:55555555-5555-5555-5555-555555555555:v1",
+            payload: LoadSyncPayload(
+                loadID: UUID(uuidString: "55555555-5555-5555-5555-555555555555")!,
+                customerID: UUID(uuidString: "66666666-6666-6666-6666-666666666666")!,
+                referenceNumber: "RC-4182",
+                status: .accepted,
+                lineHaulRate: Decimal(1_850),
+                loadedMiles: Decimal(540)
+            ),
+            createdAt: Date(timeIntervalSince1970: 3_200)
+        )
+        let snapshot = SyncOutboxSnapshot(
+            operations: [operation],
+            updatedAt: Date(timeIntervalSince1970: 3_300)
+        )
+
+        try repository.saveSyncOutbox(snapshot)
+
+        XCTAssertEqual(try repository.readSyncOutbox(), snapshot)
+
+        try repository.deleteSyncOutbox()
+
+        XCTAssertNil(try repository.readSyncOutbox())
+    }
+
     func testDeleteAccountScopedDataClearsEveryLocalAccountKey() throws {
         let repository = HaulMateLocalStorageRepository(storage: MemoryStorage())
         let loadID = UUID(uuidString: "11111111-1111-1111-1111-111111111111")!
@@ -224,6 +253,26 @@ final class HaulMateLocalStorageRepositoryTests: XCTestCase {
                 updatedAt: Date(timeIntervalSince1970: 2_100)
             )
         )
+        try repository.saveSyncOutbox(
+            SyncOutboxSnapshot(
+                operations: [
+                    try SyncOperation.loadUpsert(
+                        id: UUID(uuidString: "44444444-4444-4444-4444-444444444444")!,
+                        idempotencyKey: "load:\(loadID.uuidString):v1",
+                        payload: LoadSyncPayload(
+                            loadID: loadID,
+                            customerID: UUID(uuidString: "55555555-5555-5555-5555-555555555555")!,
+                            referenceNumber: "RC-4182",
+                            status: .accepted,
+                            lineHaulRate: Decimal(1_850),
+                            loadedMiles: Decimal(540)
+                        ),
+                        createdAt: Date(timeIntervalSince1970: 2_500)
+                    )
+                ],
+                updatedAt: Date(timeIntervalSince1970: 2_600)
+            )
+        )
         try repository.saveSyncMetadata(
             SyncMetadataSnapshot(
                 pendingMutationCount: 1,
@@ -246,6 +295,7 @@ final class HaulMateLocalStorageRepositoryTests: XCTestCase {
         XCTAssertNil(try repository.readActiveWorkflow())
         XCTAssertNil(try repository.readProfile())
         XCTAssertNil(try repository.readRecentDocuments())
+        XCTAssertNil(try repository.readSyncOutbox())
         XCTAssertNil(try repository.readSyncMetadata())
     }
 }

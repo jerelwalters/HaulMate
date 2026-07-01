@@ -149,7 +149,9 @@ enum SyncRecordEntityKind: String, Codable, Sendable {
 
 enum SyncRecordState: String, Codable, Sendable {
     case localOnly
+    case queued
     case syncing
     case synced
     case failed
+    case needsReview
 }
