@@ -16,6 +16,17 @@ precise coordinates, private documents, or privileged credentials.
 - `TypeScript` gives the web code compile-time type checking.
 - `Vitest` runs unit tests for pure mapping and formatting logic.
 
+## Tracking Contract
+
+`src/tracking/types.ts` defines the public `TrackingResponse` expected from the
+`KAN-41` Edge Function. It is intentionally smaller than the backend schema and
+contains only broker-visible fields: carrier display name, load reference,
+scoped stops, appointment windows, status, ETA, delay reason, freshness, events,
+and POD availability.
+
+`src/tracking/fixtures.ts` provides representative responses for UI and tests
+while the backend contract is finalized.
+
 ## Commands
 
 Install dependencies once:
