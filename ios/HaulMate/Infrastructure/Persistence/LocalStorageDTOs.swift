@@ -385,6 +385,36 @@ struct StoredSyncMetadata: Codable, Equatable {
     }
 }
 
+struct StoredSyncOutbox: Codable, Equatable {
+    let schemaVersion: Int
+    var operations: [SyncOperation]
+    var updatedAt: Date
+
+    init(
+        schemaVersion: Int = 1,
+        operations: [SyncOperation],
+        updatedAt: Date
+    ) {
+        self.schemaVersion = schemaVersion
+        self.operations = operations
+        self.updatedAt = updatedAt
+    }
+
+    init(snapshot: SyncOutboxSnapshot) {
+        self.init(
+            operations: snapshot.operations,
+            updatedAt: snapshot.updatedAt
+        )
+    }
+
+    var snapshot: SyncOutboxSnapshot {
+        SyncOutboxSnapshot(
+            operations: operations,
+            updatedAt: updatedAt
+        )
+    }
+}
+
 struct StoredSyncRecordMetadataV1: Codable, Equatable {
     var id: UUID
     var entityKind: SyncRecordEntityKind
