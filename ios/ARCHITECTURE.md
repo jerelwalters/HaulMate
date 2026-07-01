@@ -22,6 +22,13 @@ orchestration through injected storage, refresh, and cleanup protocols.
 Supabase Auth types must stay inside a future vendor adapter or manager mapping
 layer; the app target should keep using HaulMate auth models only.
 
+Remote endpoint work should follow the networking boundary in
+[`NETWORKING.md`](NETWORKING.md). The generic network module owns transport and
+Codable request/response handling only; repositories and feature UI still depend
+on app-owned service protocols. A future switch from `URLSession` to Alamofire
+should require replacing an `HTTPClient` implementation, not changing
+repositories, domain models, or SwiftUI views.
+
 ## Offline-first target
 
 HaulMate is structured to become offline-first, but the current app shell is not
@@ -80,6 +87,10 @@ behavior.
 5. Test repository behavior with a mock service and adapter mapping separately.
 
 Switching vendors should require replacing an adapter, not changing feature UI.
+
+The same rule applies to transport libraries. `URLSession`, Alamofire, and
+Supabase SDK types belong behind adapters. They should not appear in feature,
+repository, or domain APIs.
 
 ## Enforcement
 

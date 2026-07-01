@@ -11,7 +11,7 @@ Do not build both clients, adopt React Native, or introduce Kotlin Multiplatform
 | App and UI | Swift 6 + SwiftUI | $0 | Uses existing senior expertise and first-party frameworks |
 | Architecture | Feature modules with Observation and repository boundaries | $0 | Simple native data flow without a third-party architecture framework |
 | Local/offline data | SwiftData with explicit migrations | $0 | First-party persistence and a durable local outbox |
-| Networking | `supabase-swift` behind app-owned protocols | $0 | Fast access to Auth, PostgREST, Storage, and Edge Functions |
+| Networking | `supabase-swift` and generic HTTP transport behind app-owned protocols | $0 | Fast access to Auth, PostgREST, Storage, Edge Functions, and transport swaps |
 | Backend | Supabase Postgres | $0 for pilot | Relational data suits loads, stops, charges, documents, and invoices |
 | Authentication | Supabase Auth, email/password | Included | Avoids a separate identity vendor |
 | File storage | Supabase private Storage buckets | Included | Simplest ownership and signed-URL model for the pilot |
@@ -60,7 +60,12 @@ Consider KMP only after both clients exist and duplicated domain or sync code ha
 
 Supabase provides Postgres, authentication, storage, row-level security, and server functions in one service. The pilot can remain on the free plan. Upgrade before public production when backups, non-pausing service, support, or higher storage become necessary.
 
-Keep `supabase-swift` behind app-owned `AuthClient`, `LoadRemoteStore`, and `DocumentStore` protocols. This preserves fast implementation without coupling the domain and UI directly to a vendor SDK.
+Keep `supabase-swift` behind app-owned protocols such as `AuthService`, future
+load remote store, and document store boundaries. Use a small generic
+`NetworkingModule` for app-owned JSON transport and Edge Function calls when the
+SDK is not the right fit. This preserves fast implementation without coupling
+the domain and UI directly to a vendor SDK or transport library such as
+`URLSession` or Alamofire.
 
 ## 4. Scope decisions that save money
 
