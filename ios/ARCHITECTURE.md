@@ -14,6 +14,14 @@ Feature UI -> Repository -> app-owned service protocol <- implementation adapter
 - Vendor adapters live under `HaulMate/Infrastructure/Vendors/<Vendor>`.
 - The composition root is the only layer allowed to select concrete adapters.
 
+`AuthRepository` lives in `AuthorizationModule` and is the app-facing auth
+boundary. It exposes `authStatus` for app root routing plus sign-in, sign-up,
+profile, password reset, and sign-out operations. `AuthSessionManager` is an
+internal module implementation detail that owns auth session lifecycle
+orchestration through injected storage, refresh, and cleanup protocols.
+Supabase Auth types must stay inside a future vendor adapter or manager mapping
+layer; the app target should keep using HaulMate auth models only.
+
 ## Offline-first target
 
 HaulMate is structured to become offline-first, but the current app shell is not
@@ -77,7 +85,9 @@ Switching vendors should require replacing an adapter, not changing feature UI.
 
 `Scripts/check_architecture.sh` runs during every app build. It currently ensures:
 
-- Feature UI and `AppRootView` do not reference `AppService` or `AppRootManager`.
+- Feature UI and `AppRootView` do not reference `AuthService`.
+- The app target does not reference `AuthSessionManager`; construction goes
+  through `AuthRepository`.
 - Feature UI imports only approved system frameworks.
 - Repository files import only Foundation and Observation.
 

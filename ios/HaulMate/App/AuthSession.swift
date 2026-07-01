@@ -3,74 +3,27 @@
 //  Copyright © 2026 Jerel Walters. All rights reserved.
 //
 
-import Foundation
+import AuthorizationModule
 
-struct AuthSession: Codable, Equatable, Sendable {
-    private static let localDevelopmentLifetime: TimeInterval = 24 * 60 * 60
+typealias SessionUser = AuthorizationModule.SessionUser
+typealias SignInRequest = AuthorizationModule.SignInRequest
+typealias SignUpRequest = AuthorizationModule.SignUpRequest
+typealias BusinessProfileDraft = AuthorizationModule.BusinessProfileDraft
+typealias BusinessProfileValidationError = AuthorizationModule.BusinessProfileValidationError
+typealias BusinessProfileValidationReason = AuthorizationModule.BusinessProfileValidationReason
+typealias BusinessProfileField = AuthorizationModule.BusinessProfileField
 
-    let user: SessionUser
-    let accessToken: String
-    let refreshToken: String
-    let expiresAt: Date
-    let savedAt: Date
+typealias AuthSession = AuthorizationModule.AuthSession
+typealias AuthSessionStoring = AuthorizationModule.AuthSessionStoring
+typealias BusinessProfileStoring = AuthorizationModule.BusinessProfileStoring
+typealias AuthSessionRefreshing = AuthorizationModule.AuthSessionRefreshing
+typealias NoOpAuthSessionRefresher = AuthorizationModule.NoOpAuthSessionRefresher
+typealias AccountScopedDataClearing = AuthorizationModule.AccountScopedDataClearing
 
-    init(
-        user: SessionUser,
-        accessToken: String,
-        refreshToken: String,
-        expiresAt: Date,
-        savedAt: Date
-    ) {
-        self.user = user
-        self.accessToken = accessToken
-        self.refreshToken = refreshToken
-        self.expiresAt = expiresAt
-        self.savedAt = savedAt
-    }
-
-    static func localDevelopmentSession(
-        user: SessionUser,
-        now: Date
-    ) -> AuthSession {
-        // P0-MOB-02 follow-up replaces these local-development tokens with Supabase Auth session material.
-        AuthSession(
-            user: user,
-            accessToken: UUID().uuidString,
-            refreshToken: UUID().uuidString,
-            expiresAt: now.addingTimeInterval(localDevelopmentLifetime),
-            savedAt: now
-        )
-    }
-
-    func isExpired(at date: Date) -> Bool {
-        expiresAt <= date
-    }
-}
-
-protocol AuthSessionStoring: Sendable {
-    func readSession() async throws -> AuthSession?
-    func readSessionUserID() async throws -> UUID?
-    func saveSession(_ session: AuthSession) async throws
-    func deleteSession() async throws
-    func deleteSessionUserID() async throws
-}
-
-protocol AuthSessionRefreshing: Sendable {
-    func refreshExpiredSession(
-        _ session: AuthSession,
-        now: Date
-    ) async throws -> AuthSession?
-}
-
-struct NoOpAuthSessionRefresher: AuthSessionRefreshing {
-    func refreshExpiredSession(
-        _ session: AuthSession,
-        now: Date
-    ) async throws -> AuthSession? {
-        nil
-    }
-}
-
-protocol AccountScopedDataClearing: Sendable {
-    func clearAccountScopedData() async throws
-}
+typealias AuthRepository = AuthorizationModule.AuthRepository
+typealias AuthStatus = AuthorizationModule.AuthStatus
+typealias AuthRepositoryError = AuthorizationModule.AuthRepositoryError
+typealias AuthService = AuthorizationModule.AuthService
+typealias AuthenticationActionResult = AuthorizationModule.AuthenticationActionResult
+typealias AuthenticatedUserActionResult = AuthorizationModule.AuthenticatedUserActionResult
+typealias BusinessProfileActionResult = AuthorizationModule.BusinessProfileActionResult

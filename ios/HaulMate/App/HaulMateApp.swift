@@ -9,11 +9,11 @@ import SwiftUI
 struct HaulMateApp: App {
     @AppStorage("appAppearanceMode") private var appAppearanceMode = AppAppearanceMode.system
 
-    @State private var appRootRepository: AppRootRepository
+    @State private var authRepository: AuthRepository
     @State private var router: AppRouter
 
     init() {
-        _appRootRepository = State(initialValue: AppRootRepository())
+        _authRepository = State(initialValue: AuthRepository())
         _router = State(initialValue: AppRouter())
     }
 
@@ -23,7 +23,7 @@ struct HaulMateApp: App {
                 .environment(
                     \.appDependencies,
                     AppDependencies(
-                        appRootRepository: appRootRepository,
+                        authRepository: authRepository,
                         router: router
                     )
                 )

@@ -10,20 +10,16 @@ import XCTest
 @MainActor
 final class AppEnvironmentTests: XCTestCase {
     func testEntryReturnsInjectedDependencies() {
-        let appRootRepository = AppRootRepository(
-            appService: AppRootManager()
-        )
+        let authRepository = AuthRepository(authService: EnvironmentAuthServiceStub())
         let router = AppRouter(store: MemoryNavigationStore())
         var environment = EnvironmentValues()
 
         environment.appDependencies = AppDependencies(
-            appRootRepository: appRootRepository,
+            authRepository: authRepository,
             router: router
         )
 
-        XCTAssertTrue(
-            environment.appDependencies?.appRootRepository === appRootRepository
-        )
+        XCTAssertTrue(environment.appDependencies?.authRepository === authRepository)
         XCTAssertTrue(environment.appDependencies?.router === router)
     }
 
@@ -54,4 +50,30 @@ final class AppEnvironmentTests: XCTestCase {
 private final class MemoryNavigationStore: NavigationStatePersisting {
     func load() -> Data? { nil }
     func save(_ data: Data) {}
+}
+
+private actor EnvironmentAuthServiceStub: AuthService {
+    func restoreSession() async throws -> SessionUser? {
+        nil
+    }
+
+    func signIn(request: SignInRequest) async throws -> SessionUser {
+        SessionUser(id: UUID(), displayName: "Driver")
+    }
+
+    func signUp(request: SignUpRequest) async throws -> SessionUser {
+        SessionUser(id: UUID(), displayName: "Driver")
+    }
+
+    func currentBusinessProfile() async throws -> BusinessProfileDraft? {
+        nil
+    }
+
+    func updateBusinessProfile(_ profile: BusinessProfileDraft) async throws -> BusinessProfileDraft {
+        profile
+    }
+
+    func requestPasswordReset(email: String) async throws {}
+
+    func signOut() async throws {}
 }

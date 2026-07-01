@@ -44,9 +44,13 @@ final class AccountOnboardingModelTests: XCTestCase {
             [
                 BusinessProfileValidationError(
                     field: .invoiceEmail,
-                    message: AuthenticationStrings.invoiceEmailInvalid.localized
+                    reason: .invalidEmail
                 )
             ]
+        )
+        XCTAssertEqual(
+            draft.validationErrors.first?.message,
+            AuthenticationStrings.invoiceEmailInvalid.localized
         )
     }
 

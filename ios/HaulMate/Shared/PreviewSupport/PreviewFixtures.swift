@@ -14,8 +14,9 @@ extension SessionUser {
     )
 }
 
-actor PreviewAppService: AppService {
+actor PreviewAuthService: AuthService {
     private var restoredUser: SessionUser?
+    private var businessProfile: BusinessProfileDraft?
     private let restoreShouldFail: Bool
 
     init(
@@ -38,20 +39,35 @@ actor PreviewAppService: AppService {
     }
 
     func signUp(request: SignUpRequest) async throws -> SessionUser {
+        let normalizedProfile = request.businessProfile.normalized
+        businessProfile = normalizedProfile
+        let profileName = normalizedProfile.displayName.isEmpty
+            ? normalizedProfile.legalName
+            : normalizedProfile.displayName
+
         let user = SessionUser(
             id: UUID(),
-            displayName: request.businessProfile.displayName.trimmed.isEmpty
-                ? request.businessProfile.legalName
-                : request.businessProfile.displayName
+            displayName: profileName
         )
         restoredUser = user
         return user
+    }
+
+    func currentBusinessProfile() async throws -> BusinessProfileDraft? {
+        businessProfile
+    }
+
+    func updateBusinessProfile(_ profile: BusinessProfileDraft) async throws -> BusinessProfileDraft {
+        let normalizedProfile = profile.normalized
+        businessProfile = normalizedProfile
+        return normalizedProfile
     }
 
     func requestPasswordReset(email: String) async throws {}
 
     func signOut() async throws {
         restoredUser = nil
+        businessProfile = nil
     }
 }
 
@@ -64,14 +80,14 @@ extension AppDependencies {
     ) -> AppDependencies {
         let router = AppRouter(store: PreviewNavigationStateStore())
         router.selectedTab = selectedTab
+        let authService = PreviewAuthService(
+            restoredUser: user,
+            restoreShouldFail: restoreShouldFail
+        )
+        let authRepository = AuthRepository(authService: authService)
 
         return AppDependencies(
-            appRootRepository: AppRootRepository(
-                appService: PreviewAppService(
-                    restoredUser: user,
-                    restoreShouldFail: restoreShouldFail
-                )
-            ),
+            authRepository: authRepository,
             router: router
         )
     }

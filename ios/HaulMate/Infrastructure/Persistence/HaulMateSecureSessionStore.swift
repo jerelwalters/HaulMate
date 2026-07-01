@@ -76,3 +76,23 @@ actor HaulMateAccountScopedDataCleaner: AccountScopedDataClearing {
         }
     }
 }
+
+actor HaulMateBusinessProfileStore: BusinessProfileStoring {
+    func readBusinessProfile() async throws -> BusinessProfileDraft? {
+        try await MainActor.run {
+            try HaulMateLocalStorageRepository
+                .fileBacked()
+                .readProfile()?
+                .businessProfile
+        }
+    }
+
+    func saveBusinessProfile(_ profile: BusinessProfileDraft) async throws {
+        try await MainActor.run {
+            let repository = try HaulMateLocalStorageRepository.fileBacked()
+            var snapshot = try repository.readProfile() ?? ProfileSnapshot()
+            snapshot.businessProfile = profile
+            try repository.saveProfile(snapshot)
+        }
+    }
+}

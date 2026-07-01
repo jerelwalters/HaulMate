@@ -9,8 +9,8 @@ struct SettingsTabView: View {
     @Environment(\.appDependencies) private var dependencies
     @Environment(\.appAppearanceMode) private var appAppearanceMode
 
-    private var appRootRepository: AppRootRepository {
-        dependencies.required.appRootRepository
+    private var authRepository: AuthRepository {
+        dependencies.required.authRepository
     }
     private var router: AppRouter { dependencies.required.router }
 
@@ -58,12 +58,7 @@ struct SettingsTabView: View {
             .navigationDestination(for: SettingsRoute.self) { route in
                 switch route {
                 case .businessProfile:
-                    Text(SettingsStrings.businessProfilePlaceholder.localized)
-                        .font(HMFont.body)
-                        .foregroundStyle(HMColor.textPrimary)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .hmAppBackground()
-                        .navigationTitle(SettingsStrings.businessProfileLabel.localized)
+                    BusinessProfileView()
                 case .truckCostProfile:
                     TruckCostProfileView()
                 }
@@ -73,7 +68,7 @@ struct SettingsTabView: View {
 
     private func signOut() {
         router.resetForSignOut()
-        Task { await appRootRepository.signOut() }
+        Task { await authRepository.signOut() }
     }
 }
 
