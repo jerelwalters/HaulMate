@@ -1,0 +1,35 @@
+KAN-38 / P0-BE-05 Evidence
+
+Jira: https://haulmatework.atlassian.net/browse/KAN-38
+Branch: codex/p0-be-05-private-document-storage
+Worktree: /Users/jerelwalters/Documents/HaulMate-p0-be-05
+
+Command:
+supabase/Scripts/verify-local.sh
+
+Result:
+PASS
+
+Verifier summary:
+- Reset local database.
+- Applied migrations:
+  - 20260625063332_create_business_profiles.sql
+  - 20260630154102_add_business_profile_rls_policies.sql
+  - 20260630190313_create_load_to_cash_schema.sql
+  - 20260701004051_add_tenant_isolation_policies.sql
+  - 20260701062546_implement_private_document_storage.sql
+- Ran local security advisors.
+- Security advisors: No issues found.
+- Ran pgTAP database tests.
+- All tests successful.
+- Files=5, Tests=113.
+- Result: PASS.
+- Database smoke query returned database_name=postgres, schema_name=public, server_version=17.6.
+
+Edge Function smoke:
+SUPABASE_TELEMETRY_DISABLED=1 supabase functions serve --no-verify-jwt --env-file supabase/.env.example
+
+Result:
+- Served functions on http://127.0.0.1:54321/functions/v1/<function-name>
+- document-signed-url was listed at http://127.0.0.1:54321/functions/v1/document-signed-url
+- Runtime: supabase-edge-runtime-1.74.1, compatible with Deno v2.1.4

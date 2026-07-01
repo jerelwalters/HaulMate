@@ -64,6 +64,8 @@ reset email was captured by the local mail service at
 
 The mobile Auth and business profile contract lives in
 [`docs/mobile-auth-profile-contract.md`](docs/mobile-auth-profile-contract.md).
+The private document storage contract lives in
+[`docs/document-storage-contract.md`](docs/document-storage-contract.md).
 
 ## Environments
 

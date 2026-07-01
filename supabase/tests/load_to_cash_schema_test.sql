@@ -636,7 +636,8 @@ SELECT lives_ok(
       byte_count,
       sha256_hex,
       object_key,
-      sync_state
+      sync_state,
+      uploaded_at
     )
     VALUES (
       '00000000-0000-0000-0000-000000000901',
@@ -647,8 +648,9 @@ SELECT lives_ok(
       'application/pdf',
       2048,
       repeat('a', 64),
-      '00000000-0000-0000-0000-000000000301/00000000-0000-0000-0000-000000000601/rate-confirmation.pdf',
-      'synced'
+      '00000000-0000-0000-0000-000000000301/00000000-0000-0000-0000-000000000601/00000000-0000-0000-0000-000000000901',
+      'synced',
+      '2026-07-01 12:00:00+00'
     )
   $$,
   'valid synced document metadata can be inserted'
