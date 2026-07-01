@@ -8,7 +8,10 @@
 "AppRootStrings_restoreSessionFailure" = "We couldn't restore your session.";
 "AppRootStrings_signInFailure" = "We couldn't sign you in.";
 "AppRootStrings_signUpFailure" = "We couldn't create your account.";
+"AppRootStrings_businessProfileLoadFailure" = "We couldn't load your business profile.";
+"AppRootStrings_businessProfileSaveFailure" = "We couldn't save your business profile.";
 "AppRootStrings_passwordResetFailure" = "We couldn't send reset instructions.";
+"AppRootStrings_signOutFailure" = "We couldn't sign you out.";
 
 "AppStatusStrings_loadingTitle" = "Loading";
 "AppStatusStrings_loadingAccessibilityLabel" = "Loading";
@@ -195,7 +198,14 @@
 "SettingsStrings_truckCostProfileLabel" = "Truck & Cost Defaults";
 "SettingsStrings_signOutButton" = "Sign Out";
 "SettingsStrings_navigationTitle" = "Settings";
-"SettingsStrings_businessProfilePlaceholder" = "Business profile";
+"SettingsStrings_businessProfileScreenTitle" = "Invoice and business defaults";
+"SettingsStrings_businessProfileScreenSubtitle" = "Used on invoices, packets, and driver-facing paperwork.";
+"SettingsStrings_businessDetailsSectionTitle" = "Business details";
+"SettingsStrings_invoiceDefaultsSectionTitle" = "Invoice defaults";
+"SettingsStrings_remittanceSectionTitle" = "Remittance";
+"SettingsStrings_saveBusinessProfileButton" = "Save business profile";
+"SettingsStrings_businessProfileSavedStatus" = "Business profile saved locally.";
+"SettingsStrings_businessProfileLoading" = "Loading business profile";
 
 "TruckCostProfileStrings_navigationTitle" = "Truck & Costs";
 "TruckCostProfileStrings_screenTitle" = "Default operating profile";

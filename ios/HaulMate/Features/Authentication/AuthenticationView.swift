@@ -17,8 +17,8 @@ struct AuthenticationView: View {
     @State private var errorMessage: String?
     @State private var statusMessage: String?
 
-    private var appRootRepository: AppRootRepository {
-        dependencies.required.appRootRepository
+    private var authRepository: AuthRepository {
+        dependencies.required.authRepository
     }
 
     init(mode: AuthenticationMode = .signIn) {
@@ -433,18 +433,18 @@ struct AuthenticationView: View {
         isSubmitting = true
 
         Task {
-            let result: AuthenticationActionResult
+            let result: AuthenticatedUserActionResult
 
             switch mode {
             case .signIn:
-                result = await appRootRepository.signIn(
+                result = await authRepository.signIn(
                     request: SignInRequest(
                         email: credentials.email.trimmed,
                         password: credentials.password
                     )
                 )
             case .createAccount:
-                result = await appRootRepository.signUp(
+                result = await authRepository.signUp(
                     request: SignUpRequest(
                         email: credentials.email.trimmed,
                         password: credentials.password,
@@ -469,7 +469,7 @@ struct AuthenticationView: View {
         isSubmitting = true
 
         Task {
-            let result = await appRootRepository.requestPasswordReset(
+            let result = await authRepository.requestPasswordReset(
                 email: credentials.email.trimmed
             )
             isSubmitting = false
@@ -477,8 +477,8 @@ struct AuthenticationView: View {
             switch result {
             case .success:
                 statusMessage = AuthenticationStrings.passwordResetSuccess.localized
-            case .failure(let message):
-                errorMessage = message
+            case .failure(let error):
+                errorMessage = error.localizedMessage
             }
         }
     }
@@ -503,12 +503,12 @@ struct AuthenticationView: View {
         }
     }
 
-    private func apply(result: AuthenticationActionResult) {
+    private func apply(result: AuthenticatedUserActionResult) {
         switch result {
         case .success:
             clearFeedback()
-        case .failure(let message):
-            errorMessage = message
+        case .failure(let error):
+            errorMessage = error.localizedMessage
         }
     }
 

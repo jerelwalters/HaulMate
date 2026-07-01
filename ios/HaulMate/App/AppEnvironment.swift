@@ -37,7 +37,7 @@ enum AppAppearanceMode: String, CaseIterable, Identifiable {
 
 @MainActor
 struct AppDependencies {
-    let appRootRepository: AppRootRepository
+    let authRepository: AuthRepository
     let router: AppRouter
 }
 

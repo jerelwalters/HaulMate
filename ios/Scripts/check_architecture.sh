@@ -48,7 +48,13 @@ check_imports() {
     fi
 }
 
-if /usr/bin/grep -R -n -E '(^|[^[:alnum:]_])(AppService|AppRootManager)([^[:alnum:]_]|$)' \
+if /usr/bin/grep -R -n -E '(^|[^[:alnum:]_])AuthSessionManager([^[:alnum:]_]|$)' \
+    "$ROOT/HaulMate"; then
+    echo "error: App target must construct AuthRepository, not AuthSessionManager."
+    FAILED=1
+fi
+
+if /usr/bin/grep -R -n -E '(^|[^[:alnum:]_])AuthService([^[:alnum:]_]|$)' \
     "$ROOT/HaulMate/Features" \
     "$ROOT/HaulMate/App/AppRootView.swift"; then
     echo "error: Feature UI must depend on repositories, not service protocols or implementations."

@@ -37,7 +37,10 @@ enum AppRootStrings: String, Localizable {
     case restoreSessionFailure
     case signInFailure
     case signUpFailure
+    case businessProfileLoadFailure
+    case businessProfileSaveFailure
     case passwordResetFailure
+    case signOutFailure
 }
 
 enum AppStatusStrings: String, Localizable {
@@ -238,7 +241,14 @@ enum SettingsStrings: String, Localizable {
     case truckCostProfileLabel
     case signOutButton
     case navigationTitle
-    case businessProfilePlaceholder
+    case businessProfileScreenTitle
+    case businessProfileScreenSubtitle
+    case businessDetailsSectionTitle
+    case invoiceDefaultsSectionTitle
+    case remittanceSectionTitle
+    case saveBusinessProfileButton
+    case businessProfileSavedStatus
+    case businessProfileLoading
 }
 
 enum TruckCostProfileStrings: String, Localizable {

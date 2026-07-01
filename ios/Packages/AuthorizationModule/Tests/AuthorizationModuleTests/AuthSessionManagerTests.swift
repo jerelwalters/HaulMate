@@ -4,15 +4,16 @@
 //
 
 import XCTest
-@testable import HaulMate
+@testable import AuthorizationModule
 
-final class AppRootManagerTests: XCTestCase {
+final class AuthSessionManagerTests: XCTestCase {
     func testRestoreSessionReturnsStoredUnexpiredSession() async throws {
         let now = Date(timeIntervalSince1970: 1_000)
         let session = AuthSession.fixture(expiresAt: now.addingTimeInterval(60))
         let store = MemoryAuthSessionStore(session: session)
-        let manager = AppRootManager(
+        let manager = AuthSessionManager(
             sessionStore: store,
+            businessProfileStore: MemoryBusinessProfileStore(),
             accountDataCleaner: CapturingAccountDataCleaner(),
             now: { now }
         )
@@ -31,8 +32,9 @@ final class AppRootManagerTests: XCTestCase {
         )
         let store = MemoryAuthSessionStore(session: expiredSession)
         let refresher = CapturingAuthSessionRefresher(refreshedSession: refreshedSession)
-        let manager = AppRootManager(
+        let manager = AuthSessionManager(
             sessionStore: store,
+            businessProfileStore: MemoryBusinessProfileStore(),
             sessionRefresher: refresher,
             accountDataCleaner: CapturingAccountDataCleaner(),
             now: { now }
@@ -52,8 +54,9 @@ final class AppRootManagerTests: XCTestCase {
         let expiredSession = AuthSession.fixture(expiresAt: now.addingTimeInterval(-1))
         let store = MemoryAuthSessionStore(session: expiredSession)
         let cleaner = CapturingAccountDataCleaner()
-        let manager = AppRootManager(
+        let manager = AuthSessionManager(
             sessionStore: store,
+            businessProfileStore: MemoryBusinessProfileStore(),
             sessionRefresher: CapturingAuthSessionRefresher(refreshedSession: nil),
             accountDataCleaner: cleaner,
             now: { now }
@@ -73,8 +76,9 @@ final class AppRootManagerTests: XCTestCase {
     func testSignInPersistsSessionMaterial() async throws {
         let now = Date(timeIntervalSince1970: 1_000)
         let store = MemoryAuthSessionStore()
-        let manager = AppRootManager(
+        let manager = AuthSessionManager(
             sessionStore: store,
+            businessProfileStore: MemoryBusinessProfileStore(),
             accountDataCleaner: CapturingAccountDataCleaner(),
             now: { now }
         )
@@ -95,13 +99,77 @@ final class AppRootManagerTests: XCTestCase {
         XCTAssertGreaterThan(storedSession.expiresAt, now)
     }
 
+    func testSignUpPersistsNormalizedBusinessProfile() async throws {
+        let store = MemoryAuthSessionStore()
+        let businessProfileStore = MemoryBusinessProfileStore()
+        let manager = AuthSessionManager(
+            sessionStore: store,
+            businessProfileStore: businessProfileStore,
+            accountDataCleaner: CapturingAccountDataCleaner()
+        )
+        var profile = BusinessProfileDraft.validPilotProfile
+        profile.legalName = "  Walters Logistics LLC  "
+        profile.invoicePrefix = " HM "
+
+        _ = try await manager.signUp(
+            request: SignUpRequest(
+                email: "driver@example.com",
+                password: "password123",
+                businessProfile: profile
+            )
+        )
+
+        let storedProfile = await businessProfileStore.storedBusinessProfile()
+        let currentProfile = try await manager.currentBusinessProfile()
+        XCTAssertEqual(storedProfile, profile.normalized)
+        XCTAssertEqual(currentProfile, profile.normalized)
+    }
+
+    func testUpdateBusinessProfilePersistsNormalizedProfileForCurrentUser() async throws {
+        let store = MemoryAuthSessionStore()
+        let businessProfileStore = MemoryBusinessProfileStore()
+        let manager = AuthSessionManager(
+            sessionStore: store,
+            businessProfileStore: businessProfileStore,
+            accountDataCleaner: CapturingAccountDataCleaner()
+        )
+        _ = try await manager.signIn(
+            request: SignInRequest(
+                email: "driver@example.com",
+                password: "password123"
+            )
+        )
+        var profile = BusinessProfileDraft.validPilotProfile
+        profile.displayName = "  Walters Freight  "
+        profile.factoringCompanyName = "  Pilot Factoring  "
+
+        let updatedProfile = try await manager.updateBusinessProfile(profile)
+
+        let storedProfile = await businessProfileStore.storedBusinessProfile()
+        XCTAssertEqual(updatedProfile, profile.normalized)
+        XCTAssertEqual(storedProfile, profile.normalized)
+    }
+
+    func testCurrentBusinessProfileDoesNotReadStoredProfileWithoutCurrentUser() async throws {
+        let manager = AuthSessionManager(
+            sessionStore: MemoryAuthSessionStore(),
+            businessProfileStore: MemoryBusinessProfileStore(profile: .validPilotProfile),
+            accountDataCleaner: CapturingAccountDataCleaner()
+        )
+
+        let profile = try await manager.currentBusinessProfile()
+
+        XCTAssertNil(profile)
+    }
+
     func testSignInClearsAccountScopedDataWhenReplacingAnotherStoredAccount() async throws {
         let now = Date(timeIntervalSince1970: 1_000)
         let previousSession = AuthSession.fixture(expiresAt: now.addingTimeInterval(600))
         let store = MemoryAuthSessionStore(session: previousSession)
         let cleaner = CapturingAccountDataCleaner()
-        let manager = AppRootManager(
+        let manager = AuthSessionManager(
             sessionStore: store,
+            businessProfileStore: MemoryBusinessProfileStore(),
             accountDataCleaner: cleaner,
             now: { now }
         )
@@ -124,8 +192,9 @@ final class AppRootManagerTests: XCTestCase {
         let previousUserID = UUID(uuidString: "22222222-2222-2222-2222-222222222222")!
         let store = MemoryAuthSessionStore(sessionUserID: previousUserID)
         let cleaner = CapturingAccountDataCleaner()
-        let manager = AppRootManager(
+        let manager = AuthSessionManager(
             sessionStore: store,
+            businessProfileStore: MemoryBusinessProfileStore(),
             accountDataCleaner: cleaner
         )
 
@@ -144,8 +213,9 @@ final class AppRootManagerTests: XCTestCase {
         let session = AuthSession.fixture()
         let store = MemoryAuthSessionStore(session: session)
         let cleaner = CapturingAccountDataCleaner()
-        let manager = AppRootManager(
+        let manager = AuthSessionManager(
             sessionStore: store,
+            businessProfileStore: MemoryBusinessProfileStore(),
             accountDataCleaner: cleaner
         )
 
@@ -198,6 +268,26 @@ private actor MemoryAuthSessionStore: AuthSessionStoring {
     }
 }
 
+private actor MemoryBusinessProfileStore: BusinessProfileStoring {
+    private var profile: BusinessProfileDraft?
+
+    init(profile: BusinessProfileDraft? = nil) {
+        self.profile = profile
+    }
+
+    func readBusinessProfile() async throws -> BusinessProfileDraft? {
+        profile
+    }
+
+    func saveBusinessProfile(_ profile: BusinessProfileDraft) async throws {
+        self.profile = profile
+    }
+
+    func storedBusinessProfile() -> BusinessProfileDraft? {
+        profile
+    }
+}
+
 private actor CapturingAuthSessionRefresher: AuthSessionRefreshing {
     private let refreshedSession: AuthSession?
     private var session: AuthSession?
@@ -247,4 +337,16 @@ private extension AuthSession {
             savedAt: Date(timeIntervalSince1970: 900)
         )
     }
+}
+
+private extension BusinessProfileDraft {
+    static let validPilotProfile = BusinessProfileDraft(
+        legalName: "Walters Logistics LLC",
+        displayName: "Walters Logistics",
+        mailingAddress: "123 Pilot Way, Detroit, MI 48201",
+        phone: "313-555-0148",
+        invoiceEmail: "billing@example.com",
+        invoicePrefix: "HM",
+        paymentTermsDays: 30
+    )
 }

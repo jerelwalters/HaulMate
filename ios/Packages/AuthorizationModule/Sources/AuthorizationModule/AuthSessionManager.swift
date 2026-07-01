@@ -5,24 +5,32 @@
 
 import Foundation
 
-actor AppRootManager: AppService {
+// MOB-02: Supabase session/user/profile mapping belongs behind this manager;
+// AuthRepository stays vendor-neutral for app and feature callers.
+actor AuthSessionManager: AuthService {
     private let sessionStore: any AuthSessionStoring
+    private let businessProfileStore: any BusinessProfileStoring
     private let sessionRefresher: any AuthSessionRefreshing
     private let accountDataCleaner: any AccountScopedDataClearing
+    private let fallbackDisplayName: String
     private let now: @Sendable () -> Date
 
     private var currentUser: SessionUser?
     private var businessProfile: BusinessProfileDraft?
 
     init(
-        sessionStore: any AuthSessionStoring = HaulMateSecureSessionStore(),
+        sessionStore: any AuthSessionStoring,
+        businessProfileStore: any BusinessProfileStoring,
         sessionRefresher: any AuthSessionRefreshing = NoOpAuthSessionRefresher(),
-        accountDataCleaner: any AccountScopedDataClearing = HaulMateAccountScopedDataCleaner(),
+        accountDataCleaner: any AccountScopedDataClearing,
+        fallbackDisplayName: String = "Driver",
         now: @escaping @Sendable () -> Date = Date.init
     ) {
         self.sessionStore = sessionStore
+        self.businessProfileStore = businessProfileStore
         self.sessionRefresher = sessionRefresher
         self.accountDataCleaner = accountDataCleaner
+        self.fallbackDisplayName = fallbackDisplayName
         self.now = now
     }
 
@@ -36,6 +44,7 @@ actor AppRootManager: AppService {
         let currentDate = now()
         guard session.isExpired(at: currentDate) else {
             currentUser = session.user
+            businessProfile = try await businessProfileStore.readBusinessProfile()
             return session.user
         }
 
@@ -45,6 +54,7 @@ actor AppRootManager: AppService {
         ), !refreshedSession.isExpired(at: currentDate) {
             try await sessionStore.saveSession(refreshedSession)
             currentUser = refreshedSession.user
+            businessProfile = try await businessProfileStore.readBusinessProfile()
             return refreshedSession.user
         }
 
@@ -60,21 +70,45 @@ actor AppRootManager: AppService {
             displayName: displayName(fromEmail: request.email)
         )
         try await replaceStoredSession(for: user)
+        businessProfile = try await businessProfileStore.readBusinessProfile()
         return user
     }
 
     func signUp(request: SignUpRequest) async throws -> SessionUser {
-        businessProfile = request.businessProfile
+        let normalizedProfile = request.businessProfile.normalized
 
-        let profileName = request.businessProfile.displayName.trimmed.isEmpty
-            ? request.businessProfile.legalName
-            : request.businessProfile.displayName
+        let profileName = normalizedProfile.displayName.isEmpty
+            ? normalizedProfile.legalName
+            : normalizedProfile.displayName
         let user = SessionUser(
             id: UUID(),
-            displayName: profileName.trimmed
+            displayName: profileName
         )
         try await replaceStoredSession(for: user)
+        try await businessProfileStore.saveBusinessProfile(normalizedProfile)
+        businessProfile = normalizedProfile
         return user
+    }
+
+    func currentBusinessProfile() async throws -> BusinessProfileDraft? {
+        guard currentUser != nil else { return nil }
+
+        if let businessProfile {
+            return businessProfile
+        }
+
+        let storedProfile = try await businessProfileStore.readBusinessProfile()
+        businessProfile = storedProfile
+        return storedProfile
+    }
+
+    func updateBusinessProfile(_ profile: BusinessProfileDraft) async throws -> BusinessProfileDraft {
+        guard currentUser != nil else { throw AuthSessionManagerError.unauthenticated }
+
+        let normalizedProfile = profile.normalized
+        try await businessProfileStore.saveBusinessProfile(normalizedProfile)
+        businessProfile = normalizedProfile
+        return normalizedProfile
     }
 
     func requestPasswordReset(email: String) async throws {}
@@ -122,6 +156,10 @@ actor AppRootManager: AppService {
             .first
             .map(String.init)?
             .trimmingCharacters(in: .whitespacesAndNewlines)
-            .capitalized ?? AppStrings.pilotDriver.localized
+            .capitalized ?? fallbackDisplayName
     }
+}
+
+private enum AuthSessionManagerError: Error {
+    case unauthenticated
 }

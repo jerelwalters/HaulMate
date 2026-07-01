@@ -9,23 +9,23 @@ struct AppRootView: View {
     @Environment(\.appDependencies) private var dependencies
     @Environment(\.appAppearanceMode) private var appAppearanceMode
 
-    private var appRootRepository: AppRootRepository {
-        dependencies.required.appRootRepository
+    private var authRepository: AuthRepository {
+        dependencies.required.authRepository
     }
     private var router: AppRouter { dependencies.required.router }
 
     var body: some View {
         Group {
-            switch appRootRepository.phase {
+            switch authRepository.authStatus {
             case .loading:
                 AppStatusView(state: .loading)
             case .unauthenticated:
                 AuthenticationView()
             case .authenticated(let user):
                 DashboardView(user: user)
-            case .failed(let message):
+            case .failed(let error):
                 AppStatusView(
-                    state: .failed(message: message),
+                    state: .failed(message: error.localizedMessage),
                     retry: retrySessionRestore
                 )
             }
@@ -42,11 +42,11 @@ struct AppRootView: View {
     }
 
     private func restoreSession() async {
-        await appRootRepository.restore()
+        await authRepository.restore()
     }
 
     private func retrySessionRestore() {
-        Task { await appRootRepository.restore(force: true) }
+        Task { await authRepository.restore(force: true) }
     }
 }
 

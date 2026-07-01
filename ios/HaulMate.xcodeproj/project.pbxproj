@@ -7,7 +7,6 @@
 
 /* Begin PBXBuildFile section */
 		A10000000000000000000001 /* HaulMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000001 /* HaulMateApp.swift */; };
-		A10000000000000000000002 /* AppRootRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000002 /* AppRootRepository.swift */; };
 		A10000000000000000000003 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000003 /* AppRouter.swift */; };
 		A10000000000000000000004 /* NavigationStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000004 /* NavigationStateStore.swift */; };
 		A10000000000000000000005 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000005 /* AppRootView.swift */; };
@@ -15,16 +14,15 @@
 		A10000000000000000000007 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000007 /* DashboardView.swift */; };
 		A10000000000000000000008 /* AppStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000008 /* AppStatusView.swift */; };
 		A10000000000000000000009 /* AppRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000009 /* AppRouterTests.swift */; };
-		A1000000000000000000000A /* AppRootRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000A /* AppRootRepositoryTests.swift */; };
 		A1000000000000000000000B /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000E /* AppEnvironment.swift */; };
 		A1000000000000000000000C /* DashboardTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000F /* DashboardTabView.swift */; };
 		A1000000000000000000000D /* LoadsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000010 /* LoadsTabView.swift */; };
 		A1000000000000000000000E /* LoadDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000011 /* LoadDetailView.swift */; };
 		A1000000000000000000000F /* SettingsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000012 /* SettingsTabView.swift */; };
+		A10000000000000000000024 /* BusinessProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000024 /* BusinessProfileView.swift */; };
 		A10000000000000000000010 /* NewLoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000013 /* NewLoadView.swift */; };
 		A10000000000000000000011 /* AppEnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000014 /* AppEnvironmentTests.swift */; };
-		A10000000000000000000012 /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000015 /* AppService.swift */; };
-		A10000000000000000000013 /* AppRootManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000016 /* AppRootManager.swift */; };
+		A10000000000000000000012 /* AuthRepositoryDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000015 /* AuthRepositoryDefaults.swift */; };
 		A10000000000000000000014 /* PreviewFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000017 /* PreviewFixtures.swift */; };
 		A10000000000000000000015 /* HaulMateDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000018 /* HaulMateDesignSystem.swift */; };
 		A10000000000000000000016 /* AccountOnboardingModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000019 /* AccountOnboardingModels.swift */; };
@@ -52,8 +50,8 @@
 		A60000000000000000000009 /* HaulMateLocalStorageRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6000000000000000000000A /* HaulMateLocalStorageRepositoryTests.swift */; };
 		A80000000000000000000001 /* AuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80000000000000000000001 /* AuthSession.swift */; };
 		A80000000000000000000002 /* HaulMateSecureSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80000000000000000000002 /* HaulMateSecureSessionStore.swift */; };
-		A80000000000000000000003 /* AppRootManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80000000000000000000003 /* AppRootManagerTests.swift */; };
 		A70000000000000000000001 /* StorageModule in Frameworks */ = {isa = PBXBuildFile; productRef = P70000000000000000000002 /* StorageModule */; };
+		A70000000000000000000002 /* AuthorizationModule in Frameworks */ = {isa = PBXBuildFile; productRef = P80000000000000000000002 /* AuthorizationModule */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +66,6 @@
 
 /* Begin PBXFileReference section */
 		B10000000000000000000001 /* HaulMateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaulMateApp.swift; sourceTree = "<group>"; };
-		B10000000000000000000002 /* AppRootRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootRepository.swift; sourceTree = "<group>"; };
 		B10000000000000000000003 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		B10000000000000000000004 /* NavigationStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStateStore.swift; sourceTree = "<group>"; };
 		B10000000000000000000005 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
@@ -76,7 +73,6 @@
 		B10000000000000000000007 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		B10000000000000000000008 /* AppStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStatusView.swift; sourceTree = "<group>"; };
 		B10000000000000000000009 /* AppRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouterTests.swift; sourceTree = "<group>"; };
-		B1000000000000000000000A /* AppRootRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootRepositoryTests.swift; sourceTree = "<group>"; };
 		B1000000000000000000000B /* HaulMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaulMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1000000000000000000000C /* HaulMateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaulMateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1000000000000000000000D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -85,10 +81,10 @@
 		B10000000000000000000010 /* LoadsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadsTabView.swift; sourceTree = "<group>"; };
 		B10000000000000000000011 /* LoadDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadDetailView.swift; sourceTree = "<group>"; };
 		B10000000000000000000012 /* SettingsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabView.swift; sourceTree = "<group>"; };
+		B10000000000000000000024 /* BusinessProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessProfileView.swift; sourceTree = "<group>"; };
 		B10000000000000000000013 /* NewLoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLoadView.swift; sourceTree = "<group>"; };
 		B10000000000000000000014 /* AppEnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironmentTests.swift; sourceTree = "<group>"; };
-		B10000000000000000000015 /* AppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
-		B10000000000000000000016 /* AppRootManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootManager.swift; sourceTree = "<group>"; };
+		B10000000000000000000015 /* AuthRepositoryDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryDefaults.swift; sourceTree = "<group>"; };
 		B10000000000000000000017 /* PreviewFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewFixtures.swift; sourceTree = "<group>"; };
 		B10000000000000000000018 /* HaulMateDesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaulMateDesignSystem.swift; sourceTree = "<group>"; };
 		B10000000000000000000019 /* AccountOnboardingModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOnboardingModels.swift; sourceTree = "<group>"; };
@@ -117,11 +113,10 @@
 		B6000000000000000000000A /* HaulMateLocalStorageRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaulMateLocalStorageRepositoryTests.swift; sourceTree = "<group>"; };
 		B80000000000000000000001 /* AuthSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSession.swift; sourceTree = "<group>"; };
 		B80000000000000000000002 /* HaulMateSecureSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaulMateSecureSessionStore.swift; sourceTree = "<group>"; };
-		B80000000000000000000003 /* AppRootManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		F10000000000000000000001 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (A70000000000000000000001 /* StorageModule in Frameworks */); runOnlyForDeploymentPostprocessing = 0; };
+		F10000000000000000000001 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (A70000000000000000000001 /* StorageModule in Frameworks */, A70000000000000000000002 /* AuthorizationModule in Frameworks */); runOnlyForDeploymentPostprocessing = 0; };
 		F10000000000000000000002 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXFrameworksBuildPhase section */
 
@@ -150,10 +145,10 @@
 			path = HaulMate;
 			sourceTree = "<group>";
 		};
-		G10000000000000000000003 /* App */ = {isa = PBXGroup; children = (B10000000000000000000001, B10000000000000000000005, B1000000000000000000000E, B10000000000000000000015, B80000000000000000000001 /* AuthSession.swift */, B10000000000000000000016, B10000000000000000000002); path = App; sourceTree = "<group>"; };
+		G10000000000000000000003 /* App */ = {isa = PBXGroup; children = (B10000000000000000000001, B10000000000000000000005, B1000000000000000000000E, B10000000000000000000015 /* AuthRepositoryDefaults.swift */, B80000000000000000000001 /* AuthSession.swift */); path = App; sourceTree = "<group>"; };
 		G10000000000000000000004 /* Navigation */ = {isa = PBXGroup; children = (B10000000000000000000003, B10000000000000000000004); path = Navigation; sourceTree = "<group>"; };
 		G10000000000000000000005 /* Features */ = {isa = PBXGroup; children = (G10000000000000000000009, G10000000000000000000010); path = Features; sourceTree = "<group>"; };
-		G10000000000000000000006 /* HaulMateTests */ = {isa = PBXGroup; children = (B10000000000000000000009, B1000000000000000000000A, B80000000000000000000003 /* AppRootManagerTests.swift */, B10000000000000000000014, B1000000000000000000001A, B10000000000000000000020, B10000000000000000000022 /* NewLoadModelTests.swift */, G60000000000000000000003 /* Infrastructure */, G20000000000000000000003 /* Domain */); path = HaulMateTests; sourceTree = "<group>"; };
+		G10000000000000000000006 /* HaulMateTests */ = {isa = PBXGroup; children = (B10000000000000000000009, B10000000000000000000014, B1000000000000000000001A, B10000000000000000000020, B10000000000000000000022 /* NewLoadModelTests.swift */, G60000000000000000000003 /* Infrastructure */, G20000000000000000000003 /* Domain */); path = HaulMateTests; sourceTree = "<group>"; };
 		G10000000000000000000007 /* Products */ = {isa = PBXGroup; children = (B1000000000000000000000B, B1000000000000000000000C); name = Products; sourceTree = "<group>"; };
 		G10000000000000000000008 /* Resources */ = {isa = PBXGroup; children = (B1000000000000000000000D, B1000000000000000000001C /* Localizable.strings */); path = Resources; sourceTree = "<group>"; };
 		G10000000000000000000009 /* Authentication */ = {isa = PBXGroup; children = (B10000000000000000000006, B10000000000000000000019); path = Authentication; sourceTree = "<group>"; };
@@ -161,7 +156,7 @@
 		G10000000000000000000011 /* Tabs */ = {isa = PBXGroup; children = (G10000000000000000000012, G10000000000000000000013, G10000000000000000000014); path = Tabs; sourceTree = "<group>"; };
 		G10000000000000000000012 /* Overview */ = {isa = PBXGroup; children = (B1000000000000000000000F); path = Overview; sourceTree = "<group>"; };
 		G10000000000000000000013 /* Loads */ = {isa = PBXGroup; children = (B10000000000000000000010, B10000000000000000000011); path = Loads; sourceTree = "<group>"; };
-		G10000000000000000000014 /* Settings */ = {isa = PBXGroup; children = (B10000000000000000000012, B1000000000000000000001E, B1000000000000000000001F); path = Settings; sourceTree = "<group>"; };
+		G10000000000000000000014 /* Settings */ = {isa = PBXGroup; children = (B10000000000000000000012, B10000000000000000000024 /* BusinessProfileView.swift */, B1000000000000000000001E, B1000000000000000000001F); path = Settings; sourceTree = "<group>"; };
 		G10000000000000000000015 /* Sheets */ = {isa = PBXGroup; children = (B10000000000000000000013, B10000000000000000000021 /* NewLoadModels.swift */); path = Sheets; sourceTree = "<group>"; };
 		G10000000000000000000016 /* Shared */ = {isa = PBXGroup; children = (G10000000000000000000017, G10000000000000000000019, G1000000000000000000001A, G10000000000000000000018); path = Shared; sourceTree = "<group>"; };
 		G10000000000000000000017 /* Components */ = {isa = PBXGroup; children = (B10000000000000000000008, B10000000000000000000023 /* AttachmentImportButton.swift */); path = Components; sourceTree = "<group>"; };
@@ -192,7 +187,7 @@
 			buildRules = ();
 			dependencies = ();
 			name = HaulMate;
-			packageProductDependencies = (P70000000000000000000002 /* StorageModule */);
+			packageProductDependencies = (P70000000000000000000002 /* StorageModule */, P80000000000000000000002 /* AuthorizationModule */);
 			productName = HaulMate;
 			productReference = B1000000000000000000000B;
 			productType = "com.apple.product-type.application";
@@ -228,7 +223,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (en, Base);
 			mainGroup = G10000000000000000000001;
-			packageReferences = (P70000000000000000000001 /* XCLocalSwiftPackageReference "StorageModule" */);
+			packageReferences = (P70000000000000000000001 /* XCLocalSwiftPackageReference "StorageModule" */, P80000000000000000000001 /* XCLocalSwiftPackageReference "AuthorizationModule" */);
 			productRefGroup = G10000000000000000000007;
 			projectDirPath = "";
 			projectRoot = "";
@@ -260,8 +255,8 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		F10000000000000000000003 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000001, A10000000000000000000002, A10000000000000000000003, A10000000000000000000004, A10000000000000000000005, A10000000000000000000006, A10000000000000000000007, A10000000000000000000008, A1000000000000000000000B, A1000000000000000000000C, A1000000000000000000000D, A1000000000000000000000E, A1000000000000000000000F, A10000000000000000000010, A10000000000000000000012, A10000000000000000000013, A10000000000000000000014, A10000000000000000000015, A10000000000000000000016, A80000000000000000000001, A10000000000000000000018, A20000000000000000000001, A1000000000000000000001A, A1000000000000000000001B, A1000000000000000000001D, A1000000000000000000001F, A30000000000000000000001, A40000000000000000000001, A50000000000000000000001, A60000000000000000000005, A60000000000000000000006, A60000000000000000000007, A60000000000000000000008, A80000000000000000000002); runOnlyForDeploymentPostprocessing = 0; };
-		F10000000000000000000004 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000009, A1000000000000000000000A, A80000000000000000000003, A10000000000000000000011, A10000000000000000000017, A20000000000000000000002, A1000000000000000000001C, A1000000000000000000001E, A30000000000000000000002, A40000000000000000000002, A50000000000000000000002, A60000000000000000000009); runOnlyForDeploymentPostprocessing = 0; };
+		F10000000000000000000003 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000001, A10000000000000000000003, A10000000000000000000004, A10000000000000000000005, A10000000000000000000006, A10000000000000000000007, A10000000000000000000008, A1000000000000000000000B, A1000000000000000000000C, A1000000000000000000000D, A1000000000000000000000E, A1000000000000000000000F, A10000000000000000000024, A10000000000000000000010, A10000000000000000000012, A10000000000000000000014, A10000000000000000000015, A10000000000000000000016, A80000000000000000000001, A10000000000000000000018, A20000000000000000000001, A1000000000000000000001A, A1000000000000000000001B, A1000000000000000000001D, A1000000000000000000001F, A30000000000000000000001, A40000000000000000000001, A50000000000000000000001, A60000000000000000000005, A60000000000000000000006, A60000000000000000000007, A60000000000000000000008, A80000000000000000000002); runOnlyForDeploymentPostprocessing = 0; };
+		F10000000000000000000004 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000009, A10000000000000000000011, A10000000000000000000017, A20000000000000000000002, A1000000000000000000001C, A1000000000000000000001E, A30000000000000000000002, A40000000000000000000002, A50000000000000000000002, A60000000000000000000009); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -299,6 +294,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/StorageModule;
 		};
+		P80000000000000000000001 /* XCLocalSwiftPackageReference "AuthorizationModule" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/AuthorizationModule;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -306,6 +305,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = P70000000000000000000001 /* XCLocalSwiftPackageReference "StorageModule" */;
 			productName = StorageModule;
+		};
+		P80000000000000000000002 /* AuthorizationModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = P80000000000000000000001 /* XCLocalSwiftPackageReference "AuthorizationModule" */;
+			productName = AuthorizationModule;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
