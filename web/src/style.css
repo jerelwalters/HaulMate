@@ -281,6 +281,44 @@ h3 {
   color: #101814;
 }
 
+.state-page {
+  display: grid;
+  place-items: center;
+}
+
+.state-panel {
+  box-sizing: border-box;
+  width: min(100%, 680px);
+  padding: 28px;
+  border: 1px solid #dce3e0;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 16px 36px rgb(35 53 45 / 7%);
+}
+
+.state-panel p:not(.carrier-name) {
+  margin: 16px 0 0;
+  color: #526158;
+  font-size: 1.05rem;
+}
+
+.retry-button {
+  margin-top: 22px;
+  padding: 10px 14px;
+  border: 1px solid #145338;
+  border-radius: 8px;
+  background: #145338;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.retry-button:focus-visible {
+  outline: 3px solid #92c9ff;
+  outline-offset: 3px;
+}
+
 @media (min-width: 720px) {
   .tracking-page {
     padding: 36px 24px 56px;
