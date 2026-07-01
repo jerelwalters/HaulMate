@@ -62,10 +62,11 @@ refreshes the session, signs out, requests a password reset, and verifies the
 reset email was captured by the local mail service at
 `http://127.0.0.1:54324`.
 
-The mobile Auth and business profile contract lives in
-[`docs/mobile-auth-profile-contract.md`](docs/mobile-auth-profile-contract.md).
-The private document storage contract lives in
-[`docs/document-storage-contract.md`](docs/document-storage-contract.md).
+Backend-to-mobile contracts:
+
+- [`docs/mobile-auth-profile-contract.md`](docs/mobile-auth-profile-contract.md)
+- [`docs/document-storage-contract.md`](docs/document-storage-contract.md)
+- [`docs/sync-contract.md`](docs/sync-contract.md)
 
 ## Environments
 

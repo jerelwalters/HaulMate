@@ -120,7 +120,7 @@ Use UUID primary keys generated on-device so records can be created offline.
 | `invoices` | Invoice revision, dates, totals, and payment status |
 | `invoice_items` | Billed line items and linked evidence |
 | `payments` | Full or partial payment records |
-| `sync_operations` | Local idempotent outbox entries and retry state |
+| `sync_operations` | Server idempotency replay ledger and reconciliation metadata |
 | `tracking_shares` | Hashed per-load link tokens, visibility settings, expiry, and revocation |
 | `eta_updates` | Published ETA, source, delay reason, and freshness timestamp |
 
