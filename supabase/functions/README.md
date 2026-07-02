@@ -12,3 +12,4 @@ first function is implemented.
 | Function | Purpose |
 |---|---|
 | `document-signed-url` | Validates an owned synced document through RLS and returns a 300-second signed Storage URL. |
+| `public-tracking` | Public GET endpoint for broker tracking links. Validates the share token through a service-role-only RPC and returns only the approved tracking response fields. |
