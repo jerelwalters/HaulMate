@@ -67,6 +67,7 @@ Backend-to-mobile contracts:
 - [`docs/mobile-auth-profile-contract.md`](docs/mobile-auth-profile-contract.md)
 - [`docs/document-storage-contract.md`](docs/document-storage-contract.md)
 - [`docs/sync-contract.md`](docs/sync-contract.md)
+- [`docs/tracking-share-lifecycle-contract.md`](docs/tracking-share-lifecycle-contract.md)
 
 ## Environments
 
