@@ -23,6 +23,10 @@ final class ProtectedFileStoreTests: XCTestCase {
 
         XCTAssertEqual(storedFile.fileName, "pod.pdf")
         XCTAssertEqual(storedFile.byteCount, 17)
+        XCTAssertEqual(
+            storedFile.sha256Hex,
+            "4fb3907c6c07c2ebe47312275a90301d78f88b16a900987f195fdc2c3601d02c"
+        )
         XCTAssertEqual(storedFile.fileURL.lastPathComponent, "document-1.pdf")
         XCTAssertEqual(try Data(contentsOf: storedFile.fileURL), Data("proof-of-delivery".utf8))
     }

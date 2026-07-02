@@ -3,21 +3,25 @@
 //  Copyright © 2026 Jerel Walters. All rights reserved.
 //
 
+import CryptoKit
 import Foundation
 
 public struct ProtectedStoredFile: Equatable, Sendable {
     public let fileURL: URL
     public let fileName: String
     public let byteCount: Int64
+    public let sha256Hex: String
 
     public init(
         fileURL: URL,
         fileName: String,
-        byteCount: Int64
+        byteCount: Int64,
+        sha256Hex: String
     ) {
         self.fileURL = fileURL
         self.fileName = fileName
         self.byteCount = byteCount
+        self.sha256Hex = sha256Hex
     }
 }
 
@@ -75,12 +79,14 @@ public final class ProtectedFileStore: ProtectedFileStoring, @unchecked Sendable
         try fileManager.copyItem(at: sourceURL, to: destinationURL)
         try applyProtection(to: destinationURL)
 
+        let data = try Data(contentsOf: destinationURL)
         let values = try destinationURL.resourceValues(forKeys: [.fileSizeKey])
 
         return ProtectedStoredFile(
             fileURL: destinationURL,
             fileName: fileName,
-            byteCount: Int64(values.fileSize ?? 0)
+            byteCount: Int64(values.fileSize ?? data.count),
+            sha256Hex: SHA256.hash(data: data).hexString
         )
     }
 
@@ -138,5 +144,11 @@ public final class ProtectedFileStore: ProtectedFileStoring, @unchecked Sendable
             .joined(separator: "-")
 
         return sanitized.isEmpty ? fallback : sanitized
+    }
+}
+
+private extension SHA256.Digest {
+    var hexString: String {
+        map { String(format: "%02x", $0) }.joined()
     }
 }

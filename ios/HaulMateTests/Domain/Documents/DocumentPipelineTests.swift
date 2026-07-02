@@ -3,7 +3,6 @@
 //  Copyright © 2026 Jerel Walters. All rights reserved.
 //
 
-import CryptoKit
 import StorageModule
 import XCTest
 @testable import HaulMate
@@ -36,7 +35,7 @@ final class DocumentPipelineTests: XCTestCase {
         XCTAssertEqual(result.document.fileName, "pod.pdf")
         XCTAssertEqual(result.document.contentType, "application/pdf")
         XCTAssertEqual(result.document.byteCount, 17)
-        XCTAssertEqual(result.document.sha256Hex, Data("proof-of-delivery".utf8).sha256Hex)
+        XCTAssertEqual(result.document.sha256Hex, Hashes.proofOfDelivery)
         XCTAssertTrue(FileManager.default.fileExists(atPath: try XCTUnwrap(result.document.localFileURL).path))
 
         let snapshot = try XCTUnwrap(context.repository.readRecentDocuments())
@@ -54,7 +53,7 @@ final class DocumentPipelineTests: XCTestCase {
         }
         XCTAssertEqual(payload.documentID, IDs.document)
         XCTAssertEqual(payload.loadID, IDs.load)
-        XCTAssertEqual(payload.sha256Hex, Data("proof-of-delivery".utf8).sha256Hex)
+        XCTAssertEqual(payload.sha256Hex, Hashes.proofOfDelivery)
     }
 
     func testUnsupportedFileTypeDoesNotPersistMetadataOrQueueUpload() throws {
@@ -209,10 +208,6 @@ private enum Dates {
     static let imported = Date(timeIntervalSince1970: 1_000)
 }
 
-private extension Data {
-    var sha256Hex: String {
-        SHA256.hash(data: self)
-            .map { String(format: "%02x", $0) }
-            .joined()
-    }
+private enum Hashes {
+    static let proofOfDelivery = "4fb3907c6c07c2ebe47312275a90301d78f88b16a900987f195fdc2c3601d02c"
 }

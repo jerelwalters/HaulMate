@@ -3,7 +3,6 @@
 //  Copyright © 2026 Jerel Walters. All rights reserved.
 //
 
-import CryptoKit
 import Foundation
 import StorageModule
 
@@ -40,13 +39,12 @@ final class LocalDocumentFileStore: LocalDocumentFileStoring, @unchecked Sendabl
             identifier: documentID.uuidString,
             preferredFileName: preferredFileName
         )
-        let data = try Data(contentsOf: storedFile.fileURL)
 
         return LocalStoredDocument(
             fileURL: storedFile.fileURL,
             fileName: storedFile.fileName,
             byteCount: storedFile.byteCount,
-            sha256Hex: SHA256.hash(data: data).hexString
+            sha256Hex: storedFile.sha256Hex
         )
     }
 
@@ -56,11 +54,5 @@ final class LocalDocumentFileStore: LocalDocumentFileStoring, @unchecked Sendabl
 
     func removeAllDocuments() throws {
         try protectedFileStore.removeAllFiles()
-    }
-}
-
-private extension SHA256.Digest {
-    var hexString: String {
-        map { String(format: "%02x", $0) }.joined()
     }
 }
