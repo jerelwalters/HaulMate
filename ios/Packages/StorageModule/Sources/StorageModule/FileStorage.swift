@@ -130,7 +130,7 @@ public enum FileStorageProtection: Equatable, Sendable {
 }
 
 #if os(iOS)
-private extension FileStorageProtection {
+extension FileStorageProtection {
     var protectionValue: FileProtectionType? {
         switch self {
         case .none:

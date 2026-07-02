@@ -298,6 +298,54 @@ final class HaulMateLocalStorageRepositoryTests: XCTestCase {
         XCTAssertNil(try repository.readSyncOutbox())
         XCTAssertNil(try repository.readSyncMetadata())
     }
+
+    func testAccountScopedCleanerClearsRepositoryStateAndRawDocumentFiles() async throws {
+        let repository = HaulMateLocalStorageRepository(storage: MemoryStorage())
+        let directoryURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent("com.haulmate.account-cleaner-tests.\(UUID().uuidString)", isDirectory: true)
+        let sourceDirectoryURL = directoryURL.appendingPathComponent("Source", isDirectory: true)
+        let documentDirectoryURL = directoryURL.appendingPathComponent("Documents", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: directoryURL) }
+        try FileManager.default.createDirectory(
+            at: sourceDirectoryURL,
+            withIntermediateDirectories: true
+        )
+        let sourceURL = sourceDirectoryURL.appendingPathComponent("pod.pdf")
+        try Data("proof-of-delivery".utf8).write(to: sourceURL)
+        let documentStore = LocalDocumentFileStore(directoryURL: documentDirectoryURL)
+        let storedDocument = try documentStore.persistDocument(
+            from: sourceURL,
+            documentID: UUID(uuidString: "22222222-2222-2222-2222-222222222222")!,
+            preferredFileName: "pod.pdf"
+        )
+        try repository.saveRecentDocuments(
+            RecentDocumentsSnapshot(
+                documents: [
+                    RecentDocumentReference(
+                        id: UUID(uuidString: "22222222-2222-2222-2222-222222222222")!,
+                        loadID: UUID(uuidString: "11111111-1111-1111-1111-111111111111")!,
+                        kind: .proofOfDelivery,
+                        fileName: "pod.pdf",
+                        contentType: "application/pdf",
+                        byteCount: storedDocument.byteCount,
+                        sha256Hex: storedDocument.sha256Hex,
+                        localFileURL: storedDocument.fileURL,
+                        updatedAt: Date(timeIntervalSince1970: 2_000)
+                    )
+                ],
+                updatedAt: Date(timeIntervalSince1970: 2_100)
+            )
+        )
+        let cleaner = HaulMateAccountScopedDataCleaner(
+            localStorageRepository: { repository },
+            documentFileStore: { documentStore }
+        )
+
+        try await cleaner.clearAccountScopedData()
+
+        XCTAssertNil(try repository.readRecentDocuments())
+        XCTAssertFalse(FileManager.default.fileExists(atPath: storedDocument.fileURL.path))
+    }
 }
 
 @MainActor

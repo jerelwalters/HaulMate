@@ -33,6 +33,42 @@ struct LoadSyncPayload: Codable, Equatable, Sendable {
     }
 }
 
+struct DocumentUploadSyncPayload: Codable, Equatable, Sendable {
+    let documentID: UUID
+    let loadID: UUID?
+    let fileName: String
+    let contentType: String
+    let byteCount: Int64
+    let sha256Hex: String
+    let localFileURL: URL
+    let remoteObjectKey: String?
+
+    init(
+        documentID: UUID,
+        loadID: UUID?,
+        fileName: String,
+        contentType: String,
+        byteCount: Int64,
+        sha256Hex: String,
+        localFileURL: URL,
+        remoteObjectKey: String? = nil
+    ) {
+        self.documentID = documentID
+        self.loadID = loadID
+        self.fileName = fileName
+        self.contentType = contentType
+        self.byteCount = byteCount
+        self.sha256Hex = sha256Hex
+        self.localFileURL = localFileURL
+        self.remoteObjectKey = remoteObjectKey
+    }
+}
+
+enum SyncOperationPayload: Codable, Equatable, Sendable {
+    case load(LoadSyncPayload)
+    case documentUpload(DocumentUploadSyncPayload)
+}
+
 struct SyncOutboxSnapshot: Codable, Equatable, Sendable {
     var operations: [SyncOperation]
     var updatedAt: Date
@@ -52,7 +88,7 @@ struct SyncOperation: Codable, Equatable, Identifiable, Sendable {
     let kind: SyncOperationKind
     let entityKind: SyncRecordEntityKind
     let entityID: UUID
-    let payload: LoadSyncPayload
+    let payload: SyncOperationPayload
     let createdAt: Date
     var state: SyncOperationState
     var attemptCount: Int
@@ -68,7 +104,7 @@ struct SyncOperation: Codable, Equatable, Identifiable, Sendable {
         kind: SyncOperationKind,
         entityKind: SyncRecordEntityKind,
         entityID: UUID,
-        payload: LoadSyncPayload,
+        payload: SyncOperationPayload,
         createdAt: Date,
         state: SyncOperationState,
         attemptCount: Int,
@@ -114,7 +150,39 @@ struct SyncOperation: Codable, Equatable, Identifiable, Sendable {
             kind: .loadUpsert,
             entityKind: .load,
             entityID: payload.loadID,
-            payload: payload,
+            payload: .load(payload),
+            createdAt: createdAt,
+            state: .queued,
+            attemptCount: 0,
+            nextRetryAt: nil,
+            lastErrorMessage: nil,
+            reviewReason: nil,
+            serverResult: nil,
+            updatedAt: createdAt
+        )
+    }
+
+    static func documentUpload(
+        id: UUID = UUID(),
+        idempotencyKey: String,
+        payload: DocumentUploadSyncPayload,
+        createdAt: Date
+    ) throws -> SyncOperation {
+        let normalizedKey = idempotencyKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !normalizedKey.isEmpty else {
+            throw SyncOperationValidationError.emptyIdempotencyKey
+        }
+        guard normalizedKey.count <= 160 else {
+            throw SyncOperationValidationError.idempotencyKeyTooLong
+        }
+
+        return SyncOperation(
+            id: id,
+            idempotencyKey: normalizedKey,
+            kind: .documentUpload,
+            entityKind: .document,
+            entityID: payload.documentID,
+            payload: .documentUpload(payload),
             createdAt: createdAt,
             state: .queued,
             attemptCount: 0,
@@ -192,6 +260,7 @@ struct SyncOperation: Codable, Equatable, Identifiable, Sendable {
 
 enum SyncOperationKind: String, Codable, Sendable {
     case loadUpsert = "load.upsert"
+    case documentUpload = "document.upload"
 }
 
 enum SyncOperationState: String, Codable, Sendable {
@@ -279,8 +348,34 @@ protocol SyncOutboxStoring: AnyObject {
 }
 
 @MainActor
-protocol LoadSyncRemoteApplying {
+protocol SyncRemoteApplying {
+    func applySyncOperation(_ operation: SyncOperation) async throws -> SyncOperationServerResult
+}
+
+@MainActor
+protocol LoadSyncRemoteApplying: SyncRemoteApplying {
     func applyLoadSyncOperation(_ operation: SyncOperation) async throws -> SyncOperationServerResult
+}
+
+extension LoadSyncRemoteApplying {
+    func applySyncOperation(_ operation: SyncOperation) async throws -> SyncOperationServerResult {
+        guard operation.kind == .loadUpsert else {
+            throw SyncRemoteApplicationError.unsupportedOperation(operation.kind)
+        }
+
+        return try await applyLoadSyncOperation(operation)
+    }
+}
+
+enum SyncRemoteApplicationError: Error, Equatable, LocalizedError, Sendable {
+    case unsupportedOperation(SyncOperationKind)
+
+    var errorDescription: String? {
+        switch self {
+        case .unsupportedOperation(let operationKind):
+            return "Unsupported sync operation: \(operationKind.rawValue)"
+        }
+    }
 }
 
 struct SyncRetryPolicy: Equatable, Sendable {
@@ -310,12 +405,12 @@ struct SyncRunSummary: Equatable, Sendable {
 @MainActor
 final class SyncEngine {
     private let outboxStore: any SyncOutboxStoring
-    private let remote: any LoadSyncRemoteApplying
+    private let remote: any SyncRemoteApplying
     private let retryPolicy: SyncRetryPolicy
 
     init(
         outboxStore: any SyncOutboxStoring,
-        remote: any LoadSyncRemoteApplying,
+        remote: any SyncRemoteApplying,
         retryPolicy: SyncRetryPolicy = .default
     ) {
         self.outboxStore = outboxStore
@@ -338,6 +433,34 @@ final class SyncEngine {
         }
 
         let operation = try SyncOperation.loadUpsert(
+            id: operationID,
+            idempotencyKey: normalizedKey,
+            payload: payload,
+            createdAt: now
+        )
+        snapshot.operations.append(operation)
+        snapshot.updatedAt = now
+
+        try persist(snapshot, now: now)
+
+        return operation
+    }
+
+    @discardableResult
+    func enqueueDocumentUpload(
+        payload: DocumentUploadSyncPayload,
+        operationID: UUID = UUID(),
+        idempotencyKey: String,
+        now: Date
+    ) throws -> SyncOperation {
+        var snapshot = try readSnapshot(defaultUpdatedAt: now)
+        let normalizedKey = idempotencyKey.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        if let duplicate = snapshot.operations.first(where: { $0.idempotencyKey == normalizedKey }) {
+            return duplicate
+        }
+
+        let operation = try SyncOperation.documentUpload(
             id: operationID,
             idempotencyKey: normalizedKey,
             payload: payload,
@@ -374,7 +497,7 @@ final class SyncEngine {
             summary.attemptedCount += 1
 
             do {
-                let result = try await remote.applyLoadSyncOperation(snapshot.operations[startIndex])
+                let result = try await remote.applySyncOperation(snapshot.operations[startIndex])
                 guard let completedIndex = snapshot.operations.firstIndex(where: { $0.id == operationID }) else {
                     continue
                 }

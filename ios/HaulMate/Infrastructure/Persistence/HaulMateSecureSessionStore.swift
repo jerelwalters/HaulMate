@@ -68,11 +68,28 @@ actor HaulMateSecureSessionStore: AuthSessionStoring {
 }
 
 actor HaulMateAccountScopedDataCleaner: AccountScopedDataClearing {
+    private let localStorageRepository: @MainActor @Sendable () throws -> HaulMateLocalStorageRepository
+    private let documentFileStore: @MainActor @Sendable () -> any LocalDocumentFileStoring
+
+    init(
+        localStorageRepository: @escaping @MainActor @Sendable () throws -> HaulMateLocalStorageRepository = {
+            try HaulMateLocalStorageRepository.fileBacked()
+        },
+        documentFileStore: @escaping @MainActor @Sendable () -> any LocalDocumentFileStoring = {
+            LocalDocumentFileStore()
+        }
+    ) {
+        self.localStorageRepository = localStorageRepository
+        self.documentFileStore = documentFileStore
+    }
+
     func clearAccountScopedData() async throws {
+        let localStorageRepository = localStorageRepository
+        let documentFileStore = documentFileStore
+
         try await MainActor.run {
-            try HaulMateLocalStorageRepository
-                .fileBacked()
-                .deleteAccountScopedData()
+            try localStorageRepository().deleteAccountScopedData()
+            try documentFileStore().removeAllDocuments()
         }
     }
 }

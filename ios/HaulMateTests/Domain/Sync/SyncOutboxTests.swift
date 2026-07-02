@@ -3,6 +3,7 @@
 //  Copyright © 2026 Jerel Walters. All rights reserved.
 //
 
+import Foundation
 import StorageModule
 import XCTest
 @testable import HaulMate
@@ -92,6 +93,62 @@ final class SyncOutboxTests: XCTestCase {
         XCTAssertEqual(metadata.pendingMutationCount, 0)
         XCTAssertEqual(metadata.failedMutationCount, 0)
         XCTAssertEqual(metadata.records.first?.state, .synced)
+    }
+
+    func testSyncPendingDocumentUploadMarksOperationAndRecordSynced() async throws {
+        let repository = HaulMateLocalStorageRepository(storage: MemoryStorage())
+        let remote = SyncRemoteSpy(results: [
+            .success(.documentApplied(operationID: IDs.documentOperation))
+        ])
+        let engine = SyncEngine(outboxStore: repository, remote: remote)
+        try engine.enqueueDocumentUpload(
+            payload: .sample,
+            operationID: IDs.documentOperation,
+            idempotencyKey: "document:\(IDs.document.uuidString):upload:v1",
+            now: Dates.enqueued
+        )
+
+        let summary = try await engine.syncPendingOperations(now: Dates.synced)
+
+        XCTAssertEqual(summary, SyncRunSummary(attemptedCount: 1, syncedCount: 1, failedCount: 0, needsReviewCount: 0))
+        XCTAssertEqual(remote.appliedOperations.map(\.kind), [.documentUpload])
+
+        let operation = try XCTUnwrap(repository.readSyncOutbox()?.operations.first)
+        XCTAssertEqual(operation.state, .synced)
+        XCTAssertEqual(operation.entityKind, .document)
+        XCTAssertEqual(operation.serverResult?.targetTable, "documents")
+
+        let metadata = try XCTUnwrap(repository.readSyncMetadata())
+        XCTAssertEqual(metadata.lastSuccessfulSyncAt, Dates.synced)
+        XCTAssertEqual(metadata.pendingMutationCount, 0)
+        XCTAssertEqual(metadata.records.first?.entityKind, .document)
+        XCTAssertEqual(metadata.records.first?.state, .synced)
+    }
+
+    func testLoadOnlyRemoteFailsUnsupportedDocumentUploadWithoutCallingLoadAdapter() async throws {
+        let repository = HaulMateLocalStorageRepository(storage: MemoryStorage())
+        let remote = RemoteSpy()
+        let engine = SyncEngine(
+            outboxStore: repository,
+            remote: remote,
+            retryPolicy: SyncRetryPolicy(retryDelay: 60, inFlightTimeout: 300)
+        )
+        try engine.enqueueDocumentUpload(
+            payload: .sample,
+            operationID: IDs.documentOperation,
+            idempotencyKey: "document:\(IDs.document.uuidString):upload:v1",
+            now: Dates.enqueued
+        )
+
+        let summary = try await engine.syncPendingOperations(now: Dates.firstAttempt)
+
+        XCTAssertEqual(summary, SyncRunSummary(attemptedCount: 1, syncedCount: 0, failedCount: 1, needsReviewCount: 0))
+        XCTAssertTrue(remote.appliedOperations.isEmpty)
+
+        let operation = try XCTUnwrap(repository.readSyncOutbox()?.operations.first)
+        XCTAssertEqual(operation.state, .failed)
+        XCTAssertEqual(operation.nextRetryAt, Dates.retryDue)
+        XCTAssertEqual(operation.lastErrorMessage, "Unsupported sync operation: document.upload")
     }
 
     func testFailedOperationRetriesAfterRestartWhenRetryIsDue() async throws {
@@ -208,6 +265,26 @@ final class SyncOutboxTests: XCTestCase {
 }
 
 @MainActor
+private final class SyncRemoteSpy: SyncRemoteApplying {
+    private var results: [Result<SyncOperationServerResult, Error>]
+    private(set) var appliedOperations: [SyncOperation] = []
+
+    init(results: [Result<SyncOperationServerResult, Error>] = []) {
+        self.results = results
+    }
+
+    func applySyncOperation(_ operation: SyncOperation) async throws -> SyncOperationServerResult {
+        appliedOperations.append(operation)
+
+        guard !results.isEmpty else {
+            return .applied(operationID: operation.id)
+        }
+
+        return try results.removeFirst().get()
+    }
+}
+
+@MainActor
 private final class RemoteSpy: LoadSyncRemoteApplying {
     private var results: [Result<SyncOperationServerResult, Error>]
     private(set) var appliedOperations: [SyncOperation] = []
@@ -267,8 +344,10 @@ private enum RemoteError: Error {
 private enum IDs {
     static let operation = UUID(uuidString: "00000000-0000-0000-0000-000000000901")!
     static let secondOperation = UUID(uuidString: "00000000-0000-0000-0000-000000000902")!
+    static let documentOperation = UUID(uuidString: "00000000-0000-0000-0000-000000000903")!
     static let load = UUID(uuidString: "00000000-0000-0000-0000-000000000691")!
     static let customer = UUID(uuidString: "00000000-0000-0000-0000-000000000591")!
+    static let document = UUID(uuidString: "00000000-0000-0000-0000-000000000491")!
 }
 
 private enum Dates {
@@ -286,6 +365,18 @@ private extension LoadSyncPayload {
         status: .accepted,
         lineHaulRate: Decimal(1_850),
         loadedMiles: Decimal(540)
+    )
+}
+
+private extension DocumentUploadSyncPayload {
+    static let sample = DocumentUploadSyncPayload(
+        documentID: IDs.document,
+        loadID: IDs.load,
+        fileName: "pod.pdf",
+        contentType: "application/pdf",
+        byteCount: 17,
+        sha256Hex: String(repeating: "a", count: 64),
+        localFileURL: URL(fileURLWithPath: "/tmp/haulmate/pod.pdf")
     )
 }
 
@@ -313,6 +404,17 @@ private extension SyncOperationServerResult {
             targetID: IDs.load,
             result: .rejected,
             errorCode: .financialConflict
+        )
+    }
+
+    static func documentApplied(operationID: UUID) -> SyncOperationServerResult {
+        SyncOperationServerResult(
+            operationID: operationID,
+            idempotencyKey: "document:\(IDs.document.uuidString):upload:v1",
+            operationType: .documentUpload,
+            targetTable: "documents",
+            targetID: IDs.document,
+            result: .applied
         )
     }
 }
