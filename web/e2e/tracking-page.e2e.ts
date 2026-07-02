@@ -1,6 +1,7 @@
 import { expect, type Page, test } from '@playwright/test'
 
 import { trackingResponseFixtures } from '../src/tracking/fixtures'
+import type { TrackingResponse } from '../src/tracking/types'
 
 const trackingFunctionPattern = 'http://127.0.0.1:5179/public-tracking*'
 const shareToken = 'playwright-share-token'
@@ -21,12 +22,38 @@ test.describe('public tracking page', () => {
     await expect(page.locator('[aria-label="Tracking summary"]')).toContainText(
       'Delivery ETA',
     )
-    await expect(page.getByText('ETA published for delivery.')).toBeVisible()
+    await expect(page.locator('[aria-label="Tracking summary"]')).toContainText(
+      'App-estimated ETA',
+    )
+    await expect(page.locator('[aria-label="Tracking summary"]')).toContainText(
+      'Last update',
+    )
+    await expect(page.locator('[aria-label="Tracking summary"]')).toContainText(
+      'Not live GPS.',
+    )
+    await expect(page.getByText('ETA updated for delivery.')).toBeVisible()
     await expectNoHorizontalOverflow(page)
 
     expect(requests).toHaveLength(1)
     expect(consoleMessages.join('\n')).not.toContain(shareToken)
     expect(consoleMessages.join('\n')).not.toContain('NSF-2048')
+  })
+
+  test('renders an offline/no-update tracking state honestly', async ({ page }) => {
+    await mockTrackingFunction(
+      page,
+      shareToken,
+      trackingResponseFixtures.offlineNoUpdateLoad,
+    )
+
+    await page.goto(`/track/${shareToken}`)
+
+    await expect(page.getByText('No recent update')).toBeVisible()
+    await expect(
+      page.getByText('No new update has come in.'),
+    ).toBeVisible()
+    await expect(page.getByText('Not live GPS.')).toBeVisible()
+    await expectNoHorizontalOverflow(page)
   })
 
   test('shows a generic unavailable-link state when the URL has no token', async ({
@@ -52,7 +79,11 @@ test.describe('public tracking page', () => {
   })
 })
 
-async function mockTrackingFunction(page: Page, expectedToken: string) {
+async function mockTrackingFunction(
+  page: Page,
+  expectedToken: string,
+  responseFixture: TrackingResponse = trackingResponseFixtures.activeLoad,
+) {
   const requests: string[] = []
 
   await page.route(trackingFunctionPattern, async (route) => {
@@ -62,7 +93,7 @@ async function mockTrackingFunction(page: Page, expectedToken: string) {
     expect(requestUrl.searchParams.get('token')).toBe(expectedToken)
 
     await route.fulfill({
-      body: JSON.stringify(trackingResponseFixtures.activeLoad),
+      body: JSON.stringify(responseFixture),
       contentType: 'application/json',
       headers: {
         'access-control-allow-origin': '*',

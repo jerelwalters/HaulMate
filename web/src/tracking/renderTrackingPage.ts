@@ -1,6 +1,8 @@
 import type {
   TrackingEta,
+  TrackingEtaSource,
   TrackingEvent,
+  TrackingFreshnessStatus,
   TrackingLoadStatus,
   TrackingResponse,
   TrackingStop,
@@ -27,6 +29,17 @@ const eventLabels: Record<TrackingEvent['type'], string> = {
   delay_reported: 'Delay reported',
 }
 
+const etaSourceLabels: Record<TrackingEtaSource, string> = {
+  manual: 'Driver-entered ETA',
+  on_device_estimate: 'App-estimated ETA',
+}
+
+const freshnessLabels: Record<TrackingFreshnessStatus, string> = {
+  current: 'Updated recently',
+  stale: 'Update is old',
+  offline_no_update: 'No recent update',
+}
+
 export function renderTrackingPage(response: TrackingResponse) {
   return `
     <main class="tracking-page" aria-labelledby="page-title">
@@ -43,7 +56,7 @@ export function renderTrackingPage(response: TrackingResponse) {
       </header>
 
       <section class="summary-grid" aria-label="Tracking summary">
-        ${renderEta(response.eta, response.stops)}
+        ${renderEta(response.eta, response.stops, response.load.status)}
         ${renderFreshness(response)}
         ${renderPod(response)}
       </section>
@@ -75,39 +88,101 @@ export function renderTrackingPage(response: TrackingResponse) {
   `
 }
 
-function renderEta(eta: TrackingEta, stops: TrackingStop[]) {
+function renderEta(
+  eta: TrackingEta,
+  stops: TrackingStop[],
+  loadStatus: TrackingLoadStatus,
+) {
   const etaStop = stops.find((stop) => stop.id === eta.stopId)
   const etaTitle = etaStop
     ? `${capitalize(etaStop.kind)} ETA`
     : 'ETA'
 
   if (eta.status === 'unavailable') {
+    const unavailableCopy = loadStatus === 'delivered'
+      ? 'Delivery is complete, so no ETA is needed.'
+      : 'No ETA is available right now.'
+
     return `
       <article class="summary-card">
         <span class="summary-label">${etaTitle}</span>
         <strong>Unavailable</strong>
-        <p>No active ETA is currently published.</p>
+        <p>${unavailableCopy} Not live GPS.</p>
       </article>
     `
   }
+
+  const sourceLabel = eta.source
+    ? etaSourceLabels[eta.source]
+    : 'Published estimate'
 
   return `
     <article class="summary-card">
       <span class="summary-label">${etaTitle}</span>
       <strong>${formatTime(eta.estimatedArrivalAt)}</strong>
-      <p>${eta.source === 'manual' ? 'Manual estimate' : 'On-device estimate'} for ${escapeHtml(etaStop?.displayName ?? 'the next stop')}.</p>
+      <p>${sourceLabel} for ${escapeHtml(etaStop?.displayName ?? 'the next stop')}. Not live GPS.</p>
+      <p class="summary-meta">${
+        eta.refreshedAt
+          ? `ETA updated ${formatTime(eta.refreshedAt)}.`
+          : 'ETA refresh time unavailable.'
+      }</p>
     </article>
   `
 }
 
 function renderFreshness(response: TrackingResponse) {
+  const presentation = freshnessPresentation(response)
+
   return `
-    <article class="summary-card">
-      <span class="summary-label">Freshness</span>
-      <strong>${escapeHtml(statusToTitle(response.freshness.status))}</strong>
-      <p>${escapeHtml(response.freshness.displayText)}</p>
+    <article class="summary-card freshness-card" data-freshness="${escapeHtml(response.freshness.status)}">
+      <span class="summary-label">Last update</span>
+      <strong>${escapeHtml(presentation.title)}</strong>
+      <p>${escapeHtml(presentation.message)}</p>
+      <p class="summary-meta">
+        <time datetime="${escapeHtml(response.freshness.lastUpdatedAt)}">${formatTime(response.freshness.lastUpdatedAt)}</time>
+        <span>${escapeHtml(response.freshness.displayText)}</span>
+      </p>
     </article>
   `
+}
+
+function freshnessPresentation(response: TrackingResponse) {
+  if (response.load.status === 'delivered') {
+    return {
+      title: 'Delivered',
+      message: 'Delivery is complete. This is the last tracking update.',
+    }
+  }
+
+  if (response.load.status === 'delayed') {
+    return {
+      title: response.freshness.status === 'stale'
+        ? 'Delayed, update is old'
+        : 'Delayed',
+      message: response.latestDelay
+        ? 'A delay was reported, but this update is old. Confirm before acting on the ETA.'
+        : 'The load is delayed. Check the time below before acting on the ETA.',
+    }
+  }
+
+  if (response.freshness.status === 'offline_no_update') {
+    return {
+      title: freshnessLabels.offline_no_update,
+      message: 'No new update has come in. The carrier may be offline or between updates.',
+    }
+  }
+
+  if (response.freshness.status === 'stale') {
+    return {
+      title: freshnessLabels.stale,
+      message: 'This update is older than expected. Confirm before acting on the ETA.',
+    }
+  }
+
+  return {
+    title: freshnessLabels.current,
+    message: 'Use this as the latest status. ETA is still an estimate.',
+  }
 }
 
 function renderPod(response: TrackingResponse) {

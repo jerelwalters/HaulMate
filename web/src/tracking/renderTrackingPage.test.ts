@@ -24,9 +24,45 @@ describe('renderTrackingPage', () => {
     )
 
     expect(delayedHtml).toContain('Waiting for dock assignment.')
-    expect(delayedHtml).toContain('Manual estimate')
+    expect(delayedHtml).toContain('Driver-entered ETA')
+    expect(delayedHtml).toContain('Delayed, update is old')
     expect(deliveredHtml).toContain('Delivered')
     expect(deliveredHtml).toContain('Ready')
+    expect(deliveredHtml).toContain('last tracking update')
+  })
+
+  it('labels ETA source, refresh time, and non-GPS scope', () => {
+    const activeHtml = renderTrackingPage(trackingResponseFixtures.activeLoad)
+    const manualHtml = renderTrackingPage(trackingResponseFixtures.delayedLoad)
+
+    expect(activeHtml).toContain('App-estimated ETA for Delivery')
+    expect(activeHtml).toContain('ETA updated')
+    expect(activeHtml).toContain('Not live GPS.')
+    expect(manualHtml).toContain('Driver-entered ETA for Pickup')
+  })
+
+  it('always shows the last successful update for public tracking states', () => {
+    for (const [name, fixture] of Object.entries(trackingResponseFixtures)) {
+      const html = renderTrackingPage(fixture)
+
+      expect(html, name).toContain('Last update')
+      expect(html, name).toContain(fixture.freshness.lastUpdatedAt)
+    }
+  })
+
+  it('distinguishes current, stale, delayed, delivered, and offline states', () => {
+    expect(renderTrackingPage(trackingResponseFixtures.activeLoad)).toContain(
+      'Updated recently',
+    )
+    expect(renderTrackingPage(trackingResponseFixtures.delayedLoad)).toContain(
+      'Delayed, update is old',
+    )
+    expect(renderTrackingPage(trackingResponseFixtures.deliveredLoad)).toContain(
+      'Delivered',
+    )
+    expect(
+      renderTrackingPage(trackingResponseFixtures.offlineNoUpdateLoad),
+    ).toContain('No recent update')
   })
 
   it('does not expose private field labels in the rendered public page', () => {

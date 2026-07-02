@@ -122,6 +122,17 @@ h1 {
   color: #526158;
 }
 
+.summary-meta {
+  display: grid;
+  gap: 2px;
+  font-size: 0.9rem;
+}
+
+.summary-meta time,
+.summary-meta span {
+  min-width: 0;
+}
+
 .delay-banner {
   margin-top: 14px;
   padding: 16px;
