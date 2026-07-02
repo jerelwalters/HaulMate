@@ -1,23 +1,29 @@
-export type TrackingStateVariant = 'loading' | 'missing-token' | 'unavailable'
+export type TrackingStateVariant =
+  | 'loading'
+  | 'unavailable-link'
+  | 'service-unavailable'
 
 const stateCopy: Record<
   TrackingStateVariant,
-  { heading: string; message: string; title: string }
+  { heading: string; message: string; role: 'alert' | 'status'; title: string }
 > = {
   loading: {
     title: 'Loading tracking update',
     heading: 'Loading tracking update',
     message: 'Checking the most recent load update.',
+    role: 'status',
   },
-  'missing-token': {
+  'unavailable-link': {
     title: 'Tracking link unavailable',
     heading: 'Tracking link unavailable',
-    message: 'Open the secure tracking link sent by the carrier.',
+    message: 'This secure tracking link is unavailable. Ask the carrier for a new link.',
+    role: 'alert',
   },
-  unavailable: {
+  'service-unavailable': {
     title: 'Tracking temporarily unavailable',
     heading: 'Tracking temporarily unavailable',
-    message: 'Try refreshing this page in a moment.',
+    message: 'Tracking updates cannot be checked right now. Try again in a moment.',
+    role: 'alert',
   },
 }
 
@@ -29,7 +35,12 @@ export function renderTrackingState(
 
   return `
     <main class="tracking-page state-page" aria-labelledby="page-title">
-      <section class="state-panel">
+      <section
+        class="state-panel"
+        data-tracking-state="${variant}"
+        role="${copy.role}"
+        aria-live="${copy.role === 'status' ? 'polite' : 'assertive'}"
+      >
         <p class="carrier-name">HaulMate tracking</p>
         <h1 id="page-title">${copy.heading}</h1>
         <p>${copy.message}</p>

@@ -14,27 +14,38 @@ export interface MountTrackingAppOptions {
   root: HTMLElement
 }
 
+const activeLoadIds = new WeakMap<HTMLElement, number>()
+
 export function mountTrackingApp(options: MountTrackingAppOptions) {
   void loadTrackingPage(options)
 }
 
 async function loadTrackingPage(options: MountTrackingAppOptions) {
+  const loadId = beginLoad(options.root)
   const url = new URL(options.location.href)
   const tokenResult = readShareTokenFromUrl(url)
 
   if (tokenResult.kind === 'missing') {
-    options.root.innerHTML = renderTrackingState('missing-token')
+    renderIfCurrent(
+      options.root,
+      loadId,
+      renderTrackingState('unavailable-link'),
+    )
     return
   }
 
   const config = readTrackingClientConfig(options.env)
 
   if (!config) {
-    options.root.innerHTML = renderTrackingState('unavailable')
+    renderIfCurrent(
+      options.root,
+      loadId,
+      renderTrackingState('service-unavailable'),
+    )
     return
   }
 
-  options.root.innerHTML = renderTrackingState('loading')
+  renderIfCurrent(options.root, loadId, renderTrackingState('loading'))
 
   try {
     const tracking = await fetchTrackingResponse({
@@ -43,18 +54,47 @@ async function loadTrackingPage(options: MountTrackingAppOptions) {
       shareToken: tokenResult.token,
     })
 
-    options.root.innerHTML = renderTrackingPage(tracking)
+    renderIfCurrent(options.root, loadId, renderTrackingPage(tracking))
   } catch (error) {
-    options.root.innerHTML = renderTrackingState(
+    if (!isCurrentLoad(options.root, loadId)) {
+      return
+    }
+
+    const isAccessDenied =
       error instanceof TrackingClientError && error.kind === 'access_denied'
-        ? 'missing-token'
-        : 'unavailable',
-      { canRetry: true },
+    const canRetry = !isAccessDenied
+
+    renderIfCurrent(
+      options.root,
+      loadId,
+      renderTrackingState(
+        isAccessDenied ? 'unavailable-link' : 'service-unavailable',
+        { canRetry },
+      ),
     )
-    options.root
-      .querySelector('[data-action="retry-tracking"]')
-      ?.addEventListener('click', () => {
-        void loadTrackingPage(options)
-      })
+
+    if (canRetry) {
+      options.root
+        .querySelector('[data-action="retry-tracking"]')
+        ?.addEventListener('click', () => {
+          void loadTrackingPage(options)
+        })
+    }
+  }
+}
+
+function beginLoad(root: HTMLElement) {
+  const loadId = (activeLoadIds.get(root) ?? 0) + 1
+  activeLoadIds.set(root, loadId)
+  return loadId
+}
+
+function isCurrentLoad(root: HTMLElement, loadId: number) {
+  return activeLoadIds.get(root) === loadId
+}
+
+function renderIfCurrent(root: HTMLElement, loadId: number, html: string) {
+  if (isCurrentLoad(root, loadId)) {
+    root.innerHTML = html
   }
 }

@@ -56,9 +56,10 @@ select {
 h1 {
   margin: 0;
   color: #101814;
-  font-size: clamp(2rem, 8vw, 4rem);
+  font-size: 2.25rem;
   line-height: 1;
   letter-spacing: 0;
+  overflow-wrap: anywhere;
 }
 
 .load-status {
@@ -313,8 +314,14 @@ h3 {
   font-size: 1.05rem;
 }
 
+.state-panel h1 {
+  font-size: 2rem;
+  line-height: 1.08;
+}
+
 .retry-button {
   margin-top: 22px;
+  min-height: 44px;
   padding: 10px 14px;
   border: 1px solid #145338;
   border-radius: 8px;
@@ -342,6 +349,10 @@ h3 {
     padding-bottom: 30px;
   }
 
+  h1 {
+    font-size: 4rem;
+  }
+
   .summary-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     margin-top: 24px;
@@ -358,6 +369,10 @@ h3 {
 
   .panel {
     padding: 22px;
+  }
+
+  .state-panel h1 {
+    font-size: 3rem;
   }
 
   .stop-heading {

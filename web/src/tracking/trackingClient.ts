@@ -9,6 +9,8 @@ export type TrackingClientErrorKind =
   | 'network'
   | 'unexpected_response'
 
+const accessDeniedStatuses = new Set([401, 403, 404, 410])
+
 export class TrackingClientError extends Error {
   readonly kind: TrackingClientErrorKind
 
@@ -38,10 +40,13 @@ export async function fetchTrackingResponse({
   try {
     response = await fetcher(requestUrl, {
       cache: 'no-store',
+      credentials: 'omit',
       headers: {
         Accept: 'application/json',
       },
       method: 'GET',
+      redirect: 'error',
+      referrerPolicy: 'no-referrer',
     })
   } catch {
     throw new TrackingClientError(
@@ -50,7 +55,7 @@ export async function fetchTrackingResponse({
     )
   }
 
-  if (response.status === 401 || response.status === 403 || response.status === 404) {
+  if (accessDeniedStatuses.has(response.status)) {
     throw new TrackingClientError(
       'access_denied',
       'This tracking link is unavailable.',

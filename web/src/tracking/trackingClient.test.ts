@@ -50,29 +50,38 @@ describe('fetchTrackingResponse', () => {
     )
     expect(requestedInit).toEqual({
       cache: 'no-store',
+      credentials: 'omit',
       headers: {
         Accept: 'application/json',
       },
       method: 'GET',
+      redirect: 'error',
+      referrerPolicy: 'no-referrer',
     })
   })
 
-  it('uses a generic access-denied error for invalid tracking links', async () => {
-    const fetcher = vi.fn(async () => new Response(null, { status: 404 }))
+  it.each([401, 403, 404, 410])(
+    'uses a generic access-denied error for status %s',
+    async (status) => {
+      const fetcher = vi.fn(async () => new Response(null, { status }))
 
-    await expect(
-      fetchTrackingResponse({
-        config: {
-          functionUrl:
-            'https://example.supabase.co/functions/v1/public-tracking',
-        },
-        fetcher,
-        shareToken: 'expired-token',
-      }),
-    ).rejects.toMatchObject(
-      new TrackingClientError('access_denied', 'This tracking link is unavailable.'),
-    )
-  })
+      await expect(
+        fetchTrackingResponse({
+          config: {
+            functionUrl:
+              'https://example.supabase.co/functions/v1/public-tracking',
+          },
+          fetcher,
+          shareToken: 'expired-token',
+        }),
+      ).rejects.toMatchObject(
+        new TrackingClientError(
+          'access_denied',
+          'This tracking link is unavailable.',
+        ),
+      )
+    },
+  )
 })
 
 describe('readTrackingClientConfig', () => {
