@@ -309,6 +309,7 @@ struct StoredRecentDocumentV1: Codable, Equatable {
     var fileName: String
     var contentType: String
     var byteCount: Int64
+    var sha256Hex: String?
     var localFileURL: URL?
     var remoteObjectKey: String?
     var updatedAt: Date
@@ -320,6 +321,7 @@ struct StoredRecentDocumentV1: Codable, Equatable {
         fileName = document.fileName
         contentType = document.contentType
         byteCount = document.byteCount
+        sha256Hex = document.sha256Hex
         localFileURL = document.localFileURL
         remoteObjectKey = document.remoteObjectKey
         updatedAt = document.updatedAt
@@ -333,6 +335,7 @@ struct StoredRecentDocumentV1: Codable, Equatable {
             fileName: fileName,
             contentType: contentType,
             byteCount: byteCount,
+            sha256Hex: sha256Hex,
             localFileURL: localFileURL,
             remoteObjectKey: remoteObjectKey,
             updatedAt: updatedAt

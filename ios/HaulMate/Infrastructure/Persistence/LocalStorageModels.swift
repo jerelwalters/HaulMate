@@ -54,6 +54,7 @@ struct RecentDocumentReference: Equatable, Identifiable, Sendable {
     var fileName: String
     var contentType: String
     var byteCount: Int64
+    var sha256Hex: String?
     var localFileURL: URL?
     var remoteObjectKey: String?
     var updatedAt: Date
@@ -65,6 +66,7 @@ struct RecentDocumentReference: Equatable, Identifiable, Sendable {
         fileName: String,
         contentType: String,
         byteCount: Int64,
+        sha256Hex: String? = nil,
         localFileURL: URL? = nil,
         remoteObjectKey: String? = nil,
         updatedAt: Date
@@ -75,6 +77,7 @@ struct RecentDocumentReference: Equatable, Identifiable, Sendable {
         self.fileName = fileName
         self.contentType = contentType
         self.byteCount = byteCount
+        self.sha256Hex = sha256Hex
         self.localFileURL = localFileURL
         self.remoteObjectKey = remoteObjectKey
         self.updatedAt = updatedAt
