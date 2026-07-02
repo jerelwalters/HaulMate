@@ -10,12 +10,15 @@ describe('tracking API contract fixtures', () => {
       trackingResponseFixtures,
     ) satisfies TrackingResponse[]
 
-    expect(fixtures).toHaveLength(3)
+    expect(fixtures).toHaveLength(4)
     expect(trackingResponseFixtures.activeLoad.freshness.status).toBe('current')
     expect(trackingResponseFixtures.delayedLoad.latestDelay?.reason).toBe(
       'Waiting for dock assignment.',
     )
     expect(trackingResponseFixtures.deliveredLoad.pod.available).toBe(true)
+    expect(trackingResponseFixtures.offlineNoUpdateLoad.freshness.status).toBe(
+      'offline_no_update',
+    )
   })
 
   it('exposes only approved public fields', () => {

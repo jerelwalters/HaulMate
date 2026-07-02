@@ -7,7 +7,7 @@ const stateCopy: Record<
   loading: {
     title: 'Loading tracking update',
     heading: 'Loading tracking update',
-    message: 'Checking the latest public load status.',
+    message: 'Checking the most recent load update.',
   },
   'missing-token': {
     title: 'Tracking link unavailable',

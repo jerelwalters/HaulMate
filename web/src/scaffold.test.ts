@@ -8,8 +8,6 @@ describe('tracking web scaffold', () => {
 
     expect(html).toContain('Northstar Freight LLC')
     expect(html).toContain('Load NSF-2048')
-    expect(html).toContain(
-      'On-device estimate for Delivery.',
-    )
+    expect(html).toContain('App-estimated ETA for Delivery.')
   })
 })
